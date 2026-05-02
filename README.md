@@ -7,7 +7,7 @@
 ![ML](https://img.shields.io/badge/Algorithms-RF%20%7C%20GTB%20%7C%20SVM-brightgreen)
 ![Lang](https://img.shields.io/badge/Language-GEE%20JavaScript-yellow)
 ![Institution](https://img.shields.io/badge/Institution-Universitas%20Kuningan-red)
-![Updated](https://img.shields.io/badge/Updated-2025-orange)
+![Updated](https://img.shields.io/badge/Last-Updated%20May%202026-orange)
 
 ---
 
@@ -68,23 +68,10 @@ The tool integrates three scientifically established machine learning classifier
 
 GEEDEF uses a three-panel side-by-side layout:
 
-```
-┌─────────────────┬──────────────────────────────┬──────────────────┐
-│   LEFT PANEL    │      INTERACTIVE MAP          │   RIGHT PANEL    │
-│                 │                               │                  │
-│ • Active class  │  • Sentinel-2A composites     │ • Step 1: ROI    │
-│   legend        │    (True Color, False Color,  │ • Step 2: Image  │
-│ • Palette       │    NDVI, NDWI, NDMI, NDBI)    │   Acquisition    │
-│   scheme        │  • Sample digitization via    │ • Step 3: ML     │
-│   selector      │    GEE Drawing Tools          │   Algorithm      │
-│   (KLHK /       │  • Classification result      │ • Step 4: Class  │
-│   MapBiomas /   │    rendered on map            │   & Samples      │
-│   NLCD)         │                               │ • Step 5: Run    │
-│ • OA & Kappa    │                               │ • Step 6: Export │
-│ • Area per      │                               │                  │
-│   class (Ha)    │                               │                  │
-└─────────────────┴──────────────────────────────┴──────────────────┘
-```
+
+<img width="1920" height="926" alt="Screenshot 2026-05-02 200728" src="https://github.com/user-attachments/assets/81520ee2-b29c-40d2-a7f4-c77e40327cd1" />
+
+
 
 ---
 
@@ -491,35 +478,29 @@ Export.image.toDrive({
 
 ## Scientific References
 
-Breiman, L. (2001). Random Forests. *Machine Learning, 45*(1), 5–32.
+Auriga Nusantara. (2024). Algorithm Theoretical Basis Document (ATBD) MapBiomas Indonesia Koleksi 3 Versi 1. MapBiomas Indonesia.
 
-Cardille, J. A., Crowley, M. A., Saah, D., & Clinton, N. E. (Eds.). (2024). *Cloud-Based Remote Sensing with Google Earth Engine: Fundamentals and Applications*. Springer International Publishing. https://doi.org/10.1007/978-3-031-26588-4
+Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5–32.
 
-Cortes, C., & Vapnik, V. (1995). Support-vector networks. *Machine Learning, 20*(3), 273–297.
+Cardille, J. A., Crowley, M. A., Saah, D., & Clinton, N. E. (Eds.). (2024). Cloud-based remote sensing with Google Earth Engine: Fundamentals and applications. Springer International Publishing. https://doi.org/10.1007/978-3-031-26588-4
 
-Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. *Annals of Statistics, 29*(5), 1189–1232.
+Cortes, C., & Vapnik, V. (1995). Support-vector networks. Machine Learning, 20(3), 273–297.
 
-Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., & Moore, R. (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. *Remote Sensing of Environment, 202*, 18–27. https://doi.org/10.1016/j.rse.2017.06.031
+Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. Annals of Statistics, 29(5), 1189–1232.
 
-Landis, J. R., & Koch, G. G. (1977). The measurement of observer agreement for categorical data. *Biometrics, 33*(1), 159–174.
+Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., & Moore, R. (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. Remote Sensing of Environment, 202, 18–27. https://doi.org/10.1016/j.rse.2017.06.031
 
-Pasquarella, V. J., Brown, C. F., Czerwinski, W., & Rucklidge, W. J. (2023). Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning. In *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition* (pp. 2125–2135). https://doi.org/10.1109/CVPRW59228.2023.00206
+Kementerian Lingkungan Hidup dan Kehutanan Republik Indonesia. (2024). Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor 399 Tahun 2024 tentang Standar Penyebarluasan Informasi Geospasial Tematik Lingkup KLHK. KLHK.
 
----
+Landis, J. R., & Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159–174.
 
-## Citation
+Pasquarella, V. J., Brown, C. F., Czerwinski, W., & Rucklidge, W. J. (2023). Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 2125–2135). https://doi.org/10.1109/CVPRW59228.2023.00206
 
-If you use GEEDEF in academic research or teaching, please cite it as:
+U.S. Geological Survey. (2025). Annual National Land Cover Database (NLCD) Collection 1 Science Product User Guide (Version 1.1). USGS.
 
-```
-Alfitriansyah, D. A. (2025). GEEDEF — Land Cover Classification Tools (Version 3.1)
-[Google Earth Engine JavaScript application]. Faculty of Forestry and Environmental
-Science, Universitas Kuningan.
-https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df
-```
+U.S. Geological Survey. (n.d.). National Land Cover Database (NLCD) class legend and description. USGS.
 
----
 
-## License
+
 
 This tool is released for academic and educational use. All imagery access is subject to [Google Earth Engine Terms of Service](https://earthengine.google.com/terms/) and Copernicus Sentinel-2 data policies.
