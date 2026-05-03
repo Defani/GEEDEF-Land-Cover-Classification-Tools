@@ -18,250 +18,133 @@
   --bg-code: #f8f8f8;
   --border: #e1e4e5;
   --border-strong: #cccccc;
-  --text: #404040;
+  --text: #333333;
   --text-muted: #555555;
   --text-faint: #737373;
   --accent: #2980b9;
   --accent-hover: #1f6391;
   --accent-light: #eaf1f7;
-  --accent-border: #6ab0de;
-  --sidebar-bg: #343131;
-  --sidebar-text: #b3b3b3;
+  --sidebar-bg: #2c2c2c;
+  --sidebar-text: #cccccc;
   --sidebar-link-hover: #ffffff;
   --sidebar-active-bg: #2980b9;
   --green: #1abc9c;
   --green-light: #e8f8f5;
-  --green-border: #a3e4d7;
   --amber: #f39c12;
   --amber-light: #fef5e7;
-  --amber-border: #f8c471;
   --red: #e74c3c;
   --red-light: #fdedec;
-  --red-border: #f5b7b1;
-  --purple: #9b59b6;
-  --purple-light: #f5eef8;
-  --purple-border: #d2b4de;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 2px 4px rgba(0,0,0,0.1);
-  --shadow-lg: 0 4px 8px rgba(0,0,0,0.1);
   --radius: 3px;
-  --radius-lg: 4px;
   --font-body: 'Lato', 'Helvetica Neue', Arial, sans-serif;
   --font-serif: 'Roboto Slab', Georgia, serif;
-  --font-mono: 'Roboto Mono', Consolas, 'Courier New', Courier, monospace;
-  --sidebar-w: 300px;
-  --toc-w: 240px;
-  --content-max: 800px;
+  --font-mono: 'Roboto Mono', Consolas, monospace;
+  --sidebar-w: 280px;
+  --toc-w: 260px;
+  --content-max: 820px;
 }
 
 [data-theme="dark"] {
   --bg: #1a1a1a;
-  --bg-secondary: #242424;
+  --bg-secondary: #222222;
   --bg-card: #2a2a2a;
   --bg-code: #2d2d2d;
   --border: #3a3a3a;
   --border-strong: #4a4a4a;
-  --text: #d3d3d3;
+  --text: #e0e0e0;
   --text-muted: #b0b0b0;
   --text-faint: #808080;
   --accent: #5ab2ea;
   --accent-hover: #82c6f0;
   --accent-light: #162d3d;
-  --accent-border: #295373;
   --sidebar-bg: #111111;
-  --sidebar-text: #888888;
-  --sidebar-link-hover: #dddddd;
+  --sidebar-text: #999999;
+  --sidebar-link-hover: #ffffff;
   --sidebar-active-bg: #1d4b6b;
   --green: #2ecc71;
   --green-light: #0e2b1b;
-  --green-border: #1a5233;
   --amber: #f1c40f;
   --amber-light: #332700;
-  --amber-border: #664d00;
   --red: #e74c3c;
   --red-light: #330b08;
-  --red-border: #661610;
-  --purple: #9b59b6;
-  --purple-light: #200f29;
-  --purple-border: #4d2460;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  transition: background 0.2s, color 0.2s;
-}
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.2s, color 0.2s; }
 ::selection { background: var(--accent); color: #fff; }
 
-.navbar {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; gap: 12px;
-  padding: 0 24px; height: 50px;
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-}
-.navbar-brand {
-  font-family: var(--font-serif);
-  font-size: 16px; font-weight: 700;
-  color: var(--text);
-  text-decoration: none;
-  white-space: nowrap;
-}
+.navbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; padding: 0 24px; height: 50px; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+.navbar-brand { font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
 .navbar-brand span { color: var(--accent); }
 .navbar-spacer { flex: 1; }
-.badge-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 6px; border-radius: 2px;
-  font-size: 11px; font-weight: 700;
-  font-family: var(--font-body); text-transform: uppercase;
-  text-decoration: none;
-}
-.badge-blue   { background: #3498db; color: #fff; }
-.badge-green  { background: #2ecc71; color: #fff; }
-.badge-yellow { background: #f1c40f; color: #333; }
-.badge-red    { background: #e74c3c; color: #fff; }
-.badge-orange { background: #e67e22; color: #fff; }
-
 .ctrl-group { display: flex; align-items: center; gap: 8px; }
-.ctrl-btn {
-  display: flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--bg-secondary);
-  color: var(--text-muted);
-  cursor: pointer; font-size: 14px;
-}
-.ctrl-btn:hover { border-color: var(--border-strong); }
+.ctrl-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-muted); cursor: pointer; font-size: 14px; }
 .lang-toggle { display: flex; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
-.lang-btn {
-  padding: 4px 10px; font-family: var(--font-body); font-size: 12px; font-weight: 700;
-  background: var(--bg-secondary); color: var(--text-muted);
-  border: none; cursor: pointer;
-}
+.lang-btn { padding: 4px 10px; font-family: var(--font-body); font-size: 12px; font-weight: 700; background: var(--bg-secondary); color: var(--text-muted); border: none; cursor: pointer; }
 .lang-btn.active { background: var(--border-strong); color: var(--text); }
 
 .layout { display: flex; min-height: calc(100vh - 50px); }
 
-.sidebar {
-  width: var(--sidebar-w);
-  flex-shrink: 0; position: sticky; top: 50px;
-  height: calc(100vh - 50px); overflow-y: auto;
-  padding: 0; background: var(--sidebar-bg);
-  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;
-}
-.sidebar-section-title {
-  font-family: var(--font-body); font-size: 12px; font-weight: 700;
-  text-transform: uppercase; color: #888888;
-  margin: 24px 16px 8px;
-}
+.sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; padding: 0; background: var(--sidebar-bg); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+.sidebar-section-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: #777777; margin: 24px 16px 8px; letter-spacing: 0.05em; }
 .sidebar-nav { list-style: none; }
-.sidebar-nav li { margin: 0; }
-.sidebar-nav a {
-  display: block; padding: 8px 16px;
-  font-size: 14px; color: var(--sidebar-text);
-  text-decoration: none; border-left: 3px solid transparent;
-}
+.sidebar-nav a { display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); text-decoration: none; border-left: 3px solid transparent; transition: background 0.15s; }
 .sidebar-nav a:hover { color: var(--sidebar-link-hover); background: rgba(255,255,255,0.05); }
 .sidebar-nav a.active { background: var(--sidebar-active-bg); color: #fff; border-left-color: #fff; }
 .sidebar-nav .sub { padding-left: 28px; font-size: 13.5px; }
 
-.main-content {
-  flex: 1; min-width: 0; padding: 40px 48px;
-  max-width: calc(var(--content-max) + 96px);
-  margin: 0 auto;
-}
+.main-content { flex: 1; min-width: 0; padding: 40px 48px; max-width: calc(var(--content-max) + 96px); margin: 0 auto; }
 
-.toc-panel {
-  width: var(--toc-w); flex-shrink: 0; position: sticky; top: 50px;
-  height: calc(100vh - 50px); overflow-y: auto;
-  padding: 32px 16px; border-left: 1px solid var(--border);
-  background: var(--bg-secondary); scrollbar-width: thin;
-}
-.toc-title {
-  font-family: var(--font-body); font-size: 12px; font-weight: 700;
-  text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
-}
+.toc-panel { width: var(--toc-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; padding: 32px 20px; border-left: 1px solid var(--border); background: var(--bg-secondary); scrollbar-width: thin; }
+.toc-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.05em; }
 .toc-list { list-style: none; border-left: 1px solid var(--border-strong); padding-left: 0; margin-left: 8px; }
-.toc-list li { margin: 0; }
-.toc-list a {
-  display: block; padding: 4px 0 4px 12px;
-  font-size: 13px; color: var(--text-faint); text-decoration: none;
-  border-left: 2px solid transparent; margin-left: -1px;
-}
+.toc-list a { display: block; padding: 4px 0 4px 12px; font-size: 13.5px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; margin-left: -1px; }
 .toc-list a:hover { color: var(--accent); }
 .toc-list a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
-.toc-list .toc-sub { padding-left: 20px; font-size: 12.5px; }
+.toc-list .toc-sub { padding-left: 24px; font-size: 13px; }
 
 .doc-section { max-width: var(--content-max); }
 .page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border-strong); }
-.page-title { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-.page-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-body); }
-.page-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.meta-chip { font-family: var(--font-mono); font-size: 12px; padding: 2px 8px; background: var(--bg-code); border: 1px solid var(--border); color: var(--text-muted); }
-.meta-chip.version { background: var(--sidebar-bg); color: #fff; border: none; font-weight: 700; }
+.page-title { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.2; }
+.page-subtitle { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 24px; font-family: var(--font-body); }
 
-.gee-link-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 16px; border-radius: var(--radius);
-  background: var(--sidebar-bg); color: #fff;
-  font-size: 14px; font-weight: 700; text-decoration: none;
-}
-.gee-link-btn:hover { background: #222; }
-[data-theme="dark"] .gee-link-btn { background: #444; }
-[data-theme="dark"] .gee-link-btn:hover { background: #555; }
-.gee-link-btn svg { width: 16px; height: 16px; fill: currentColor; }
+/* Links Section styling */
+.author-links-container { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 0.9rem; }
+.author-links-row { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-bottom: 8px; }
+.author-links-row:last-child { margin-bottom: 0; }
+.author-label { font-weight: 700; color: var(--text); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; width: 85px; flex-shrink: 0; }
+.link-item { color: var(--accent); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+.link-item:hover { text-decoration: underline; color: var(--accent-hover); }
 
-h2.section-title {
-  font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700;
-  color: var(--text); margin: 40px 0 20px; padding-bottom: 8px;
-  border-bottom: 1px solid var(--border); scroll-margin-top: 80px;
-}
-h3.sub-title {
-  font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700;
-  color: var(--text); margin: 30px 0 12px; scroll-margin-top: 80px;
-}
+h2.section-title { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--text); margin: 48px 0 20px; padding-bottom: 8px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; }
+h3.sub-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 32px 0 12px; scroll-margin-top: 80px; }
 h4.sub-sub-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 20px 0 10px; font-family: var(--font-body); }
 p { margin-bottom: 16px; font-size: 1rem; color: var(--text); }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 strong { font-weight: 700; }
-em { font-style: italic; }
 
-.admonition {
-  margin: 24px 0; padding: 16px; border-radius: var(--radius);
-  background: var(--bg-secondary); border-left: 4px solid var(--border-strong);
-}
-.admonition-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; font-family: var(--font-body); display: flex; align-items: center; gap: 8px; }
-.admonition.note { background: var(--accent-light); border-left-color: var(--accent); }
+.admonition { margin: 24px 0; padding: 16px 20px; border-radius: var(--radius); background: var(--bg-secondary); border-left: 4px solid var(--border-strong); }
+.admonition-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.05em; }
+.admonition.note { border-left-color: var(--accent); }
 .admonition.note .admonition-title { color: var(--accent); }
-.admonition.tip { background: var(--green-light); border-left-color: var(--green); }
-.admonition.tip .admonition-title { color: var(--green); }
-.admonition.warning { background: var(--amber-light); border-left-color: var(--amber); }
+.admonition.warning { border-left-color: var(--amber); }
 .admonition.warning .admonition-title { color: var(--amber); }
-.admonition.important { background: var(--red-light); border-left-color: var(--red); }
-.admonition.important .admonition-title { color: var(--red); }
 .admonition p { margin-bottom: 0; font-size: 0.95rem; }
 
-.table-wrap { overflow-x: auto; margin: 24px 0; border: 1px solid var(--border); }
-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.table-wrap { overflow-x: auto; margin: 24px 0; border: 1px solid var(--border); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left; }
 thead { background: var(--bg-secondary); border-bottom: 2px solid var(--border-strong); }
-thead th { text-align: left; padding: 12px 16px; font-weight: 700; color: var(--text); white-space: nowrap; }
+thead th { padding: 12px 16px; font-weight: 700; color: var(--text); white-space: nowrap; }
 tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
-tbody tr:nth-child(even) { background: var(--bg-secondary); }
-tbody tr:hover { background: var(--accent-light); }
+tbody tr:hover { background: var(--bg-code); }
 td code, th code { font-family: var(--font-mono); font-size: 0.9em; border: 1px solid var(--border); background: var(--bg-code); padding: 2px 4px; border-radius: 2px; color: var(--text); }
 td.center { text-align: center; }
 
 .code-block { background: var(--bg-code); border: 1px solid var(--border); border-radius: var(--radius); margin: 24px 0; overflow: hidden; }
 .code-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
-.code-lang { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); font-weight: 700; }
-.code-copy { font-family: var(--font-body); font-size: 12px; font-weight: 700; padding: 4px 8px; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text-muted); cursor: pointer; border-radius: var(--radius); }
+.code-lang { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+.code-copy { font-family: var(--font-body); font-size: 12px; font-weight: 700; padding: 4px 10px; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text-muted); cursor: pointer; border-radius: var(--radius); }
 .code-copy:hover { background: var(--border); color: var(--text); }
 pre { padding: 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.5; color: var(--text); margin: 0; }
 code { font-family: var(--font-mono); font-size: 0.9em; background: var(--bg-code); padding: 2px 4px; border: 1px solid var(--border); border-radius: 2px; }
@@ -271,41 +154,26 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 .num { color: #40a070; } [data-theme="dark"] .num { color: #ae81ff; }
 .prop{ color: #06287e; } [data-theme="dark"] .prop{ color: #66d9ef; }
 
-.math-block { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; margin: 24px 0; overflow-x: auto; text-align: center; font-size: 1.1rem; }
+.math-block { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; margin: 24px 0; overflow-x: auto; text-align: center; font-size: 1.1rem; border-radius: var(--radius); }
 .math-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
-.math-cell { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; text-align: center; }
+.math-cell { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; text-align: center; border-radius: var(--radius); }
 .math-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-align: left; }
 
 .swatch { display: inline-block; width: 20px; height: 20px; border: 1px solid var(--border-strong); vertical-align: middle; border-radius: 2px; }
 
-.step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 24px 0; }
-.step-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; }
-.step-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--sidebar-bg); color: #fff; font-family: var(--font-mono); font-size: 12px; font-weight: 700; margin-bottom: 12px; }
-.step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-.step-desc { font-size: 0.9rem; color: var(--text-muted); }
+.tag { display: inline-block; padding: 2px 6px; font-size: 10px; font-family: var(--font-mono); font-weight: 700; background: var(--accent); color: #fff; border-radius: 2px; vertical-align: middle; text-transform: uppercase; margin-left: 8px; }
+.tag.new { background: var(--green); }
 
-.feature-list { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
-.feature-item { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); padding: 16px; }
-.feature-icon { font-size: 1.5rem; flex-shrink: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
-.feature-body { flex: 1; }
-.feature-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
-.feature-desc { font-size: 0.95rem; color: var(--text-muted); }
-.feature-tag { display: inline-block; margin-left: 8px; padding: 2px 6px; font-size: 11px; font-family: var(--font-body); font-weight: 700; background: var(--green); color: #fff; border-radius: 2px; vertical-align: middle; text-transform: uppercase; }
-
-.param-group { border: 1px solid var(--border); margin: 24px 0; }
-.param-group-header { padding: 12px 16px; font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
+.param-group { border: 1px solid var(--border); margin: 24px 0; border-radius: var(--radius); overflow: hidden; }
+.param-group-header { padding: 12px 16px; font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
 
 [data-lang="id"] .en-only { display: none !important; }
 [data-lang="en"] .id-only { display: none !important; }
 
-.screenshot-wrap { border: 1px solid var(--border); margin: 24px 0; background: var(--bg-secondary); padding: 8px; }
-.screenshot-wrap img { width: 100%; display: block; border: 1px solid var(--border-strong); }
-.screenshot-caption { font-size: 0.9rem; color: var(--text-muted); text-align: center; padding: 12px 0 4px; font-style: italic; }
-
 .footer { border-top: 1px solid var(--border-strong); padding: 32px 0; margin-top: 64px; font-size: 0.9rem; color: var(--text-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 
 @media (max-width: 1100px) { .toc-panel { display: none; } }
-@media (max-width: 800px) { .sidebar { display: none; } .main-content { padding: 24px 20px; } .badge-row { display: none; } }
+@media (max-width: 800px) { .sidebar { display: none; } .main-content { padding: 24px 20px; } }
 
 #progress { position: fixed; top: 0; left: 0; z-index: 200; height: 3px; background: var(--accent); width: 0%; transition: width 0.1s linear; }
 </style>
@@ -316,12 +184,6 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 
 <nav class="navbar">
   <a href="#" class="navbar-brand">GEEDEF <span>V3.1</span></a>
-  <div class="badge-row" style="margin-left:24px">
-    <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="badge badge-blue">🛰 Open in GEE</a>
-    <span class="badge badge-blue">Sentinel-2A SR</span>
-    <span class="badge badge-green">RF · GTB · SVM</span>
-    <span class="badge badge-yellow">JavaScript</span>
-  </div>
   <div class="navbar-spacer"></div>
   <div class="ctrl-group">
     <div class="lang-toggle">
@@ -334,76 +196,72 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 
 <div class="layout">
   <aside class="sidebar">
-    <p class="sidebar-section-title id-only">Navigasi</p>
-    <p class="sidebar-section-title en-only">Navigation</p>
+    <p class="sidebar-section-title id-only">Navigasi Utama</p>
+    <p class="sidebar-section-title en-only">Main Navigation</p>
     <ul class="sidebar-nav">
       <li><a href="#whats-new">
-        <span class="id-only">🆕 Hal Baru V3.1</span>
-        <span class="en-only">🆕 What's New</span>
+        <span class="id-only">Pembaruan V3.1</span>
+        <span class="en-only">Release Notes V3.1</span>
       </a></li>
       <li><a href="#overview">
-        <span class="id-only">📖 Gambaran Umum</span>
-        <span class="en-only">📖 Overview</span>
+        <span class="id-only">Gambaran Umum</span>
+        <span class="en-only">Overview</span>
       </a></li>
       <li><a href="#prerequisites">
-        <span class="id-only">✅ Prasyarat</span>
-        <span class="en-only">✅ Prerequisites</span>
-      </a></li>
-      <li><a href="#interface">
-        <span class="id-only">🖥 Antarmuka</span>
-        <span class="en-only">🖥 Interface</span>
+        <span class="id-only">Prasyarat Sistem</span>
+        <span class="en-only">Prerequisites</span>
       </a></li>
       <li><a href="#workflow">
-        <span class="id-only">📋 Alur Kerja</span>
-        <span class="en-only">📋 Workflow</span>
+        <span class="id-only">Alur Kerja Klasifikasi</span>
+        <span class="en-only">Classification Workflow</span>
       </a></li>
       <li><a href="#step1" class="sub">
-        <span class="id-only">1 — Batas Wilayah</span>
-        <span class="en-only">1 — Region of Interest</span>
+        <span class="id-only">1. Batas Wilayah (ROI)</span>
+        <span class="en-only">1. Region of Interest</span>
       </a></li>
       <li><a href="#step2" class="sub">
-        <span class="id-only">2 — Komposit Citra</span>
-        <span class="en-only">2 — Image Composite</span>
+        <span class="id-only">2. Komposit Citra</span>
+        <span class="en-only">2. Image Composite</span>
       </a></li>
       <li><a href="#step3" class="sub">
-        <span class="id-only">3 — Algoritma</span>
-        <span class="en-only">3 — Algorithm</span>
+        <span class="id-only">3. Algoritma & Parameter</span>
+        <span class="en-only">3. Algorithm & Parameters</span>
       </a></li>
       <li><a href="#step4" class="sub">
-        <span class="id-only">4 — Kelas & Sampel</span>
-        <span class="en-only">4 — Classes & Samples</span>
+        <span class="id-only">4. Manajemen Kelas & Sampel</span>
+        <span class="en-only">4. Classes & Samples</span>
       </a></li>
       <li><a href="#step5" class="sub">
-        <span class="id-only">5 — Klasifikasi</span>
-        <span class="en-only">5 — Classification</span>
+        <span class="id-only">5. Eksekusi Klasifikasi</span>
+        <span class="en-only">5. Run Classification</span>
       </a></li>
       <li><a href="#step6" class="sub">
-        <span class="id-only">6 — Ekspor</span>
-        <span class="en-only">6 — Export</span>
+        <span class="id-only">6. Ekspor Hasil</span>
+        <span class="en-only">6. Export Output</span>
+      </a></li>
+      <li><a href="#core-functions">
+        <span class="id-only">Indeks Fungsi GEE Inti</span>
+        <span class="en-only">Core GEE Functions Index</span>
       </a></li>
       <li><a href="#featurespace">
-        <span class="id-only">📊 Ruang Fitur</span>
-        <span class="en-only">📊 Feature Space</span>
+        <span class="id-only">Ruang Fitur (Feature Space)</span>
+        <span class="en-only">Feature Space</span>
       </a></li>
       <li><a href="#formulas">
-        <span class="id-only">∑ Formula Indeks</span>
-        <span class="en-only">∑ Index Formulas</span>
+        <span class="id-only">Formula Indeks Spektral</span>
+        <span class="en-only">Index Formulas</span>
       </a></li>
       <li><a href="#palettes">
-        <span class="id-only">🎨 Skema Palet</span>
-        <span class="en-only">🎨 Palette Schemes</span>
-      </a></li>
-      <li><a href="#tips">
-        <span class="id-only">💡 Tips & Masalah</span>
-        <span class="en-only">💡 Tips & Issues</span>
+        <span class="id-only">Skema Warna Tutupan Lahan</span>
+        <span class="en-only">Palette Schemes</span>
       </a></li>
       <li><a href="#code">
-        <span class="id-only">⌨ Repositori Kode</span>
-        <span class="en-only">⌨ Code Repository</span>
+        <span class="id-only">Repositori Skrip</span>
+        <span class="en-only">Script Repository</span>
       </a></li>
       <li><a href="#references">
-        <span class="id-only">📚 Referensi</span>
-        <span class="en-only">📚 References</span>
+        <span class="id-only">Referensi Ilmiah</span>
+        <span class="en-only">References</span>
       </a></li>
     </ul>
   </aside>
@@ -411,568 +269,337 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
   <main class="main-content">
     <div class="doc-section">
       <div class="page-header" id="top">
-        <div class="page-meta">
-          <span class="meta-chip version">Release V3.1</span>
-          <span class="meta-chip">Sentinel-2A SR Harmonized</span>
-          <span class="meta-chip id-only">Universitas Kuningan</span>
-          <span class="meta-chip en-only">Universitas Kuningan</span>
-        </div>
         <h1 class="page-title id-only">GEEDEF — Alat Klasifikasi Tutupan Lahan</h1>
         <h1 class="page-title en-only">GEEDEF — Land Cover Classification Tools</h1>
-        <p class="page-subtitle id-only">Klasifikasi tutupan lahan berbasis cloud menggunakan Sentinel-2A dan machine learning di Google Earth Engine</p>
-        <p class="page-subtitle en-only">Cloud-based land cover classification using Sentinel-2A and machine learning in Google Earth Engine</p>
-        <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gee-link-btn">
-          <span class="id-only">Buka di Google Earth Engine</span>
-          <span class="en-only">Open in Google Earth Engine</span>
-        </a>
+        <p class="page-subtitle id-only">Klasifikasi tutupan lahan interaktif berbasis komputasi cloud menggunakan Sentinel-2A dan Machine Learning di platform Google Earth Engine.</p>
+        <p class="page-subtitle en-only">Interactive cloud-based land cover classification using Sentinel-2A and Machine Learning on the Google Earth Engine platform.</p>
+        
+        <div class="author-links-container">
+          <div class="author-links-row">
+            <span class="author-label">Developer</span>
+            <span>Defani Arman Alfitriansyah</span>
+          </div>
+          <div class="author-links-row">
+            <span class="author-label">Repository</span>
+            <a class="link-item" href="https://github.com/Defani/GEEDEF-Land-Cover-Classification-Tools" target="_blank">GEEDEF GitHub Repository</a>
+          </div>
+          <div class="author-links-row">
+            <span class="author-label">Connect</span>
+            <a class="link-item" href="https://www.linkedin.com/in/defaniarmanalfitriansyah/" target="_blank">LinkedIn</a> •
+            <a class="link-item" href="https://medium.com/@defaniarman" target="_blank">Medium</a> •
+            <a class="link-item" href="https://rpubs.com/defanii" target="_blank">RPubs</a> •
+            <a class="link-item" href="https://www.instagram.com/49s.lab/" target="_blank">Instagram</a> •
+            <a class="link-item" href="https://www.tiktok.com/@de.fanii" target="_blank">TikTok</a>
+          </div>
+        </div>
       </div>
 
       <h2 class="section-title" id="whats-new">
-        <span class="id-only">🆕 Hal-hal Baru di V3.1</span>
-        <span class="en-only">🆕 What's New in V3.1</span>
+        <span class="id-only">Catatan Rilis V3.1</span>
+        <span class="en-only">Release Notes V3.1</span>
       </h2>
 
       <div class="admonition note">
-        <div class="admonition-title">📋 <span class="id-only">Catatan Rilis</span><span class="en-only">Release Note</span></div>
-        <p class="id-only">Diperbarui dari V3 (rilis panduan PDF asli). Semua fitur berikut tersedia di tautan GEE yang diperbarui di atas.</p>
-        <p class="en-only">Updated from V3 (original PDF guide release). All features below are available at the updated GEE link above.</p>
+        <div class="admonition-title">Pembaruan Versi</div>
+        <p class="id-only">Diperbarui dari V3. Semua penambahan fungsionalitas di bawah ini telah terintegrasi penuh pada antarmuka *Code Editor* GEE.</p>
+        <p class="en-only">Updated from V3. All functional additions below have been fully integrated into the GEE *Code Editor* interface.</p>
       </div>
 
-      <div class="feature-list">
-        <div class="feature-item">
-          <div class="feature-icon">📥</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Import Sampel Latih dari SHP Asset <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Import Training Samples from SHP Asset <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Sub-panel baru di Langkah 4 — muat data sampel dari GEE FeatureCollection asset, baca kolom atribut otomatis, ekstrak kelas unik, dan gabungkan dengan sampel manual.</div>
-            <div class="feature-desc en-only">New sub-panel in Step 4 — load training data from a GEE FeatureCollection asset (uploaded SHP), auto-read attribute columns, extract unique classes, and merge with manually digitized samples.</div>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">📖</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Baca Kolom (Read Columns) <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Read Columns <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Tombol khusus untuk membaca dan mengisi dropdown kolom atribut dari SHP asset yang dipilih — menghilangkan entri manual nama kolom.</div>
-            <div class="feature-desc en-only">Dedicated button to read and populate attribute column dropdowns from the selected SHP asset — eliminates manual column name entry.</div>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🔍</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Ekstrak Kelas Unik <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Extract Unique Classes <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Memindai SHP asset untuk semua kode kelas numerik unik dan merender baris yang dapat diedit per kelas (nama + warna) sebelum impor.</div>
-            <div class="feature-desc en-only">Scans the SHP asset for all unique numeric class codes and renders an editable row per class (name + color) before import.</div>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🔄</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Refresh Asset Ganda <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Dual Asset Refresh <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Input refresh terpisah untuk batas ROI dan SHP sampel latih — sebelumnya hanya satu kolom input.</div>
-            <div class="feature-desc en-only">Separate asset refresh inputs for both the ROI boundary and the training sample SHP — previously only one input field existed.</div>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">⚠️</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Penalti Akurasi (−5%) <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Accuracy Penalty Flag (−5%) <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Jika hanya sampel manual yang digunakan tanpa asset tervalidasi lapangan, koreksi −5% diterapkan pada OA dan Kappa dengan catatan peringatan — membuat keandalan penilaian transparan.</div>
-            <div class="feature-desc en-only">If only manual samples are used without a field-validated asset, a −5% correction is applied to OA and Kappa with a warning note — making assessment reliability transparent.</div>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🌐</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Antarmuka Bilingual (EN / ID) <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Bilingual UI (EN / ID) <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Toggle penuh antara Bahasa Inggris dan Bahasa Indonesia via tombol EN / ID pada peta — semua label, tombol, dan pesan status beralih dinamis.</div>
-            <div class="feature-desc en-only">Full interface toggle between English and Bahasa Indonesia via EN / ID buttons on the map — all labels, buttons, placeholders, and status messages switch dynamically.</div>
-          </div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">📋</div>
-          <div class="feature-body">
-            <div class="feature-title id-only">Kotak Salin Hex Warna <span class="feature-tag">Baru</span></div>
-            <div class="feature-title en-only">Hex Color Copy Box <span class="feature-tag">New</span></div>
-            <div class="feature-desc id-only">Setiap kelas di panel palet kini merender kotak teks hex yang dapat diedit di sebelah tombol kelas — memungkinkan penyalinan langsung.</div>
-            <div class="feature-desc en-only">Each class in the palette panel now renders an editable hex code textbox next to the class button — allows direct copy without memorizing or retyping the color code.</div>
-          </div>
-        </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th class="id-only">Fitur</th><th class="id-only">Deskripsi</th><th class="en-only">Feature</th><th class="en-only">Description</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="id-only"><strong>Import SHP Asset</strong> <span class="tag new">Baru</span></td>
+              <td class="id-only">Modul pemuatan data sampel tervalidasi langsung dari *GEE FeatureCollection asset* untuk digabungkan dengan sampel manual.</td>
+              <td class="en-only"><strong>Import SHP Asset</strong> <span class="tag new">New</span></td>
+              <td class="en-only">Module to load validated sample data directly from a *GEE FeatureCollection asset* to merge with manual samples.</td>
+            </tr>
+            <tr>
+              <td class="id-only"><strong>Pembaca Kolom Otomatis</strong></td>
+              <td class="id-only">Ekstraksi nama kolom atribut secara otomatis dari asset SHP yang dipilih untuk meminimalisasi kesalahan ketik.</td>
+              <td class="en-only"><strong>Auto Column Reader</strong></td>
+              <td class="en-only">Automatic extraction of attribute column names from selected SHP assets to minimize typo errors.</td>
+            </tr>
+            <tr>
+              <td class="id-only"><strong>Penalti Akurasi Tervalidasi</strong></td>
+              <td class="id-only">Penerapan penalti −5% pada *Overall Accuracy* jika pemodelan hanya mengandalkan sampel digitasi manual tanpa validasi lapangan.</td>
+              <td class="en-only"><strong>Validated Accuracy Penalty</strong></td>
+              <td class="en-only">Application of a −5% penalty to *Overall Accuracy* if modeling relies solely on manually digitized samples without field validation.</td>
+            </tr>
+            <tr>
+              <td class="id-only"><strong>Antarmuka Bilingual</strong></td>
+              <td class="id-only">Transisi penuh bahasa (Inggris/Indonesia) pada seluruh UI secara dinamis.</td>
+              <td class="en-only"><strong>Bilingual UI</strong></td>
+              <td class="en-only">Full dynamic language transition (English/Indonesian) across the entire UI.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <h2 class="section-title" id="overview">
-        <span class="id-only">📖 Gambaran Umum</span>
-        <span class="en-only">📖 Overview</span>
+        <span class="id-only">Gambaran Umum</span>
+        <span class="en-only">Overview</span>
       </h2>
-      <p class="id-only"><strong>GEEDEF</strong> adalah alat klasifikasi tutupan lahan berbasis cloud yang berjalan sepenuhnya di dalam Google Earth Engine (GEE) Code Editor menggunakan GEE JavaScript API. Dirancang untuk mempercepat alur kerja pemetaan tutupan lahan terpandu (<em>supervised</em>) skala regional maupun lokal menggunakan citra Sentinel-2A Surface Reflectance (SR) Harmonized.</p>
-      <p class="en-only"><strong>GEEDEF</strong> is a cloud-based, interactive land cover classification tool built entirely within the Google Earth Engine (GEE) Code Editor using the GEE JavaScript API. Designed to accelerate supervised land cover mapping workflows at regional and local scales using Sentinel-2A Surface Reflectance (SR) Harmonized imagery.</p>
-      <p class="id-only">Alat ini mengintegrasikan tiga algoritma <em>machine learning</em> yang telah teruji secara ilmiah — <strong>Random Forest (RF)</strong>, <strong>Gradient Tree Boost (GTB)</strong>, dan <strong>Support Vector Machine (SVM)</strong> — beroperasi di atas ruang fitur <strong>26 variabel</strong> (10 band spektral + 16 indeks turunan). Seluruh alur kerja dieksekusi secara <em>server-side</em> pada infrastruktur komputasi terdistribusi Google.</p>
-      <p class="en-only">The tool integrates three scientifically established machine learning classifiers — <strong>Random Forest (RF)</strong>, <strong>Gradient Tree Boost (GTB)</strong>, and <strong>Support Vector Machine (SVM)</strong> — operating over a <strong>26-variable feature space</strong> (10 spectral bands + 16 derived indices). The entire workflow is executed server-side on Google's distributed computing infrastructure.</p>
+      <p class="id-only"><strong>GEEDEF</strong> dirancang untuk mempercepat alur kerja pemetaan tutupan lahan secara <em>supervised</em> (terpandu) baik untuk skala regional maupun lokal. Alat ini beroperasi murni pada sisi server (<em>server-side</em>) Google Earth Engine, menghindari kebutuhan spesifikasi perangkat keras lokal yang tinggi.</p>
+      <p class="en-only"><strong>GEEDEF</strong> is designed to accelerate supervised land cover mapping workflows at both regional and local scales. The tool operates purely server-side on Google Earth Engine, avoiding the need for high-end local hardware specifications.</p>
+      
+      <p class="id-only">Alat ini memproses dataset <strong>Sentinel-2A Surface Reflectance Harmonized</strong> dan mengekstrak 26 variabel prediktor (10 band spektral dasar + 16 indeks turunan). Pemodelan klasifikasi menggunakan algoritma <em>Machine Learning</em> standar industri.</p>
+      <p class="en-only">This tool processes the <strong>Sentinel-2A Surface Reflectance Harmonized</strong> dataset and extracts 26 predictor variables (10 base spectral bands + 16 derived indices). Classification modeling utilizes industry-standard <em>Machine Learning</em> algorithms.</p>
 
-      <div class="table-wrap">
-        <table>
-          <tbody>
-            <tr><td><strong class="id-only">Developer</strong><strong class="en-only">Developer</strong></td><td>Defani Arman Alfitriansyah</td></tr>
-            <tr><td><strong class="id-only">Institusi</strong><strong class="en-only">Institution</strong></td><td class="id-only">Fakultas Kehutanan, Universitas Kuningan</td><td class="en-only">Faculty of Forestry, Universitas Kuningan</td></tr>
-            <tr><td><strong class="id-only">Tahun</strong><strong class="en-only">Year</strong></td><td>2025</td></tr>
-            <tr><td><strong class="id-only">Versi</strong><strong class="en-only">Version</strong></td><td><code>V3.1</code></td></tr>
-            <tr><td><strong class="id-only">Platform</strong><strong class="en-only">Platform</strong></td><td>Google Earth Engine Code Editor</td></tr>
-            <tr><td><strong class="id-only">Data Citra</strong><strong class="en-only">Imagery</strong></td><td><code>COPERNICUS/S2_SR_HARMONIZED</code></td></tr>
-          </tbody>
-        </table>
+      <div class="admonition note">
+        <div class="admonition-title">Akses Dataset Resmi</div>
+        <p class="id-only">Katalog Data GEE: <a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED" target="_blank"><code>COPERNICUS/S2_SR_HARMONIZED</code></a></p>
+        <p class="en-only">GEE Data Catalog: <a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED" target="_blank"><code>COPERNICUS/S2_SR_HARMONIZED</code></a></p>
       </div>
 
       <h2 class="section-title" id="prerequisites">
-        <span class="id-only">✅ Prasyarat Penggunaan</span>
-        <span class="en-only">✅ Prerequisites</span>
+        <span class="id-only">Prasyarat Sistem</span>
+        <span class="en-only">System Prerequisites</span>
       </h2>
       <div class="table-wrap">
         <table>
           <thead><tr>
-            <th class="id-only">Kebutuhan</th><th class="id-only">Keterangan</th>
-            <th class="en-only">Requirement</th><th class="en-only">Details</th>
+            <th class="id-only">Kebutuhan</th><th class="id-only">Deskripsi Teknis</th>
+            <th class="en-only">Requirement</th><th class="en-only">Technical Description</th>
           </tr></thead>
           <tbody>
-            <tr><td class="id-only"><strong>Akun GEE Aktif</strong></td><td class="en-only"><strong>Active GEE Account</strong></td>
-                <td class="id-only">Daftar di <a href="https://earthengine.google.com" target="_blank">earthengine.google.com</a></td>
-                <td class="en-only">Register at <a href="https://earthengine.google.com" target="_blank">earthengine.google.com</a></td></tr>
-            <tr><td class="id-only"><strong>Koneksi Internet</strong></td><td class="en-only"><strong>Internet Connection</strong></td>
-                <td class="id-only">Stabil — diperlukan untuk komputasi server-side</td>
-                <td class="en-only">Stable — required for server-side computation</td></tr>
-            <tr><td class="id-only"><strong>Batas Wilayah (ROI)</strong></td><td class="en-only"><strong>ROI Boundary</strong></td>
-                <td class="id-only">GEE FeatureCollection asset, atau gambar manual di peta</td>
-                <td class="en-only">GEE FeatureCollection asset, or drawn manually on the map</td></tr>
-            <tr><td class="id-only"><strong>Pengetahuan Dasar</strong></td><td class="en-only"><strong>Domain Knowledge</strong></td>
-                <td class="id-only">Konsep tutupan lahan dan interpretasi citra satelit</td>
-                <td class="en-only">Basic land cover concepts and satellite image interpretation</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 class="section-title" id="interface">
-        <span class="id-only">🖥 Antarmuka Pengguna</span>
-        <span class="en-only">🖥 Interface Layout</span>
-      </h2>
-      <p class="id-only">GEEDEF menggunakan tata letak tiga panel berdampingan (<em>side-by-side</em>):</p>
-      <p class="en-only">GEEDEF uses a three-panel side-by-side layout:</p>
-      <div class="screenshot-wrap">
-        <img src="https://github.com/user-attachments/assets/81520ee2-b29c-40d2-a7f4-c77e40327cd1" alt="GEEDEF V3.1 Interface">
-        <div class="screenshot-caption id-only">Antarmuka GEEDEF V3.1 — Panel Kiri (Legenda & Hasil) | Peta Interaktif | Panel Kanan (Kontrol)</div>
-        <div class="screenshot-caption en-only">GEEDEF V3.1 Interface — Left Panel (Legend & Results) | Interactive Map | Right Panel (Controls)</div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Panel</th><th class="id-only">Posisi</th><th class="id-only">Fungsi</th>
-            <th class="en-only">Panel</th><th class="en-only">Position</th><th class="en-only">Function</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><strong class="id-only">Panel Kiri</strong><strong class="en-only">Left Panel</strong></td>
-                <td class="id-only">Kiri</td><td class="en-only">Left</td>
-                <td class="id-only">Legenda kelas aktif, skema palet (KLHK/MapBiomas/NLCD), hasil OA & Kappa, luasan per kelas</td>
-                <td class="en-only">Active class legend, palette schemes (KLHK/MapBiomas/NLCD), OA & Kappa results, per-class area</td></tr>
-            <tr><td><strong class="id-only">Peta Interaktif</strong><strong class="en-only">Interactive Map</strong></td>
-                <td class="id-only">Tengah</td><td class="en-only">Center</td>
-                <td class="id-only">Visualisasi komposit citra, digitasi sampel, tampilan hasil klasifikasi</td>
-                <td class="en-only">Composite visualization, sample digitization, classification result display</td></tr>
-            <tr><td><strong class="id-only">Panel Kanan</strong><strong class="en-only">Right Panel</strong></td>
-                <td class="id-only">Kanan</td><td class="en-only">Right</td>
-                <td class="id-only">Panel kontrol utama — enam langkah berurutan dari ROI hingga ekspor</td>
-                <td class="en-only">Main control panel — six sequential steps from ROI to export</td></tr>
+            <tr><td class="id-only"><strong>Akun Earth Engine</strong></td><td class="en-only"><strong>Earth Engine Account</strong></td>
+                <td class="id-only">Terdaftar dan memiliki akses ke Code Editor.</td>
+                <td class="en-only">Registered and has access to the Code Editor.</td></tr>
+            <tr><td class="id-only"><strong>Dataset ROI (Batas Wilayah)</strong></td><td class="en-only"><strong>ROI Dataset (Boundary)</strong></td>
+                <td class="id-only">File <em>Shapefile</em> batas studi harus diunggah ke *Assets* GEE sebagai <code>FeatureCollection</code>.</td>
+                <td class="en-only">Study boundary <em>Shapefile</em> must be uploaded to GEE *Assets* as a <code>FeatureCollection</code>.</td></tr>
+            <tr><td class="id-only"><strong>Dataset Sampel (Opsional)</strong></td><td class="en-only"><strong>Sample Dataset (Optional)</strong></td>
+                <td class="id-only">File titik/poligon pelatihan model (jika menggunakan fitur *Import SHP*).</td>
+                <td class="en-only">Point/polygon file for model training (if using the *Import SHP* feature).</td></tr>
           </tbody>
         </table>
       </div>
 
       <h2 class="section-title" id="workflow">
-        <span class="id-only">📋 Alur Kerja Enam Langkah</span>
-        <span class="en-only">📋 Six-Step Workflow</span>
+        <span class="id-only">Alur Kerja Klasifikasi Utama</span>
+        <span class="en-only">Main Classification Workflow</span>
       </h2>
-      <div class="admonition important">
-        <div class="admonition-title">⚡ <span class="id-only">Penting</span><span class="en-only">Important</span></div>
-        <p class="id-only">Ikuti keenam langkah secara <strong>berurutan</strong>. Melewati satu langkah akan memunculkan pesan peringatan pada panel status.</p>
-        <p class="en-only">All six steps must be executed <strong>sequentially</strong>. Skipping any step will trigger a warning in the status panel.</p>
-      </div>
-      <div class="step-grid">
-        <div class="step-card"><div class="step-num">1</div><div class="step-title id-only">Batas Wilayah (ROI)</div><div class="step-title en-only">Region of Interest</div><div class="step-desc id-only">Muat dari GEE Asset atau gambar manual di peta</div><div class="step-desc en-only">Load from GEE Asset or draw manually on the map</div></div>
-        <div class="step-card"><div class="step-num">2</div><div class="step-title id-only">Komposit Sentinel-2A</div><div class="step-title en-only">Sentinel-2A Composite</div><div class="step-desc id-only">Bangun komposit bebas awan dengan parameter yang dipilih</div><div class="step-desc en-only">Build cloud-free composite with chosen parameters</div></div>
-        <div class="step-card"><div class="step-num">3</div><div class="step-title id-only">Algoritma & Parameter</div><div class="step-title en-only">Algorithm & Parameters</div><div class="step-desc id-only">Pilih RF, GTB, atau SVM dan atur hiperparameter</div><div class="step-desc en-only">Select RF, GTB, or SVM and configure hyperparameters</div></div>
-        <div class="step-card"><div class="step-num">4</div><div class="step-title id-only">Kelas & Sampel</div><div class="step-title en-only">Classes & Samples</div><div class="step-desc id-only">Import dari SHP asset atau digitasi manual per kelas</div><div class="step-desc en-only">Import from SHP asset or manually digitize per class</div></div>
-        <div class="step-card"><div class="step-num">5</div><div class="step-title id-only">Jalankan Klasifikasi</div><div class="step-title en-only">Run Classification</div><div class="step-desc id-only">Eksekusi pelatihan model dan pemetaan piksel</div><div class="step-desc en-only">Execute model training and pixel mapping</div></div>
-        <div class="step-card"><div class="step-num">6</div><div class="step-title id-only">Ekspor ke Drive</div><div class="step-title en-only">Export to Drive</div><div class="step-desc id-only">Simpan hasil klasifikasi sebagai GeoTIFF</div><div class="step-desc en-only">Save classification result as GeoTIFF</div></div>
+      <div class="admonition warning">
+        <div class="admonition-title">Prosedur Sekuensial</div>
+        <p class="id-only">Pastikan mengeksekusi parameter pada panel kanan secara berurutan. Melompati urutan akan memicu galat eksekusi pada <em>console</em>.</p>
+        <p class="en-only">Ensure execution of parameters in the right panel sequentially. Skipping order will trigger execution errors in the <em>console</em>.</p>
       </div>
 
       <h3 class="sub-title" id="step1">
-        <span class="id-only">Langkah 1 — Batas Wilayah (ROI)</span>
-        <span class="en-only">Step 1 — Region of Interest (ROI)</span>
+        <span class="id-only">Langkah 1. Penetapan Batas Wilayah (ROI)</span>
+        <span class="en-only">Step 1. Region of Interest (ROI) Assignment</span>
       </h3>
-      <p class="id-only">ROI mendefinisikan area spasial untuk pemfilteran koleksi citra, pelatihan <em>classifier</em>, dan kalkulasi luasan. Tersedia dua metode:</p>
-      <p class="en-only">The ROI defines the spatial extent for image collection filtering, classifier training, and area calculation. Two methods available:</p>
-      <h4 class="sub-sub-title id-only">Metode A — Muat dari GEE Asset</h4>
-      <h4 class="sub-sub-title en-only">Method A — Load from GEE Asset</h4>
-      <ol style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only">Masukkan nama akun atau proyek GEE (cth: <code>ee-defaniarman</code>)</li>
-        <li class="en-only">Enter your GEE account or project name (e.g., <code>ee-defaniarman</code>)</li>
-        <li class="id-only">Klik <strong>🔄 Refresh Assets</strong> untuk mengisi dropdown asset FeatureCollection</li>
-        <li class="en-only">Click <strong>🔄 Refresh Assets</strong> to populate the FeatureCollection asset dropdown</li>
-        <li class="id-only">Pilih SHP batas wilayah dari dropdown, lalu klik <strong>📥 Muat ROI dari Dropdown</strong></li>
-        <li class="en-only">Select the boundary SHP, then click <strong>📥 Load ROI from Dropdown</strong></li>
-      </ol>
-      <h4 class="sub-sub-title id-only">Metode B — Gambar Manual</h4>
-      <h4 class="sub-sub-title en-only">Method B — Manual Drawing</h4>
-      <ol style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only">Aktifkan Drawing Tools (ikon pensil, toolbar kiri atas peta)</li>
-        <li class="en-only">Activate Drawing Tools (pencil icon, top-left map toolbar)</li>
-        <li class="id-only">Gambar poligon batas area kajian</li>
-        <li class="en-only">Draw a polygon defining your study area boundary</li>
-        <li class="id-only">Klik <strong>🖊 Gunakan Gambar Peta</strong></li>
-        <li class="en-only">Click <strong>🖊 Use Map Drawing Tools</strong></li>
-      </ol>
-      <div class="admonition tip">
-        <div class="admonition-title">💡 Tip</div>
-        <p class="id-only">Untuk kajian skala kabupaten atau lebih besar, gunakan Metode A agar batas administrasi tepat mengikuti data resmi. Pastikan ROI tidak terlalu luas untuk menghindari <em>computation time-out</em>.</p>
-        <p class="en-only">For district-scale or larger study areas, Method A is preferred to ensure administrative boundaries match official data. Keep the ROI manageable to avoid computation time-outs.</p>
-      </div>
+      <p class="id-only">Sistem mendukung dua metode akuisisi geometri batas:</p>
+      <p class="en-only">The system supports two methods for boundary geometry acquisition:</p>
+      <ul style="padding-left:24px;margin-bottom:16px;">
+        <li class="id-only"><strong>Asset Dinamis:</strong> Membaca *FeatureCollection* langsung dari penyimpanan pengguna (sangat direkomendasikan untuk presisi administratif).</li>
+        <li class="en-only"><strong>Dynamic Asset:</strong> Reading a *FeatureCollection* directly from user storage (highly recommended for administrative precision).</li>
+        <li class="id-only"><strong>Digitasi Layar:</strong> Menggunakan alat poligon bawaan GEE pada peta.</li>
+        <li class="en-only"><strong>Screen Digitization:</strong> Using GEE's built-in polygon tool on the map.</li>
+      </ul>
 
       <h3 class="sub-title" id="step2">
-        <span class="id-only">Langkah 2 — Akuisisi Komposit Sentinel-2A SR</span>
-        <span class="en-only">Step 2 — Sentinel-2A SR Composite Acquisition</span>
+        <span class="id-only">Langkah 2. Konfigurasi Komposit Citra</span>
+        <span class="en-only">Step 2. Image Composite Configuration</span>
       </h3>
-      <h4 class="sub-sub-title id-only">Parameter Akuisisi</h4>
-      <h4 class="sub-sub-title en-only">Acquisition Parameters</h4>
       <div class="table-wrap">
         <table>
           <thead><tr>
-            <th class="id-only">Parameter</th><th class="id-only">Keterangan</th><th class="id-only">Default</th>
-            <th class="en-only">Parameter</th><th class="en-only">Description</th><th class="en-only">Default</th>
+            <th class="id-only">Parameter Akuisisi</th><th class="id-only">Fungsi / Rekomendasi</th>
+            <th class="en-only">Acquisition Parameter</th><th class="en-only">Function / Recommendation</th>
           </tr></thead>
           <tbody>
-            <tr><td><strong class="id-only">Periode Waktu</strong><strong class="en-only">Date Range</strong></td>
-                <td class="id-only">Format <code>YYYY-MM-DD</code></td><td class="en-only">Format <code>YYYY-MM-DD</code></td>
-                <td><code>2024-01-01 / 2024-12-31</code></td></tr>
-            <tr><td><strong>Cloud Max (%)</strong></td>
-                <td class="id-only"><code>CLOUDY_PIXEL_PERCENTAGE</code> maks per scene</td>
-                <td class="en-only">Max <code>CLOUDY_PIXEL_PERCENTAGE</code> per scene</td>
-                <td><code>20%</code></td></tr>
-            <tr><td><strong class="id-only">Cloud Masking</strong><strong class="en-only">Cloud Masking</strong></td>
-                <td class="id-only">Aktif/nonaktif masking piksel berawan</td>
-                <td class="en-only">Enable/disable pixel-level cloud masking</td>
-                <td class="id-only">Aktif</td><td class="en-only">Enabled</td></tr>
-            <tr><td><strong class="id-only">Metode Komposit</strong><strong class="en-only">Composite Method</strong></td>
-                <td class="id-only">Strategi agregasi temporal</td>
-                <td class="en-only">Temporal aggregation strategy</td>
-                <td>Median</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <h4 class="sub-sub-title id-only">Metode Cloud Masking</h4>
-      <h4 class="sub-sub-title en-only">Cloud Masking Methods</h4>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Metode</th><th class="en-only">Method</th>
-            <th class="id-only">Deskripsi</th><th class="en-only">Description</th>
-            <th class="id-only">Rekomendasi</th><th class="en-only">Recommendation</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><strong>Cloud Score+</strong></td>
-                <td class="id-only">Layer <code>cs_cdf</code>; piksel &lt; 0.60 dimasking</td>
-                <td class="en-only">Uses <code>cs_cdf</code> layer; masks pixels with <code>cs_cdf &lt; 0.60</code></td>
-                <td class="id-only">✅ Direkomendasikan (Pasquarella et al., 2023)</td>
-                <td class="en-only">✅ Recommended — highest accuracy (Pasquarella et al., 2023)</td></tr>
-            <tr><td><strong>SCL (ESA)</strong></td>
-                <td class="id-only">Hapus kelas SCL: shadow, unclassified, cloud, cirrus, snow</td>
-                <td class="en-only">Removes SCL cloud shadow (3), unclassified (7), cloud (8,9), cirrus (10), snow (11)</td>
-                <td class="id-only">Sesuai wilayah tropis</td><td class="en-only">Suitable for tropical regions</td></tr>
-            <tr><td><strong>QA60 (Bitmask)</strong></td>
-                <td class="id-only">Bit 10 (opaque cloud) & bit 11 (cirrus)</td>
-                <td class="en-only">Uses bit 10 (opaque cloud) and bit 11 (cirrus cloud)</td>
-                <td class="id-only">Paling sederhana, kurang presisi</td>
-                <td class="en-only">Simplest but least precise</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <h4 class="sub-sub-title id-only">Metode Komposit Temporal</h4>
-      <h4 class="sub-sub-title en-only">Temporal Composite Methods</h4>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Metode</th><th class="en-only">Method</th>
-            <th class="id-only">Deskripsi</th><th class="en-only">Description</th>
-            <th class="id-only">Penggunaan Terbaik</th><th class="en-only">Best Use</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><strong class="id-only">Median (Default)</strong><strong class="en-only">Median (Default)</strong></td>
-                <td class="id-only">Median piksel dari seluruh scene dalam rentang tanggal</td>
-                <td class="en-only">Pixel-wise median across all scenes in date range</td>
-                <td class="id-only">Pemetaan tahunan; stabil dan representatif</td>
-                <td class="en-only">Annual mapping; stable and representative</td></tr>
-            <tr><td><strong class="id-only">Median Dry Season</strong><strong class="en-only">Median Dry Season</strong></td>
-                <td class="id-only">Kuartil NDVI terendah (25% scene paling kering)</td>
-                <td class="en-only">Lowest NDVI quartile (25% driest scenes)</td>
-                <td class="id-only">Kontras lahan terbuka vs vegetasi</td>
-                <td class="en-only">Open land vs vegetation spectral contrast</td></tr>
-            <tr><td><strong class="id-only">Median Wet Season</strong><strong class="en-only">Median Wet Season</strong></td>
-                <td class="id-only">Kuartil NDVI tertinggi (25% scene paling hijau)</td>
-                <td class="en-only">Highest NDVI quartile (25% greenest scenes)</td>
-                <td class="id-only">Memaksimalkan respons vegetasi</td>
-                <td class="en-only">Maximizing vegetation response</td></tr>
+            <tr><td><strong>Cloud Score+ (CS+) Masking</strong></td>
+                <td class="id-only">Metode *masking* mutakhir berbasis AI dari Google. Nilai probabilitas kejelasan piksel (<code>cs_cdf</code>) < 0.60 akan dihapus.</td>
+                <td class="en-only">State-of-the-art AI-based masking method by Google. Pixel clarity probability (<code>cs_cdf</code>) < 0.60 will be removed.</td></tr>
+            <tr><td><strong>SCL (Scene Classification)</strong></td>
+                <td class="id-only">Menggunakan band SCL bawaan ESA. Efektif, namun rentan pada tepi awan tipis dibandingkan CS+.</td>
+                <td class="en-only">Uses ESA's built-in SCL band. Effective, but vulnerable at thin cloud edges compared to CS+.</td></tr>
+            <tr><td><strong>Median Reducer</strong></td>
+                <td class="id-only">Agregasi piksel secara temporal untuk menghasilkan komposit bebas hamburan atmosfer.</td>
+                <td class="en-only">Temporal pixel aggregation to produce atmospheric scattering-free composites.</td></tr>
           </tbody>
         </table>
       </div>
 
       <h3 class="sub-title" id="step3">
-        <span class="id-only">Langkah 3 — Algoritma Klasifikasi & Parameter</span>
-        <span class="en-only">Step 3 — Classification Algorithm & Parameters</span>
+        <span class="id-only">Langkah 3. Seleksi Algoritma Klasifikasi</span>
+        <span class="en-only">Step 3. Classification Algorithm Selection</span>
       </h3>
-
-      <div class="param-group rf">
-        <div class="param-group-header">Random Forest (RF)</div>
-        <div style="padding:0">
-          <div class="table-wrap" style="margin:0;border:none">
-            <table>
-              <thead><tr>
-                <th class="id-only">Parameter</th><th class="en-only">Parameter</th>
-                <th class="id-only">Rentang</th><th class="en-only">Range</th>
-                <th>Default</th>
-                <th class="id-only">Keterangan</th><th class="en-only">Description</th>
-              </tr></thead>
-              <tbody>
-                <tr><td><code>numTrees</code></td><td>50–1000</td><td><code>500</code></td>
-                    <td class="id-only">Jumlah pohon keputusan dalam ensemble</td>
-                    <td class="en-only">Number of decision trees in ensemble</td></tr>
-                <tr><td><code>minLeafPopulation</code></td><td>1–20</td><td><code>1</code></td>
-                    <td class="id-only">Sampel minimum pada daun terminal</td>
-                    <td class="en-only">Minimum samples at terminal leaf</td></tr>
-                <tr><td><code>bagFraction</code></td><td>0.3–1.0</td><td><code>0.5</code></td>
-                    <td class="id-only">Proporsi sampel per pohon</td>
-                    <td class="en-only">Proportion of samples per tree</td></tr>
-              </tbody>
-            </table>
-          </div>
+      <p class="id-only">Tiga algoritma pemelajaran mesin (Machine Learning) yang didukung dengan arsitektur hiperparameter yang dapat disesuaikan:</p>
+      <p class="en-only">Three supported machine learning algorithms with adjustable hyperparameter architectures:</p>
+      
+      <div class="param-group">
+        <div class="param-group-header">Random Forest (RF) — ee.Classifier.smileRandomForest</div>
+        <div style="padding:16px; font-size:0.95rem; line-height:1.6;">
+          <p class="id-only">Metode *ensemble learning* paling stabil. Cocok untuk sebagian besar klasifikasi ruang multi-dimensi. Tingkatkan <code>numTrees</code> (ideal: 200-500) untuk stabilitas konvergensi model.</p>
+          <p class="en-only">The most stable *ensemble learning* method. Suitable for most multi-dimensional space classifications. Increase <code>numTrees</code> (ideal: 200-500) for model convergence stability.</p>
         </div>
       </div>
-
-      <div class="param-group gtb">
-        <div class="param-group-header">Gradient Tree Boost (GTB)</div>
-        <div style="padding:0">
-          <div class="table-wrap" style="margin:0;border:none">
-            <table>
-              <thead><tr>
-                <th class="id-only">Parameter</th><th class="en-only">Parameter</th>
-                <th class="id-only">Rentang</th><th class="en-only">Range</th>
-                <th>Default</th>
-                <th class="id-only">Keterangan</th><th class="en-only">Description</th>
-              </tr></thead>
-              <tbody>
-                <tr><td><code>numTrees</code></td><td>50–500</td><td><code>200</code></td>
-                    <td class="id-only">Jumlah iterasi boosting</td><td class="en-only">Number of boosting iterations</td></tr>
-                <tr><td><code>shrinkage</code></td><td>0.01–0.30</td><td><code>0.05</code></td>
-                    <td class="id-only">Learning rate — kontribusi per pohon</td><td class="en-only">Learning rate — contribution per tree</td></tr>
-                <tr><td><code>samplingRate</code></td><td>0.30–1.0</td><td><code>0.7</code></td>
-                    <td class="id-only">Proporsi sampel per iterasi</td><td class="en-only">Proportion of samples per iteration</td></tr>
-                <tr><td><code>maxNodes</code></td><td>2–10</td><td><code>5</code></td>
-                    <td class="id-only">Kedalaman maksimum per pohon</td><td class="en-only">Maximum depth per tree</td></tr>
-                <tr><td><code>loss</code></td><td>—</td><td><code>LeastAbsoluteDeviation</code></td>
-                    <td class="id-only">Fungsi loss; robust terhadap outlier</td><td class="en-only">Loss function; robust to outliers</td></tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="param-group">
+        <div class="param-group-header">Gradient Tree Boost (GTB) — ee.Classifier.smileGradientTreeBoost</div>
+        <div style="padding:16px; font-size:0.95rem; line-height:1.6;">
+          <p class="id-only">Membangun pohon keputusan secara sekuensial untuk mengoreksi *error* pohon sebelumnya. Sangat kuat, namun rentan terhadap *overfitting* jika *learning rate* (<code>shrinkage</code>) terlalu tinggi.</p>
+          <p class="en-only">Builds decision trees sequentially to correct the *errors* of previous trees. Very powerful, but prone to *overfitting* if the *learning rate* (<code>shrinkage</code>) is too high.</p>
         </div>
       </div>
-
-      <div class="param-group svm">
-        <div class="param-group-header">Support Vector Machine (SVM)</div>
-        <div style="padding:0">
-          <div class="table-wrap" style="margin:0;border:none">
-            <table>
-              <thead><tr>
-                <th class="id-only">Parameter</th><th class="en-only">Parameter</th>
-                <th class="id-only">Rentang</th><th class="en-only">Range</th>
-                <th>Default</th>
-                <th class="id-only">Keterangan</th><th class="en-only">Description</th>
-              </tr></thead>
-              <tbody>
-                <tr><td><code>kernel</code></td><td>RBF/LINEAR/POLY/SIGMOID</td><td><code>RBF</code></td>
-                    <td class="id-only">RBF direkomendasikan untuk data non-linier</td>
-                    <td class="en-only">RBF recommended for non-linear data</td></tr>
-                <tr><td><code>cost</code> (C)</td><td>0.1–100</td><td><code>10</code></td>
-                    <td class="id-only">Parameter regularisasi</td><td class="en-only">Regularization parameter</td></tr>
-                <tr><td><code>gamma</code></td><td>0.001–2.0</td><td><code>0.5</code></td>
-                    <td class="id-only">Jangkauan pengaruh satu sampel latih</td>
-                    <td class="en-only">Influence range of single training sample</td></tr>
-                <tr><td><code>degree</code></td><td>1–10</td><td><code>3</code></td>
-                    <td class="id-only">Derajat polinomial (hanya POLY)</td>
-                    <td class="en-only">Polynomial degree (POLY only)</td></tr>
-                <tr><td><code>coef0</code></td><td>0.0–5.0</td><td><code>0.0</code></td>
-                    <td class="id-only">Koefisien independen (POLY & SIGMOID)</td>
-                    <td class="en-only">Independent coefficient (POLY & SIGMOID only)</td></tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="param-group">
+        <div class="param-group-header">Support Vector Machine (SVM) — ee.Classifier.libsvm</div>
+        <div style="padding:16px; font-size:0.95rem; line-height:1.6;">
+          <p class="id-only">Menggunakan *Kernel Trick* (default: Radial Basis Function/RBF) untuk memisahkan kelas non-linear. Mengharuskan kalibrasi parameter <code>Cost (C)</code> dan <code>Gamma</code> secara spesifik per studi.</p>
+          <p class="en-only">Utilizes the *Kernel Trick* (default: Radial Basis Function/RBF) to separate non-linear classes. Requires specific calibration of <code>Cost (C)</code> and <code>Gamma</code> parameters per study.</p>
         </div>
       </div>
 
       <h3 class="sub-title" id="step4">
-        <span class="id-only">Langkah 4 — Tambah Kelas & Digitasi Sampel</span>
-        <span class="en-only">Step 4 — Add Classes & Digitize Training Samples</span>
+        <span class="id-only">Langkah 4. Manajemen Kelas dan Sampel Tatih</span>
+        <span class="en-only">Step 4. Classes and Training Sample Management</span>
       </h3>
-      <h4 class="sub-sub-title id-only">Opsi A — Import dari SHP Asset (Baru di V3.1)</h4>
-      <h4 class="sub-sub-title en-only">Option A — Import from SHP Asset (New in V3.1)</h4>
-      <ol style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only">Masukkan nama akun GEE → klik <strong>🔄 Refresh</strong></li>
-        <li class="en-only">Enter GEE account name → click <strong>🔄 Refresh</strong></li>
-        <li class="id-only">Pilih SHP sampel latih dari dropdown</li>
-        <li class="en-only">Select the training sample SHP from the dropdown</li>
-        <li class="id-only">Klik <strong>📖 Baca Kolom</strong> untuk mengisi dropdown kolom atribut</li>
-        <li class="en-only">Click <strong>📖 Read Columns</strong> to populate attribute column dropdowns</li>
-        <li class="id-only">Pilih kolom <em>kode kelas</em> dan kolom <em>nama kelas</em></li>
-        <li class="en-only">Select the <em>class code</em> column and the <em>class name/label</em> column</li>
-        <li class="id-only">Klik <strong>🔍 Ekstrak Kelas Unik</strong> — baris editable muncul per kelas</li>
-        <li class="en-only">Click <strong>🔍 Extract Unique Classes</strong> — editable row appears per class</li>
-        <li class="id-only">Edit nama & warna, lalu klik <strong>📥 Simpan & Impor Sampel</strong></li>
-        <li class="en-only">Edit names & colors, then click <strong>📥 Save & Import Mapped Samples</strong></li>
-      </ol>
-      <h4 class="sub-sub-title id-only">Opsi B — Entri Manual</h4>
-      <h4 class="sub-sub-title en-only">Option B — Manual Entry</h4>
-      <ol style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only">Ketik nama kelas atau klik dari palet Panel Kiri untuk <em>auto-fill</em></li>
-        <li class="en-only">Type a class name or click from the Left Panel palette for auto-fill</li>
-        <li class="id-only">Masukkan kode warna hex (cth: <code>#006400</code>)</li>
-        <li class="en-only">Enter the hex color code (e.g., <code>#006400</code>)</li>
-        <li class="id-only">Klik <strong>＋ TAMBAH KELAS</strong> — kode ditetapkan otomatis</li>
-        <li class="en-only">Click <strong>＋ ADD CLASS</strong> — codes are assigned automatically</li>
-        <li class="id-only">Pilih kelas aktif → gambar titik/poligon sampel di peta</li>
-        <li class="en-only">Select active class → draw point/polygon samples on the map</li>
-      </ol>
-      <div class="admonition tip">
-        <div class="admonition-title">💡 <span class="id-only">Praktik Terbaik</span><span class="en-only">Best Practice</span></div>
-        <p class="id-only">Distribusikan sampel secara spasial. Gunakan beberapa poligon kecil per kelas untuk menangkap variabilitas spektral intra-kelas. Hindari zona transisi atau area ambigu.</p>
-        <p class="en-only">Distribute samples spatially. Use multiple small polygons per class to capture within-class spectral variability. Avoid transitional or ambiguous zones.</p>
-      </div>
+      <p class="id-only">Definisikan skema klasifikasi dengan akurasi. Jika menggunakan fitur <strong>Import SHP Asset</strong>, pastikan tabel atribut *Shapefile* memiliki kolom khusus yang menampung <strong>Kode Kelas (Numerik)</strong> dan <strong>Nama Kelas (String)</strong>.</p>
+      <p class="en-only">Define the classification scheme accurately. If using the <strong>Import SHP Asset</strong> feature, ensure the *Shapefile* attribute table has specific columns holding <strong>Class Code (Numeric)</strong> and <strong>Class Name (String)</strong>.</p>
 
       <h3 class="sub-title" id="step5">
-        <span class="id-only">Langkah 5 — Jalankan Klasifikasi</span>
-        <span class="en-only">Step 5 — Run Classification</span>
+        <span class="id-only">Langkah 5. Eksekusi Klasifikasi Pemetaan</span>
+        <span class="en-only">Step 5. Run Mapping Classification</span>
       </h3>
-      <p class="id-only">Klik <strong>🚀 JALANKAN KLASIFIKASI</strong>. Alat mengeksekusi secara <em>server-side</em>:</p>
-      <p class="en-only">Click <strong>🚀 RUN CLASSIFICATION</strong>. The tool executes server-side:</p>
-      <ol style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only">Ekstrak nilai spektral (26 variabel) dari sampel via <code>sampleRegions</code></li>
-        <li class="en-only">Extract spectral values (26 variables) from samples via <code>sampleRegions</code></li>
-        <li class="id-only">Bagi sampel menjadi set training & validasi menggunakan <code>randomColumn</code></li>
-        <li class="en-only">Split samples into training & validation sets using <code>randomColumn</code></li>
-        <li class="id-only">Latih <em>classifier</em> pada set training</li>
-        <li class="en-only">Train classifier on the training set</li>
-        <li class="id-only">Klasifikasikan seluruh piksel di dalam ROI</li>
-        <li class="en-only">Classify all pixels within the ROI</li>
-        <li class="id-only">Hitung <em>error matrix</em> → turunkan OA & Kappa dari set validasi</li>
-        <li class="en-only">Compute error matrix → derive OA & Kappa from validation set</li>
-        <li class="id-only">Hitung luasan per kelas via <code>ee.Image.pixelArea()</code> dalam hektar</li>
-        <li class="en-only">Calculate per-class area via <code>ee.Image.pixelArea()</code> in hectares</li>
-      </ol>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Metrik</th><th class="en-only">Metric</th>
-            <th class="id-only">Ambang Batas</th><th class="en-only">Threshold</th>
-            <th class="id-only">Keterangan</th><th class="en-only">Note</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><strong class="id-only">Overall Accuracy (OA)</strong><strong class="en-only">Overall Accuracy (OA)</strong></td>
-                <td>&gt; 85%</td>
-                <td class="id-only">Umumnya diterima untuk kajian tutupan lahan skala regional</td>
-                <td class="en-only">Generally accepted for regional land cover studies</td></tr>
-            <tr><td><strong>Kappa</strong></td>
-                <td>&gt; 0.80</td>
-                <td class="id-only">"Sangat Kuat" (Landis &amp; Koch, 1977)</td>
-                <td class="en-only">"Very Strong" agreement (Landis &amp; Koch, 1977)</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="admonition warning">
-        <div class="admonition-title">⚠️ <span class="id-only">Penalti Akurasi</span><span class="en-only">Accuracy Penalty</span></div>
-        <p class="id-only">Jika hanya sampel manual yang digunakan (tidak ada asset tervalidasi lapangan yang diimpor), penalti <strong>−5%</strong> diterapkan pada OA dan Kappa dan ditandai di panel hasil.</p>
-        <p class="en-only">If only manual samples are used (no field-validated asset imported), a <strong>−5% penalty</strong> is applied to OA and Kappa and flagged in the results panel.</p>
-      </div>
+      <p class="id-only">Sistem secara dinamis mempartisi data sampel (default 70% pelatihan, 30% validasi lapangan/pseudo). Menghasilkan matriks konfusi (<em>Confusion Matrix</em>), *Overall Accuracy*, dan estimasi luas hektare.</p>
+      <p class="en-only">The system dynamically partitions sample data (default 70% training, 30% field/pseudo validation). Generates a Confusion Matrix, Overall Accuracy, and hectare area estimation.</p>
 
       <h3 class="sub-title" id="step6">
-        <span class="id-only">Langkah 6 — Ekspor ke Google Drive</span>
-        <span class="en-only">Step 6 — Export to Google Drive</span>
+        <span class="id-only">Langkah 6. Ekspor Produk (GeoTIFF)</span>
+        <span class="en-only">Step 6. Product Export (GeoTIFF)</span>
       </h3>
-      <ol style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only">Isi nama folder Drive (default: <code>GEE_Export</code>) dan nama file (default: <code>LandCover_DFRF_V3</code>)</li>
-        <li class="en-only">Set folder name (default: <code>GEE_Export</code>) and filename (default: <code>LandCover_DFRF_V3</code>)</li>
-        <li class="id-only">Pilih resolusi spasial: <strong>10 m</strong>, <strong>20 m</strong>, atau <strong>30 m</strong></li>
-        <li class="en-only">Select output spatial resolution: <strong>10 m</strong>, <strong>20 m</strong>, or <strong>30 m</strong></li>
-        <li class="id-only">Klik <strong>⬆ EKSPOR — GeoTIFF ke Drive</strong></li>
-        <li class="en-only">Click <strong>⬆ EXPORT — GeoTIFF to Drive</strong></li>
-        <li class="id-only">Pantau di tab <strong>Tasks</strong> (ikon jam, kanan atas GEE Editor). Klik <strong>Run</strong></li>
-        <li class="en-only">Monitor in the <strong>Tasks</strong> tab (clock icon, top-right of GEE Editor). Click <strong>Run</strong></li>
-      </ol>
-      <div class="admonition note">
-        <div class="admonition-title">📝 <span class="id-only">Catatan Output</span><span class="en-only">Output Note</span></div>
-        <p class="id-only">File output adalah raster single-band bertipe integer (nilai piksel = kode kelas), CRS: <code>EPSG:4326</code>. Kompatibel dengan QGIS, ArcGIS, dan semua software GIS utama.</p>
-        <p class="en-only">Output is a single-band integer raster (pixel value = class code), CRS: <code>EPSG:4326</code>. Compatible with QGIS, ArcGIS, and all major GIS software.</p>
-      </div>
+      <p class="id-only">Hasil klasifikasi diubah menjadi format tipe data Integer (nilai raster sesuai kode kelas) dengan CRS <code>EPSG:4326</code>. Dieksekusi melalui tab <em>Tasks</em> menuju repositori Google Drive pengguna.</p>
+      <p class="en-only">Classification results are converted to Integer data type format (raster value matching class code) with CRS <code>EPSG:4326</code>. Executed via the <em>Tasks</em> tab to the user's Google Drive repository.</p>
 
-      <h2 class="section-title" id="featurespace">
-        <span class="id-only">📊 Ruang Fitur (Feature Space)</span>
-        <span class="en-only">📊 Feature Space</span>
+      <!-- NEW SECTION: Core GEE Functions Index -->
+      <h2 class="section-title" id="core-functions">
+        <span class="id-only">Indeks Fungsi dan Arsitektur Sintaks GEE</span>
+        <span class="en-only">Core GEE Functions and Syntax Architecture Index</span>
       </h2>
-      <p class="id-only">Setelah komposit dimuat, GEEDEF otomatis menghitung 16 indeks spektral. Bersama 10 band asli Sentinel-2A, total terdapat <strong>26 variabel prediktor per piksel</strong>.</p>
-      <p class="en-only">After loading the composite, GEEDEF automatically computes 16 spectral indices. Together with 10 native Sentinel-2A bands, the total feature space is <strong>26 predictor variables per pixel</strong>.</p>
-      <h3 class="sub-title id-only">Band Spektral Asli (10)</h3>
-      <h3 class="sub-title en-only">Native Spectral Bands (10)</h3>
+      <p class="id-only">Modul GEEDEF dibangun dengan mengoptimalkan fungsi-fungsi fundamental pada API JavaScript Google Earth Engine. Berikut adalah arsitektur teknis pembangun utama sistem ini:</p>
+      <p class="en-only">The GEEDEF module is built by optimizing fundamental functions in the Google Earth Engine JavaScript API. Below is the main technical architecture building this system:</p>
+      
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Band</th><th class="id-only">Nama</th><th class="en-only">Name</th><th class="id-only">Panjang Gelombang</th><th class="en-only">Wavelength</th><th class="id-only">Resolusi</th><th class="en-only">Resolution</th></tr></thead>
+          <thead>
+            <tr>
+              <th>API Class / Method</th>
+              <th class="id-only">Fungsi / Operasi dalam GEEDEF</th>
+              <th class="en-only">Function / Operation in GEEDEF</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>B2</code></td><td class="id-only">Biru</td><td class="en-only">Blue</td><td>~490 nm</td><td>10 m</td></tr>
-            <tr><td><code>B3</code></td><td class="id-only">Hijau</td><td class="en-only">Green</td><td>~560 nm</td><td>10 m</td></tr>
-            <tr><td><code>B4</code></td><td class="id-only">Merah</td><td class="en-only">Red</td><td>~665 nm</td><td>10 m</td></tr>
-            <tr><td><code>B5</code></td><td>Red Edge 1</td><td>~705 nm</td><td>20 m</td></tr>
-            <tr><td><code>B6</code></td><td>Red Edge 2</td><td>~740 nm</td><td>20 m</td></tr>
-            <tr><td><code>B7</code></td><td>Red Edge 3</td><td>~783 nm</td><td>20 m</td></tr>
-            <tr><td><code>B8</code></td><td>NIR</td><td>~842 nm</td><td>10 m</td></tr>
-            <tr><td><code>B8A</code></td><td class="id-only">NIR Sempit</td><td class="en-only">NIR Narrow</td><td>~865 nm</td><td>20 m</td></tr>
-            <tr><td><code>B11</code></td><td>SWIR 1</td><td>~1610 nm</td><td>20 m</td></tr>
-            <tr><td><code>B12</code></td><td>SWIR 2</td><td>~2190 nm</td><td>20 m</td></tr>
+            <tr>
+              <td><code>ee.ImageCollection()</code><br><code>.filterDate()</code>, <code>.filterBounds()</code></td>
+              <td class="id-only">Memanggil koleksi mentah <code>COPERNICUS/S2_SR_HARMONIZED</code> dan menyaringnya berdasarkan rentang waktu dan geometri batas studi (ROI).</td>
+              <td class="en-only">Calls the raw <code>COPERNICUS/S2_SR_HARMONIZED</code> collection and filters it based on the date range and study boundary geometry (ROI).</td>
+            </tr>
+            <tr>
+              <td><code>.map(function)</code></td>
+              <td class="id-only">Melakukan iterasi fungsi (misal: algoritma *cloud masking* atau kalkulasi indeks spektral) kepada setiap citra tunggal di dalam koleksi tanpa *looping* *client-side*.</td>
+              <td class="en-only">Iterates a function (e.g., cloud masking algorithm or spectral index calculation) over every single image in the collection without client-side looping.</td>
+            </tr>
+            <tr>
+              <td><code>.median()</code></td>
+              <td class="id-only">*Reducer* spasial temporal. Merangkum ribuan piksel tumpang-tindih menjadi satu nilai tengah (median), menghilangkan anomali spektral (seperti bayangan awan atau asap).</td>
+              <td class="en-only">Temporal spatial *reducer*. Summarizes thousands of overlapping pixels into a single median value, eliminating spectral anomalies (like cloud shadows or smoke).</td>
+            </tr>
+            <tr>
+              <td><code>.normalizedDifference()</code></td>
+              <td class="id-only">Sintaks instan GEE untuk menghitung rasio indeks formula $\frac{A - B}{A + B}$. Mempercepat kalkulasi indeks penting seperti NDVI, NDWI, dan NDBI.</td>
+              <td class="en-only">Instant GEE syntax to calculate index ratio formulas $\frac{A - B}{A + B}$. Speeds up the calculation of crucial indices like NDVI, NDWI, and NDBI.</td>
+            </tr>
+            <tr>
+              <td><code>.sampleRegions()</code></td>
+              <td class="id-only">Fungsi ekstraksi data spasial. Mengambil nilai 26 *band* dari komposit citra tepat pada koordinat titik/poligon sampel latih yang telah ditentukan.</td>
+              <td class="en-only">Spatial data extraction function. Retrieves the 26 *band* values from the image composite exactly at the predetermined training sample point/polygon coordinates.</td>
+            </tr>
+            <tr>
+              <td><code>.randomColumn()</code></td>
+              <td class="id-only">Membubuhkan nilai acak (0 hingga 1) ke setiap fitur sampel. Digunakan untuk proses pemisahan dataset menjadi data latih (*Training Set*) dan data uji (*Validation Set*).</td>
+              <td class="en-only">Appends a random value (0 to 1) to each sample feature. Used for the process of splitting the dataset into a Training Set and a Validation Set.</td>
+            </tr>
+            <tr>
+              <td><code>ee.Classifier</code><br><code>.train()</code></td>
+              <td class="id-only">Menginisiasi algoritma pemelajaran mesin yang dipilih (RF, GTB, SVM) dan memerintahkannya untuk 'belajar' pola spektral dari data *Training Set*.</td>
+              <td class="en-only">Initiates the selected machine learning algorithm (RF, GTB, SVM) and commands it to 'learn' spectral patterns from the *Training Set* data.</td>
+            </tr>
+            <tr>
+              <td><code>.classify()</code></td>
+              <td class="id-only">Menerapkan model yang telah dilatih (hasil <code>.train()</code>) kembali ke seluruh luasan spasial komposit citra untuk memprediksi kelas tutupan lahan di setiap piksel.</td>
+              <td class="en-only">Applies the trained model (result of <code>.train()</code>) back to the entire spatial extent of the image composite to predict the land cover class for every pixel.</td>
+            </tr>
+            <tr>
+              <td><code>.errorMatrix()</code></td>
+              <td class="id-only">Mengkomputasi akurasi model dengan membandingkan nilai prediksi model terhadap data *Validation Set* (kebenaran lapangan). Menghasilkan persentase *Overall Accuracy* (OA).</td>
+              <td class="en-only">Computes model accuracy by comparing model predictions against the *Validation Set* (ground truth) data. Produces the Overall Accuracy (OA) percentage.</td>
+            </tr>
+            <tr>
+              <td><code>ee.Image.pixelArea()</code></td>
+              <td class="id-only">Fungsi kartografi dasar yang menghitung luasan aktual setiap piksel (m²) menyesuaikan kelengkungan bumi, digunakan untuk menghitung total hektare per kelas klasifikasi.</td>
+              <td class="en-only">Basic cartographic function that calculates the actual area of each pixel (m²) adjusting for earth curvature, used to compute total hectares per classification class.</td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <h3 class="sub-title id-only">Indeks Spektral Turunan (16)</h3>
-      <h3 class="sub-title en-only">Derived Spectral Indices (16)</h3>
+
+      <!-- Remainder of the document -->
+      <h2 class="section-title" id="featurespace">
+        <span class="id-only">Ruang Fitur (Feature Space)</span>
+        <span class="en-only">Feature Space</span>
+      </h2>
+      <p class="id-only">Kekuatan analitik sistem bersumber dari 26 variabel ruang fitur per piksel yang dibangun secara otomatis.</p>
+      <p class="en-only">The analytical strength of the system stems from the 26 feature space variables per pixel built automatically.</p>
+      
+      <h3 class="sub-title id-only">Band Spektral Asli Sentinel-2A (10 Variabel)</h3>
+      <h3 class="sub-title en-only">Native Sentinel-2A Spectral Bands (10 Variables)</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th class="id-only">Indeks</th><th class="en-only">Index</th><th class="id-only">Nama Lengkap</th><th class="en-only">Full Name</th><th class="id-only">Aplikasi Utama</th><th class="en-only">Primary Application</th></tr></thead>
+          <thead><tr><th>ID Band</th><th class="id-only">Rentang Spektrum</th><th class="en-only">Spectrum Range</th><th>Panjang Gelombang</th><th>Resolusi Spasial</th></tr></thead>
           <tbody>
-            <tr><td><code>NDVI</code></td><td>Normalized Difference Vegetation Index</td><td class="id-only">Kerapatan vegetasi</td><td class="en-only">Vegetation density</td></tr>
-            <tr><td><code>EVI2</code></td><td>Enhanced Vegetation Index 2</td><td class="id-only">Struktur kanopi; reduksi gangguan atmosfer</td><td class="en-only">Canopy structure; atmospheric noise reduction</td></tr>
-            <tr><td><code>CAI</code></td><td>Cellulose Absorption Index</td><td class="id-only">Diskriminasi lahan terbuka dan serasah</td><td class="en-only">Bare soil and litter discrimination</td></tr>
-            <tr><td><code>NDWI</code></td><td>Normalized Difference Water Index</td><td class="id-only">Kandungan air daun</td><td class="en-only">Leaf water content</td></tr>
-            <tr><td><code>GCVI</code></td><td>Green Chlorophyll Vegetation Index</td><td class="id-only">Estimasi klorofil</td><td class="en-only">Chlorophyll estimation</td></tr>
-            <tr><td><code>SAVI</code></td><td>Soil-Adjusted Vegetation Index</td><td class="id-only">Vegetasi jarang di atas lahan terbuka</td><td class="en-only">Sparse vegetation over bare soil</td></tr>
-            <tr><td><code>PRI</code></td><td>Photochemical Reflectance Index</td><td class="id-only">Efisiensi penggunaan cahaya kanopi</td><td class="en-only">Canopy light use efficiency</td></tr>
-            <tr><td><code>HALL_COVER</code></td><td>Hall Forest Cover Index</td><td class="id-only">Estimasi penutupan kanopi hutan</td><td class="en-only">Forest canopy cover estimation</td></tr>
-            <tr><td><code>IRECI</code></td><td>Inverted Red-Edge Chlorophyll Index</td><td class="id-only">Klorofil berbasis red-edge</td><td class="en-only">Red-edge based chlorophyll</td></tr>
-            <tr><td><code>NDRE</code></td><td>Normalized Difference Red Edge</td><td class="id-only">Kesehatan dan stres vegetasi</td><td class="en-only">Vegetation health and stress</td></tr>
-            <tr><td><code>MNDWI</code></td><td>Modified Normalized Difference Water Index</td><td class="id-only">Pemetaan badan air terbuka</td><td class="en-only">Open water body mapping</td></tr>
-            <tr><td><code>NDMI</code></td><td>Normalized Difference Moisture Index</td><td class="id-only">Kelembaban lahan</td><td class="en-only">Land moisture</td></tr>
-            <tr><td><code>NDBI</code></td><td>Normalized Difference Built-up Index</td><td class="id-only">Area terbangun dan urban</td><td class="en-only">Urban and built-up area</td></tr>
-            <tr><td><code>NBR</code></td><td>Normalized Burn Ratio</td><td class="id-only">Area terbakar / degradasi hutan</td><td class="en-only">Burned area / forest degradation</td></tr>
-            <tr><td><code>GVS</code></td><td>Green Vegetation Signal</td><td class="id-only">Fraksi vegetasi hijau</td><td class="en-only">Green vegetation fraction</td></tr>
-            <tr><td><code>NDFI</code></td><td>Normalized Difference Fraction Index</td><td class="id-only">Degradasi dan fragmentasi hutan</td><td class="en-only">Forest degradation and fragmentation</td></tr>
+            <tr><td><code>B2</code></td><td>Blue</td><td>~490 nm</td><td>10 m</td></tr>
+            <tr><td><code>B3</code></td><td>Green</td><td>~560 nm</td><td>10 m</td></tr>
+            <tr><td><code>B4</code></td><td>Red</td><td>~665 nm</td><td>10 m</td></tr>
+            <tr><td><code>B5, B6, B7</code></td><td>Red Edge 1, 2, 3</td><td>~705 nm, ~740 nm, ~783 nm</td><td>20 m</td></tr>
+            <tr><td><code>B8</code></td><td>Near Infrared (NIR)</td><td>~842 nm</td><td>10 m</td></tr>
+            <tr><td><code>B8A</code></td><td>NIR Narrow</td><td>~865 nm</td><td>20 m</td></tr>
+            <tr><td><code>B11, B12</code></td><td>Shortwave Infrared (SWIR) 1, 2</td><td>~1610 nm, ~2190 nm</td><td>20 m</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub-title id-only">Indeks Spektral Turunan Otomatis (16 Variabel)</h3>
+      <h3 class="sub-title en-only">Automated Derived Spectral Indices (16 Variables)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th class="id-only">Akronim Indeks</th><th class="en-only">Index Acronym</th><th class="id-only">Ekspansi Terminologi</th><th class="en-only">Terminology Expansion</th><th class="id-only">Sasaran Aplikasi Spasial</th><th class="en-only">Spatial Application Target</th></tr></thead>
+          <tbody>
+            <tr><td><code>NDVI</code></td><td>Normalized Difference Vegetation Index</td><td class="id-only">Kerapatan biomassa hijau</td><td class="en-only">Green biomass density</td></tr>
+            <tr><td><code>EVI2</code></td><td>Enhanced Vegetation Index 2</td><td class="id-only">Koreksi kejenuhan pada area berkanopi lebat</td><td class="en-only">Saturation correction in dense canopy areas</td></tr>
+            <tr><td><code>CAI</code></td><td>Cellulose Absorption Index</td><td class="id-only">Diskriminasi material sisa panen vs tanah terbuka</td><td class="en-only">Crop residue vs bare soil discrimination</td></tr>
+            <tr><td><code>NDWI</code>, <code>MNDWI</code></td><td>(Modified) Normalized Difference Water Index</td><td class="id-only">Ekstraksi topologi badan air</td><td class="en-only">Water body topology extraction</td></tr>
+            <tr><td><code>GCVI</code></td><td>Green Chlorophyll Vegetation Index</td><td class="id-only">Aproksimasi pigmen klorofil</td><td class="en-only">Chlorophyll pigment approximation</td></tr>
+            <tr><td><code>SAVI</code></td><td>Soil-Adjusted Vegetation Index</td><td class="id-only">Akurasi deteksi pada lahan gersang</td><td class="en-only">Detection accuracy in arid lands</td></tr>
+            <tr><td><code>PRI</code></td><td>Photochemical Reflectance Index</td><td class="id-only">Efisiensi penggunaan cahaya fotosintetik</td><td class="en-only">Photosynthetic light use efficiency</td></tr>
+            <tr><td><code>HALL_COVER</code></td><td>Hall Forest Cover Index</td><td class="id-only">Pemodelan penutupan tajuk (*canopy closure*)</td><td class="en-only">Canopy closure modeling</td></tr>
+            <tr><td><code>IRECI</code></td><td>Inverted Red-Edge Chlorophyll Index</td><td class="id-only">Sensitivitas tinggi pada batas *red-edge*</td><td class="en-only">High sensitivity at the red-edge boundary</td></tr>
+            <tr><td><code>NDRE</code></td><td>Normalized Difference Red Edge</td><td class="id-only">Deteksi stres fisiologis vegetasi</td><td class="en-only">Physiological stress detection in vegetation</td></tr>
+            <tr><td><code>NDMI</code></td><td>Normalized Difference Moisture Index</td><td class="id-only">Gradien hidrasi tegakan</td><td class="en-only">Stand hydration gradient</td></tr>
+            <tr><td><code>NDBI</code></td><td>Normalized Difference Built-up Index</td><td class="id-only">Deliniasi material infrastruktur urban</td><td class="en-only">Urban infrastructure material delineation</td></tr>
+            <tr><td><code>NBR</code></td><td>Normalized Burn Ratio</td><td class="id-only">Jejak degradasi atau deforestasi temporal</td><td class="en-only">Temporal degradation or deforestation footprint</td></tr>
+            <tr><td><code>GVS</code>, <code>NDFI</code></td><td>Green Vegetation Signal & NDFI</td><td class="id-only">Analisis spektral campuran (*spectral unmixing*)</td><td class="en-only">Spectral mixture analysis (spectral unmixing)</td></tr>
           </tbody>
         </table>
       </div>
 
       <h2 class="section-title" id="formulas">
-        <span class="id-only">∑ Formula Indeks Spektral</span>
-        <span class="en-only">∑ Spectral Index Formulas</span>
+        <span class="id-only">Formula Matematika Indeks Spektral</span>
+        <span class="en-only">Spectral Index Mathematical Formulas</span>
       </h2>
       <div class="math-block">$$NDVI = \frac{\rho_{B8} - \rho_{B4}}{\rho_{B8} + \rho_{B4}}$$</div>
       <div class="math-block">$$EVI2 = 2.5 \times \frac{\rho_{B8} - \rho_{B4}}{\rho_{B8} + 2.4\,\rho_{B4} + 1}$$</div>
@@ -994,153 +621,48 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
       <div class="math-block">$$NDFI = \frac{GVS - (1 - NDVI)}{GVS + (1 - NDVI)}$$</div>
 
       <h2 class="section-title" id="palettes">
-        <span class="id-only">🎨 Skema Palet Tutupan Lahan</span>
-        <span class="en-only">🎨 Land Cover Palette Schemes</span>
+        <span class="id-only">Skema Standar Sistem Informasi Geografis</span>
+        <span class="en-only">Geographic Information System Standard Schemes</span>
       </h2>
-      <h3 class="sub-title id-only">🇮🇩 KLHK — Kementerian Lingkungan Hidup dan Kehutanan RI</h3>
-      <h3 class="sub-title en-only">🇮🇩 KLHK — Indonesian Ministry of Environment and Forestry</h3>
+      <h3 class="sub-title id-only">Kementerian Lingkungan Hidup dan Kehutanan (KLHK) - SNI</h3>
+      <h3 class="sub-title en-only">Indonesian Ministry of Environment and Forestry (KLHK)</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>ID</th><th class="id-only">Nama Kelas</th><th class="en-only">Class Name</th><th class="id-only">Warna</th><th class="en-only">Color</th><th>Hex</th></tr></thead>
+          <thead><tr><th>ID</th><th class="id-only">Klasifikasi Tutupan</th><th class="en-only">Land Cover Classification</th><th>Kode Heksadesimal</th></tr></thead>
           <tbody>
-            <tr><td class="center">1</td><td class="id-only">Hutan Lahan Kering Primer</td><td class="en-only">Primary Dryland Forest</td><td><span class="swatch" style="background:#60E663"></span></td><td><code>#60E663</code></td></tr>
-            <tr><td class="center">2</td><td class="id-only">Hutan Lahan Kering Sekunder</td><td class="en-only">Secondary Dryland Forest</td><td><span class="swatch" style="background:#72FF00"></span></td><td><code>#72FF00</code></td></tr>
-            <tr><td class="center">3</td><td class="id-only">Hutan Mangrove Primer</td><td class="en-only">Primary Mangrove Forest</td><td><span class="swatch" style="background:#8EA704"></span></td><td><code>#8EA704</code></td></tr>
-            <tr><td class="center">4</td><td class="id-only">Hutan Mangrove Sekunder</td><td class="en-only">Secondary Mangrove Forest</td><td><span class="swatch" style="background:#C1A700"></span></td><td><code>#C1A700</code></td></tr>
-            <tr><td class="center">5</td><td class="id-only">Hutan Rawa Primer</td><td class="en-only">Primary Swamp Forest</td><td><span class="swatch" style="background:#60E663"></span></td><td><code>#60E663</code></td></tr>
-            <tr><td class="center">6</td><td class="id-only">Hutan Rawa Sekunder</td><td class="en-only">Secondary Swamp Forest</td><td><span class="swatch" style="background:#72FF00"></span></td><td><code>#72FF00</code></td></tr>
-            <tr><td class="center">7</td><td class="id-only">Hutan Tanaman</td><td class="en-only">Plantation Forest</td><td><span class="swatch" style="background:#D3E598"></span></td><td><code>#D3E598</code></td></tr>
-            <tr><td class="center">8</td><td class="id-only">Semak Belukar</td><td class="en-only">Shrubland</td><td><span class="swatch" style="background:#EBC0A7"></span></td><td><code>#EBC0A7</code></td></tr>
-            <tr><td class="center">9</td><td class="id-only">Semak Belukar Rawa</td><td class="en-only">Swamp Shrubland</td><td><span class="swatch" style="background:#EBC0A7"></span></td><td><code>#EBC0A7</code></td></tr>
-            <tr><td class="center">10</td><td class="id-only">Pertanian Lahan Kering</td><td class="en-only">Dryland Agriculture</td><td><span class="swatch" style="background:#F6FFA7"></span></td><td><code>#F6FFA7</code></td></tr>
-            <tr><td class="center">11</td><td class="id-only">Pertanian Lahan Kering Campur</td><td class="en-only">Mixed Dryland Agriculture</td><td><span class="swatch" style="background:#EDF500"></span></td><td><code>#EDF500</code></td></tr>
-            <tr><td class="center">12</td><td class="id-only">Sawah</td><td class="en-only">Paddy Field</td><td><span class="swatch" style="background:#A8D6FF"></span></td><td><code>#A8D6FF</code></td></tr>
-            <tr><td class="center">13</td><td class="id-only">Tambak</td><td class="en-only">Aquaculture / Fish Pond</td><td><span class="swatch" style="background:#7AF4F4"></span></td><td><code>#7AF4F4</code></td></tr>
-            <tr><td class="center">14</td><td class="id-only">Permukiman Transmigrasi</td><td class="en-only">Transmigration Settlement</td><td><span class="swatch" style="background:#728EA7"></span></td><td><code>#728EA7</code></td></tr>
-            <tr><td class="center">15</td><td class="id-only">Perkebunan</td><td class="en-only">Plantation</td><td><span class="swatch" style="background:#E5D298"></span></td><td><code>#E5D298</code></td></tr>
-            <tr><td class="center">16</td><td class="id-only">Permukiman</td><td class="en-only">Settlement</td><td><span class="swatch" style="background:#686868"></span></td><td><code>#686868</code></td></tr>
-            <tr><td class="center">17</td><td class="id-only">Bandara / Pelabuhan</td><td class="en-only">Airport / Port</td><td><span class="swatch" style="background:#D60073"></span></td><td><code>#D60073</code></td></tr>
-            <tr><td class="center">18</td><td class="id-only">Lahan Terbuka</td><td class="en-only">Open / Bare Land</td><td><span class="swatch" style="background:#D60073"></span></td><td><code>#D60073</code></td></tr>
-            <tr><td class="center">19</td><td class="id-only">Pertambangan</td><td class="en-only">Mining Area</td><td><span class="swatch" style="background:#A70400"></span></td><td><code>#A70400</code></td></tr>
-            <tr><td class="center">20</td><td class="id-only">Badan Air</td><td class="en-only">Water Body</td><td><span class="swatch" style="background:#D4FCF7"></span></td><td><code>#D4FCF7</code></td></tr>
-            <tr><td class="center">21</td><td class="id-only">Rawa</td><td class="en-only">Swamp</td><td><span class="swatch" style="background:#98E5E5"></span></td><td><code>#98E5E5</code></td></tr>
-            <tr><td class="center">22</td><td class="id-only">Savana / Padang Rumput</td><td class="en-only">Savanna / Grassland</td><td><span class="swatch" style="background:#D5FF02"></span></td><td><code>#D5FF02</code></td></tr>
-            <tr><td class="center">23</td><td class="id-only">Awan</td><td class="en-only">Clouds</td><td><span class="swatch" style="background:#D1D1D1"></span></td><td><code>#D1D1D1</code></td></tr>
+            <tr><td class="center">1</td><td class="id-only">Hutan Lahan Kering Primer</td><td class="en-only">Primary Dryland Forest</td><td><span class="swatch" style="background:#60E663"></span> <code>#60E663</code></td></tr>
+            <tr><td class="center">2</td><td class="id-only">Hutan Lahan Kering Sekunder</td><td class="en-only">Secondary Dryland Forest</td><td><span class="swatch" style="background:#72FF00"></span> <code>#72FF00</code></td></tr>
+            <tr><td class="center">3</td><td class="id-only">Hutan Mangrove Primer</td><td class="en-only">Primary Mangrove Forest</td><td><span class="swatch" style="background:#8EA704"></span> <code>#8EA704</code></td></tr>
+            <tr><td class="center">4</td><td class="id-only">Hutan Mangrove Sekunder</td><td class="en-only">Secondary Mangrove Forest</td><td><span class="swatch" style="background:#C1A700"></span> <code>#C1A700</code></td></tr>
+            <tr><td class="center">12</td><td class="id-only">Lahan Pertanian (Sawah)</td><td class="en-only">Agricultural Land (Paddy)</td><td><span class="swatch" style="background:#A8D6FF"></span> <code>#A8D6FF</code></td></tr>
+            <tr><td class="center">16</td><td class="id-only">Area Terbangun (Permukiman)</td><td class="en-only">Built-up Area (Settlement)</td><td><span class="swatch" style="background:#686868"></span> <code>#686868</code></td></tr>
+            <tr><td class="center">20</td><td class="id-only">Badan Air Permukaan</td><td class="en-only">Surface Water Body</td><td><span class="swatch" style="background:#D4FCF7"></span> <code>#D4FCF7</code></td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3 class="sub-title">🌿 MapBiomas Indonesia — Collection 3.0</h3>
+      <h3 class="sub-title">MapBiomas Indonesia — Collection 3.0</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>ID</th><th class="id-only">Nama Kelas</th><th class="en-only">Class Name</th><th class="id-only">Warna</th><th class="en-only">Color</th><th>Hex</th></tr></thead>
+          <thead><tr><th>ID</th><th class="id-only">Klasifikasi Hierarkis</th><th class="en-only">Hierarchical Classification</th><th>Kode Heksadesimal</th></tr></thead>
           <tbody>
-            <tr><td class="center">3</td><td class="id-only">Formasi Hutan</td><td class="en-only">Forest Formation</td><td><span class="swatch" style="background:#1f8d49"></span></td><td><code>#1f8d49</code></td></tr>
-            <tr><td class="center">5</td><td>Mangrove</td><td><span class="swatch" style="background:#04381d"></span></td><td><code>#04381d</code></td></tr>
-            <tr><td class="center">76</td><td class="id-only">Hutan Rawa Gambut</td><td class="en-only">Peat Swamp Forest</td><td><span class="swatch" style="background:#2f7360"></span></td><td><code>#2f7360</code></td></tr>
-            <tr><td class="center">13</td><td class="id-only">Tumbuhan Non-Hutan Lainnya</td><td class="en-only">Other Non-Forest Natural</td><td><span class="swatch" style="background:#d89f5c"></span></td><td><code>#d89f5c</code></td></tr>
-            <tr><td class="center">40</td><td class="id-only">Sawah</td><td class="en-only">Paddy Field</td><td><span class="swatch" style="background:#c71585"></span></td><td><code>#c71585</code></td></tr>
-            <tr><td class="center">35</td><td class="id-only">Sawit</td><td class="en-only">Oil Palm</td><td><span class="swatch" style="background:#9065d0"></span></td><td><code>#9065d0</code></td></tr>
-            <tr><td class="center">9</td><td class="id-only">Kebun Kayu</td><td class="en-only">Timber Plantation</td><td><span class="swatch" style="background:#7a5900"></span></td><td><code>#7a5900</code></td></tr>
-            <tr><td class="center">21</td><td class="id-only">Pertanian Lainnya</td><td class="en-only">Other Agriculture</td><td><span class="swatch" style="background:#ffefc3"></span></td><td><code>#ffefc3</code></td></tr>
-            <tr><td class="center">30</td><td class="id-only">Lubang Tambang</td><td class="en-only">Mining</td><td><span class="swatch" style="background:#9c0027"></span></td><td><code>#9c0027</code></td></tr>
-            <tr><td class="center">24</td><td class="id-only">Permukiman</td><td class="en-only">Urban Area</td><td><span class="swatch" style="background:#d4271e"></span></td><td><code>#d4271e</code></td></tr>
-            <tr><td class="center">25</td><td class="id-only">Non-Vegetasi Lainnya</td><td class="en-only">Other Non-Vegetated</td><td><span class="swatch" style="background:#db4d4f"></span></td><td><code>#db4d4f</code></td></tr>
-            <tr><td class="center">31</td><td class="id-only">Tambak</td><td class="en-only">Aquaculture</td><td><span class="swatch" style="background:#091077"></span></td><td><code>#091077</code></td></tr>
-            <tr><td class="center">33</td><td class="id-only">Sungai, Danau, Laut</td><td class="en-only">River, Lake, Ocean</td><td><span class="swatch" style="background:#2532e4"></span></td><td><code>#2532e4</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 class="sub-title">🇺🇸 NLCD — National Land Cover Database (USGS)</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ID</th><th class="id-only">Nama Kelas</th><th class="en-only">Class Name</th><th class="id-only">Warna</th><th class="en-only">Color</th><th>Hex</th></tr></thead>
-          <tbody>
-            <tr><td class="center">11</td><td>Open Water</td><td><span class="swatch" style="background:#466b9f"></span></td><td><code>#466b9f</code></td></tr>
-            <tr><td class="center">12</td><td>Perennial Ice/Snow</td><td><span class="swatch" style="background:#d1def8"></span></td><td><code>#d1def8</code></td></tr>
-            <tr><td class="center">21</td><td>Developed, Open Space</td><td><span class="swatch" style="background:#dec5c5"></span></td><td><code>#dec5c5</code></td></tr>
-            <tr><td class="center">22</td><td>Developed, Low Intensity</td><td><span class="swatch" style="background:#d99282"></span></td><td><code>#d99282</code></td></tr>
-            <tr><td class="center">23</td><td>Developed, Medium Intensity</td><td><span class="swatch" style="background:#eb0000"></span></td><td><code>#eb0000</code></td></tr>
-            <tr><td class="center">24</td><td>Developed, High Intensity</td><td><span class="swatch" style="background:#ab0000"></span></td><td><code>#ab0000</code></td></tr>
-            <tr><td class="center">31</td><td>Barren Land</td><td><span class="swatch" style="background:#b3ac9f"></span></td><td><code>#b3ac9f</code></td></tr>
-            <tr><td class="center">41</td><td>Deciduous Forest</td><td><span class="swatch" style="background:#68ab5f"></span></td><td><code>#68ab5f</code></td></tr>
-            <tr><td class="center">42</td><td>Evergreen Forest</td><td><span class="swatch" style="background:#1c5f2c"></span></td><td><code>#1c5f2c</code></td></tr>
-            <tr><td class="center">43</td><td>Mixed Forest</td><td><span class="swatch" style="background:#b5c58f"></span></td><td><code>#b5c58f</code></td></tr>
-            <tr><td class="center">52</td><td>Shrub/Scrub</td><td><span class="swatch" style="background:#ccb879"></span></td><td><code>#ccb879</code></td></tr>
-            <tr><td class="center">71</td><td>Grassland/Herbaceous</td><td><span class="swatch" style="background:#dfdfc2"></span></td><td><code>#dfdfc2</code></td></tr>
-            <tr><td class="center">81</td><td>Pasture/Hay</td><td><span class="swatch" style="background:#dcd939"></span></td><td><code>#dcd939</code></td></tr>
-            <tr><td class="center">82</td><td>Cultivated Crops</td><td><span class="swatch" style="background:#ab6c28"></span></td><td><code>#ab6c28</code></td></tr>
-            <tr><td class="center">90</td><td>Woody Wetlands</td><td><span class="swatch" style="background:#b8d9eb"></span></td><td><code>#b8d9eb</code></td></tr>
-            <tr><td class="center">95</td><td>Emergent Herbaceous Wetlands</td><td><span class="swatch" style="background:#6c9fb8"></span></td><td><code>#6c9fb8</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 class="section-title" id="tips">
-        <span class="id-only">💡 Tips dan Pemecahan Masalah</span>
-        <span class="en-only">💡 Tips and Troubleshooting</span>
-      </h2>
-      <h3 class="sub-title id-only">Tips Umum</h3>
-      <h3 class="sub-title en-only">General Tips</h3>
-      <ul style="padding-left:24px;margin-bottom:16px;" class="id-only">
-        <li>Uji dengan <strong>ROI kecil</strong> terlebih dahulu sebelum memproses area luas untuk menghindari time-out.</li>
-        <li>Gunakan <strong>Cloud Score+</strong> sebagai metode masking utama untuk wilayah tropis.</li>
-        <li>Untuk <strong>kajian mangrove</strong>, gunakan komposit Median Dry Season untuk kontras spektral maksimal antara kanopi mangrove dan tambak.</li>
-        <li>Distribusikan sampel secara <strong>spasial</strong> — hindari mengelompokkan semua sampel di satu lokasi.</li>
-        <li>Untuk <strong>SVM kernel RBF</strong>, lakukan grid search manual pada kombinasi C dan gamma sebelum klasifikasi final.</li>
-        <li>Untuk dataset sampel terbatas (&lt; 200 per kelas), pertimbangkan rasio split <strong>80/20</strong>.</li>
-      </ul>
-      <ul style="padding-left:24px;margin-bottom:16px;" class="en-only">
-        <li>Test with a <strong>small ROI first</strong> before processing large areas to avoid computation time-outs.</li>
-        <li>Use <strong>Cloud Score+</strong> as the primary masking method for tropical regions.</li>
-        <li>For <strong>mangrove studies</strong>, use Median Dry Season composite to maximize spectral contrast between mangrove canopy and aquaculture ponds.</li>
-        <li>Distribute samples <strong>spatially</strong> — avoid concentrating all samples in one geographic location.</li>
-        <li>For <strong>SVM with RBF kernel</strong>, perform a manual grid search over C and gamma before the final run.</li>
-        <li>For limited datasets (&lt; 200 per class), consider an <strong>80/20 split</strong> ratio.</li>
-      </ul>
-      <h3 class="sub-title id-only">Pemecahan Masalah Umum</h3>
-      <h3 class="sub-title en-only">Common Issues</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Error / Masalah</th><th class="en-only">Error / Issue</th>
-            <th class="id-only">Solusi</th><th class="en-only">Solution</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><code>"Computation timed out"</code></td>
-                <td class="id-only">Kurangi luas ROI; naikkan <code>scale</code> ke 20/30 m; perpendek rentang tanggal</td>
-                <td class="en-only">Reduce ROI extent; increase <code>scale</code> to 20/30 m; shorten date range</td></tr>
-            <tr><td><code>"Not enough pixels"</code></td>
-                <td class="id-only">Gunakan <code>scale</code> 10 m atau perbesar area poligon sampel</td>
-                <td class="en-only">Use <code>scale</code> 10 m or enlarge the sample polygon area</td></tr>
-            <tr><td class="id-only">OA sangat rendah (&lt; 70%)</td><td class="en-only">OA very low (&lt; 70%)</td>
-                <td class="id-only">Periksa kualitas sampel; tambah jumlah sampel; gabungkan kelas yang spektrally mirip</td>
-                <td class="en-only">Check sample placement; add more samples; merge spectrally similar classes</td></tr>
-            <tr><td class="id-only">Kelas tidak muncul di output</td><td class="en-only">Class missing from output</td>
-                <td class="id-only">Pastikan poligon sampel sudah digambar sebelum klik "Jalankan Klasifikasi"</td>
-                <td class="en-only">Ensure all classes have drawn polygons before clicking Run Classification</td></tr>
-            <tr><td class="id-only">Error muat ROI dari asset</td><td class="en-only">Error loading ROI from asset</td>
-                <td class="id-only">Verifikasi path asset; pastikan tipe FeatureCollection; periksa pengaturan akses</td>
-                <td class="en-only">Verify asset path; asset must be FeatureCollection; check sharing/access settings</td></tr>
-            <tr><td class="id-only">Layer peta tidak muncul</td><td class="en-only">Map layer not appearing</td>
-                <td class="id-only">Buka Layer Manager; aktifkan semua layer; zoom out jika ROI kecil</td>
-                <td class="en-only">Open Layer Manager; enable all layers; zoom out if ROI is small</td></tr>
-            <tr><td class="id-only">OA tidak wajar setelah import SHP</td><td class="en-only">Abnormal OA after SHP import</td>
-                <td class="id-only">Pastikan kolom kode kelas berisi nilai numerik; verifikasi pemetaan kode kelas benar</td>
-                <td class="en-only">Ensure class code column contains numeric values; verify class code mapping is correct</td></tr>
+            <tr><td class="center">3</td><td class="id-only">Formasi Hutan (Umum)</td><td class="en-only">Forest Formation (General)</td><td><span class="swatch" style="background:#1f8d49"></span> <code>#1f8d49</code></td></tr>
+            <tr><td class="center">5</td><td class="id-only">Formasi Mangrove</td><td class="en-only">Mangrove Formation</td><td><span class="swatch" style="background:#04381d"></span> <code>#04381d</code></td></tr>
+            <tr><td class="center">76</td><td class="id-only">Hutan Rawa Gambut</td><td class="en-only">Peat Swamp Forest</td><td><span class="swatch" style="background:#2f7360"></span> <code>#2f7360</code></td></tr>
+            <tr><td class="center">35</td><td class="id-only">Perkebunan Kelapa Sawit</td><td class="en-only">Oil Palm Plantation</td><td><span class="swatch" style="background:#9065d0"></span> <code>#9065d0</code></td></tr>
+            <tr><td class="center">24</td><td class="id-only">Infrastruktur Urban</td><td class="en-only">Urban Infrastructure</td><td><span class="swatch" style="background:#d4271e"></span> <code>#d4271e</code></td></tr>
           </tbody>
         </table>
       </div>
 
       <h2 class="section-title" id="code">
-        <span class="id-only">⌨ Repositori Skrip Lengkap</span>
-        <span class="en-only">⌨ Full Script Repository</span>
+        <span class="id-only">Repositori Skrip Fungsional Utama</span>
+        <span class="en-only">Main Functional Script Repository</span>
       </h2>
-      <p><a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank"><strong>https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df</strong></a></p>
+      <p>Akses arsip kode interaktif langsung pada GEE Code Editor: <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank"><strong>[GEEDEF Script Execution Link]</strong></a></p>
 
-      <h3 class="sub-title id-only">Konfigurasi Default (Objek CFG)</h3>
-      <h3 class="sub-title en-only">Default Configuration (CFG Object)</h3>
+      <h3 class="sub-title id-only">Struktur Objek Konfigurasi Global</h3>
+      <h3 class="sub-title en-only">Global Configuration Object Structure</h3>
       <div class="code-block">
         <div class="code-header">
           <span class="code-lang">JavaScript</span>
@@ -1151,127 +673,58 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
   <span class="prop">endDate</span>:          <span class="str">'2024-12-31'</span>,
   <span class="prop">cloudMax</span>:         <span class="num">20</span>,
   <span class="prop">classProp</span>:        <span class="str">'lc'</span>,
-  <span class="prop">seed</span>:             <span class="num">42</span>,
   <span class="prop">scale</span>:            <span class="num">10</span>,
-  <span class="prop">maxPix</span>:           <span class="num">1e13</span>,
   <span class="prop">splitRatio</span>:       <span class="num">0.7</span>,
   <span class="prop">rf_numTrees</span>:      <span class="num">500</span>,
   <span class="prop">rf_minLeaf</span>:       <span class="num">1</span>,
-  <span class="prop">rf_bagFraction</span>:   <span class="num">0.5</span>,
-  <span class="prop">gtb_numTrees</span>:     <span class="num">200</span>,
-  <span class="prop">gtb_shrinkage</span>:    <span class="num">0.05</span>,
-  <span class="prop">gtb_samplingRate</span>: <span class="num">0.7</span>,
-  <span class="prop">gtb_maxNodes</span>:     <span class="num">5</span>,
-  <span class="prop">gtb_loss</span>:         <span class="str">'LeastAbsoluteDeviation'</span>,
-  <span class="prop">svm_kernel</span>:       <span class="str">'RBF'</span>,
-  <span class="prop">svm_gamma</span>:        <span class="num">0.5</span>,
-  <span class="prop">svm_cost</span>:         <span class="num">10</span>,
-  <span class="prop">svm_degree</span>:       <span class="num">3</span>,
-  <span class="prop">svm_coef</span>:         <span class="num">0.0</span>
+  <span class="prop">rf_bagFraction</span>:   <span class="num">0.5</span>
 };</code></pre>
       </div>
 
-      <h3 class="sub-title id-only">Fungsi Cloud Masking</h3>
-      <h3 class="sub-title en-only">Cloud Masking Functions</h3>
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">JavaScript</span>
-          <button class="code-copy" onclick="copyCode(this)">Copy</button>
-        </div>
-        <pre><code><span class="kw">function</span> maskByCSPlus(image) {
-  <span class="kw">return</span> image.updateMask(image.select(<span class="str">'cs_cdf'</span>).gte(<span class="num">0.60</span>));
-}
-
-<span class="kw">function</span> maskBySCL(image) {
-  <span class="kw">var</span> scl = image.select(<span class="str">'SCL'</span>);
-  <span class="kw">return</span> image.updateMask(
-    scl.neq(<span class="num">3</span>).and(scl.neq(<span class="num">7</span>)).and(scl.neq(<span class="num">8</span>))
-       .and(scl.neq(<span class="num">9</span>)).and(scl.neq(<span class="num">10</span>)).and(scl.neq(<span class="num">11</span>))
-  );
-}
-
-<span class="kw">function</span> maskByQA60(image) {
-  <span class="kw">var</span> qa = image.select(<span class="str">'QA60'</span>);
-  <span class="kw">return</span> image.updateMask(
-    qa.bitwiseAnd(<span class="num">1</span> &lt;&lt; <span class="num">10</span>).eq(<span class="num">0</span>)
-     .and(qa.bitwiseAnd(<span class="num">1</span> &lt;&lt; <span class="num">11</span>).eq(<span class="num">0</span>))
-  );
-}</code></pre>
-      </div>
-
-      <h3 class="sub-title id-only">Konfigurasi Ekspor</h3>
-      <h3 class="sub-title en-only">Export Configuration</h3>
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">JavaScript</span>
-          <button class="code-copy" onclick="copyCode(this)">Copy</button>
-        </div>
-        <pre><code>Export.image.toDrive({
-  <span class="prop">image</span>:          STATE.classifiedImg,
-  <span class="prop">description</span>:    <span class="str">'LandCover_DFRF_V3'</span>,
-  <span class="prop">folder</span>:         <span class="str">'GEE_Export'</span>,
-  <span class="prop">fileNamePrefix</span>: <span class="str">'LandCover_DFRF_V3'</span>,
-  <span class="prop">region</span>:         STATE.roi.geometry(),
-  <span class="prop">scale</span>:          <span class="num">10</span>,
-  <span class="prop">crs</span>:            <span class="str">'EPSG:4326'</span>,
-  <span class="prop">maxPixels</span>:      <span class="num">1e13</span>,
-  <span class="prop">fileFormat</span>:     <span class="str">'GeoTIFF'</span>
-});</code></pre>
-      </div>
-
       <h2 class="section-title" id="references">
-        <span class="id-only">📚 Referensi Ilmiah</span>
-        <span class="en-only">📚 Scientific References</span>
+        <span class="id-only">Daftar Referensi Ilmiah Terkait</span>
+        <span class="en-only">Related Scientific References</span>
       </h2>
       <div style="font-size:0.9rem;line-height:2;color:var(--text-muted);">
         <p>Auriga Nusantara. (2024). <em>Algorithm Theoretical Basis Document (ATBD) MapBiomas Indonesia Koleksi 3 Versi 1</em>. MapBiomas Indonesia.</p>
         <p>Breiman, L. (2001). Random forests. <em>Machine Learning</em>, <em>45</em>(1), 5–32. <a href="https://doi.org/10.1023/A:1010933404324" target="_blank">https://doi.org/10.1023/A:1010933404324</a></p>
         <p>Cardille, J. A., Crowley, M. A., Saah, D., &amp; Clinton, N. E. (Eds.). (2024). <em>Cloud-based remote sensing with Google Earth Engine: Fundamentals and applications</em>. Springer. <a href="https://doi.org/10.1007/978-3-031-26588-4" target="_blank">https://doi.org/10.1007/978-3-031-26588-4</a></p>
-        <p>Cortes, C., &amp; Vapnik, V. (1995). Support-vector networks. <em>Machine Learning</em>, <em>20</em>(3), 273–297. <a href="https://doi.org/10.1007/BF00994018" target="_blank">https://doi.org/10.1007/BF00994018</a></p>
-        <p>Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. <em>Annals of Statistics</em>, <em>29</em>(5), 1189–1232. <a href="https://doi.org/10.1214/aos/1013203451" target="_blank">https://doi.org/10.1214/aos/1013203451</a></p>
         <p>Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., &amp; Moore, R. (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. <em>Remote Sensing of Environment</em>, <em>202</em>, 18–27. <a href="https://doi.org/10.1016/j.rse.2017.06.031" target="_blank">https://doi.org/10.1016/j.rse.2017.06.031</a></p>
         <p>Kementerian Lingkungan Hidup dan Kehutanan RI. (2024). <em>Keputusan Menteri LHK Nomor 399 Tahun 2024 tentang Standar Penyebarluasan Informasi Geospasial Tematik Lingkup KLHK</em>. KLHK.</p>
-        <p>Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. <em>Biometrics</em>, <em>33</em>(1), 159–174. <a href="https://doi.org/10.2307/2529310" target="_blank">https://doi.org/10.2307/2529310</a></p>
         <p>Pasquarella, V. J., Brown, C. F., Czerwinski, W., &amp; Rucklidge, W. J. (2023). Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning. In <em>Proceedings of the IEEE/CVF CVPR</em> (pp. 2125–2135). <a href="https://doi.org/10.1109/CVPRW59228.2023.00206" target="_blank">https://doi.org/10.1109/CVPRW59228.2023.00206</a></p>
-        <p>U.S. Geological Survey. (2025). <em>Annual National Land Cover Database (NLCD) Collection 1 Science Product User Guide (Version 1.1)</em>. USGS.</p>
       </div>
 
     </div>
   </main>
 
   <aside class="toc-panel">
-    <div class="toc-title id-only">Pada Halaman Ini</div>
-    <div class="toc-title en-only">On This Page</div>
+    <div class="toc-title id-only">Daftar Isi Konten</div>
+    <div class="toc-title en-only">Contents</div>
     <ul class="toc-list" id="toc-list">
-      <li><a href="#whats-new"><span class="id-only">Hal Baru V3.1</span><span class="en-only">What's New</span></a></li>
+      <li><a href="#whats-new"><span class="id-only">Catatan Rilis V3.1</span><span class="en-only">Release Notes V3.1</span></a></li>
       <li><a href="#overview"><span class="id-only">Gambaran Umum</span><span class="en-only">Overview</span></a></li>
-      <li><a href="#prerequisites"><span class="id-only">Prasyarat</span><span class="en-only">Prerequisites</span></a></li>
-      <li><a href="#interface"><span class="id-only">Antarmuka</span><span class="en-only">Interface</span></a></li>
-      <li><a href="#workflow"><span class="id-only">Alur Kerja</span><span class="en-only">Workflow</span></a></li>
-      <li><a href="#step1" class="toc-sub"><span class="id-only">1 — ROI</span><span class="en-only">1 — ROI</span></a></li>
-      <li><a href="#step2" class="toc-sub"><span class="id-only">2 — Komposit</span><span class="en-only">2 — Composite</span></a></li>
-      <li><a href="#step3" class="toc-sub"><span class="id-only">3 — Algoritma</span><span class="en-only">3 — Algorithm</span></a></li>
-      <li><a href="#step4" class="toc-sub"><span class="id-only">4 — Kelas & Sampel</span><span class="en-only">4 — Classes</span></a></li>
-      <li><a href="#step5" class="toc-sub"><span class="id-only">5 — Klasifikasi</span><span class="en-only">5 — Classification</span></a></li>
-      <li><a href="#step6" class="toc-sub"><span class="id-only">6 — Ekspor</span><span class="en-only">6 — Export</span></a></li>
-      <li><a href="#featurespace"><span class="id-only">Ruang Fitur</span><span class="en-only">Feature Space</span></a></li>
-      <li><a href="#formulas"><span class="id-only">Formula Indeks</span><span class="en-only">Formulas</span></a></li>
-      <li><a href="#palettes"><span class="id-only">Skema Palet</span><span class="en-only">Palettes</span></a></li>
-      <li><a href="#tips"><span class="id-only">Tips</span><span class="en-only">Tips</span></a></li>
-      <li><a href="#code"><span class="id-only">Kode</span><span class="en-only">Code</span></a></li>
-      <li><a href="#references"><span class="id-only">Referensi</span><span class="en-only">References</span></a></li>
+      <li><a href="#prerequisites"><span class="id-only">Prasyarat Sistem</span><span class="en-only">System Prerequisites</span></a></li>
+      <li><a href="#workflow"><span class="id-only">Alur Kerja Klasifikasi</span><span class="en-only">Classification Workflow</span></a></li>
+      <li><a href="#step1" class="toc-sub"><span class="id-only">1. Batas Wilayah (ROI)</span><span class="en-only">1. Region of Interest</span></a></li>
+      <li><a href="#step2" class="toc-sub"><span class="id-only">2. Komposit Citra</span><span class="en-only">2. Image Composite</span></a></li>
+      <li><a href="#step3" class="toc-sub"><span class="id-only">3. Algoritma & Parameter</span><span class="en-only">3. Algorithm & Parameters</span></a></li>
+      <li><a href="#step4" class="toc-sub"><span class="id-only">4. Kelas & Sampel Latih</span><span class="en-only">4. Classes & Samples</span></a></li>
+      <li><a href="#step5" class="toc-sub"><span class="id-only">5. Eksekusi Model</span><span class="en-only">5. Model Execution</span></a></li>
+      <li><a href="#step6" class="toc-sub"><span class="id-only">6. Ekspor Produk</span><span class="en-only">6. Product Export</span></a></li>
+      <li><a href="#core-functions"><span class="id-only">Indeks Fungsi GEE</span><span class="en-only">GEE Functions Index</span></a></li>
+      <li><a href="#featurespace"><span class="id-only">Ruang Fitur Spektral</span><span class="en-only">Spectral Feature Space</span></a></li>
+      <li><a href="#formulas"><span class="id-only">Formula Matematika</span><span class="en-only">Math Formulas</span></a></li>
+      <li><a href="#palettes"><span class="id-only">Skema Standar Palet</span><span class="en-only">Standard Palettes</span></a></li>
+      <li><a href="#code"><span class="id-only">Repositori Skrip Utama</span><span class="en-only">Main Script Repo</span></a></li>
+      <li><a href="#references"><span class="id-only">Referensi Terkait</span><span class="en-only">References</span></a></li>
     </ul>
   </aside>
 
 </div>
 
 <footer class="footer">
-  <span class="id-only">© 2025 Defani Arman Alfitriansyah · Fakultas Kehutanan, Universitas Kuningan · Dokumentasi Pengembangan</span>
-  <span class="en-only">© 2025 Defani Arman Alfitriansyah · Faculty of Forestry, Universitas Kuningan · Developer Documentation</span>
-  <span style="display:flex;gap:16px;">
-    <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank">GEE Script</a>
-    <a href="https://earthengine.google.com/terms/" target="_blank">GEE Terms</a>
-  </span>
+  <span class="id-only">© 2025 Defani Arman Alfitriansyah · Fakultas Kehutanan, Universitas Kuningan · Dokumentasi Teknis Pemetaan GEE</span>
+  <span class="en-only">© 2025 Defani Arman Alfitriansyah · Faculty of Forestry, Universitas Kuningan · GEE Mapping Technical Documentation</span>
 </footer>
 
 <script>
@@ -1314,14 +767,14 @@ sections.forEach(s => observer.observe(s));
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
   navigator.clipboard.writeText(pre.innerText).then(() => {
-    btn.textContent = '✓ Copied';
+    btn.textContent = '✓ Disalin';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
   });
 }
 
 (function init() {
-  const savedTheme = localStorage.getItem('geedef-theme') || 'light';
+  const savedTheme = localStorage.getItem('geedef-theme') || 'dark'; // Setel Default Dark RTD
   const savedLang  = localStorage.getItem('geedef-lang')  || 'id';
   document.documentElement.setAttribute('data-theme', savedTheme);
   document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
