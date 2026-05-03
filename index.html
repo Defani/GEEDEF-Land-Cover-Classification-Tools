@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light" data-lang="id">
+<html lang="id" data-theme="dark" data-lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +34,7 @@
   --amber-light: #fef5e7;
   --red: #e74c3c;
   --red-light: #fdedec;
-  --radius: 3px;
+  --radius: 4px;
   --font-body: 'Lato', 'Helvetica Neue', Arial, sans-serif;
   --font-serif: 'Roboto Slab', Georgia, serif;
   --font-mono: 'Roboto Mono', Consolas, monospace;
@@ -73,29 +73,42 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.2s, color 0.2s; }
 ::selection { background: var(--accent); color: #fff; }
 
-.navbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; padding: 0 24px; height: 50px; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+/* NAVBAR & BADGES */
+.navbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; padding: 0 24px; height: 54px; background: var(--bg-card); border-bottom: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .navbar-brand { font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
 .navbar-brand span { color: var(--accent); }
+
+.badge-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-left: 16px; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; font-family: var(--font-body); text-transform: uppercase; text-decoration: none; letter-spacing: 0.05em; transition: opacity 0.2s; }
+.badge:hover { opacity: 0.8; }
+.badge-blue { background: #2980b9; color: #fff; }
+.badge-green { background: #27ae60; color: #fff; }
+.badge-yellow { background: #f39c12; color: #222; }
+.badge-red { background: #c0392b; color: #fff; }
+
 .navbar-spacer { flex: 1; }
-.ctrl-group { display: flex; align-items: center; gap: 8px; }
-.ctrl-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-muted); cursor: pointer; font-size: 14px; }
-.lang-toggle { display: flex; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
-.lang-btn { padding: 4px 10px; font-family: var(--font-body); font-size: 12px; font-weight: 700; background: var(--bg-secondary); color: var(--text-muted); border: none; cursor: pointer; }
-.lang-btn.active { background: var(--border-strong); color: var(--text); }
+.ctrl-group { display: flex; align-items: center; gap: 10px; }
+.ctrl-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border-strong); background: var(--bg-secondary); color: var(--text-muted); cursor: pointer; font-size: 14px; transition: all 0.2s; }
+.ctrl-btn:hover { border-color: var(--accent); color: var(--accent); }
+.lang-toggle { display: flex; border-radius: var(--radius); border: 1px solid var(--border-strong); overflow: hidden; }
+.lang-btn { padding: 5px 12px; font-family: var(--font-body); font-size: 12px; font-weight: 700; background: var(--bg-secondary); color: var(--text-muted); border: none; cursor: pointer; transition: all 0.2s; }
+.lang-btn.active { background: var(--accent); color: #fff; }
 
-.layout { display: flex; min-height: calc(100vh - 50px); }
-
-.sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; padding: 0; background: var(--sidebar-bg); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
-.sidebar-section-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: #777777; margin: 24px 16px 8px; letter-spacing: 0.05em; }
+/* LAYOUT & SIDEBAR */
+.layout { display: flex; min-height: calc(100vh - 54px); }
+.sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: 54px; height: calc(100vh - 54px); overflow-y: auto; padding: 0; background: var(--sidebar-bg); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+.sidebar-section-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: #888888; margin: 24px 16px 8px; letter-spacing: 0.05em; }
 .sidebar-nav { list-style: none; }
 .sidebar-nav a { display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); text-decoration: none; border-left: 3px solid transparent; transition: background 0.15s; }
 .sidebar-nav a:hover { color: var(--sidebar-link-hover); background: rgba(255,255,255,0.05); }
 .sidebar-nav a.active { background: var(--sidebar-active-bg); color: #fff; border-left-color: #fff; }
 .sidebar-nav .sub { padding-left: 28px; font-size: 13.5px; }
 
+/* MAIN CONTENT */
 .main-content { flex: 1; min-width: 0; padding: 40px 48px; max-width: calc(var(--content-max) + 96px); margin: 0 auto; }
 
-.toc-panel { width: var(--toc-w); flex-shrink: 0; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; padding: 32px 20px; border-left: 1px solid var(--border); background: var(--bg-secondary); scrollbar-width: thin; }
+/* TOC PANEL */
+.toc-panel { width: var(--toc-w); flex-shrink: 0; position: sticky; top: 54px; height: calc(100vh - 54px); overflow-y: auto; padding: 32px 20px; border-left: 1px solid var(--border); background: var(--bg-secondary); scrollbar-width: thin; }
 .toc-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.05em; }
 .toc-list { list-style: none; border-left: 1px solid var(--border-strong); padding-left: 0; margin-left: 8px; }
 .toc-list a { display: block; padding: 4px 0 4px 12px; font-size: 13.5px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; margin-left: -1px; }
@@ -103,18 +116,27 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .toc-list a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
 .toc-list .toc-sub { padding-left: 24px; font-size: 13px; }
 
+/* TYPOGRAPHY & HEADER */
 .doc-section { max-width: var(--content-max); }
 .page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border-strong); }
 .page-title { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.2; }
-.page-subtitle { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 24px; font-family: var(--font-body); }
+.page-subtitle { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 28px; font-family: var(--font-body); }
 
-/* Links Section styling */
-.author-links-container { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 0.9rem; }
-.author-links-row { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-bottom: 8px; }
+/* SOCIAL MEDIA & AUTHOR BADGES */
+.author-links-container { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; }
+.author-links-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .author-links-row:last-child { margin-bottom: 0; }
-.author-label { font-weight: 700; color: var(--text); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; width: 85px; flex-shrink: 0; }
-.link-item { color: var(--accent); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
-.link-item:hover { text-decoration: underline; color: var(--accent-hover); }
+.author-label { font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
+.socmed-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.socmed-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 4px;
+  background: var(--bg-card); border: 1px solid var(--border-strong);
+  color: var(--text); font-size: 0.85rem; font-weight: 700;
+  text-decoration: none; transition: all 0.2s ease;
+}
+.socmed-badge:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.dev-name { font-size: 1.1rem; font-weight: 700; color: var(--text); }
 
 h2.section-title { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--text); margin: 48px 0 20px; padding-bottom: 8px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; }
 h3.sub-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 32px 0 12px; scroll-margin-top: 80px; }
@@ -140,6 +162,11 @@ tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-
 tbody tr:hover { background: var(--bg-code); }
 td code, th code { font-family: var(--font-mono); font-size: 0.9em; border: 1px solid var(--border); background: var(--bg-code); padding: 2px 4px; border-radius: 2px; color: var(--text); }
 td.center { text-align: center; }
+
+/* Screenshot / Image Styling */
+.screenshot-wrap { border: 1px solid var(--border); margin: 24px 0; background: var(--bg-secondary); padding: 12px; border-radius: var(--radius); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.screenshot-wrap img { width: 100%; display: block; border: 1px solid var(--border-strong); border-radius: 2px; }
+.screenshot-caption { font-size: 0.9rem; color: var(--text-muted); text-align: center; padding: 12px 0 4px; font-style: italic; }
 
 .code-block { background: var(--bg-code); border: 1px solid var(--border); border-radius: var(--radius); margin: 24px 0; overflow: hidden; }
 .code-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
@@ -172,8 +199,8 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 
 .footer { border-top: 1px solid var(--border-strong); padding: 32px 0; margin-top: 64px; font-size: 0.9rem; color: var(--text-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 
-@media (max-width: 1100px) { .toc-panel { display: none; } }
-@media (max-width: 800px) { .sidebar { display: none; } .main-content { padding: 24px 20px; } }
+@media (max-width: 1150px) { .toc-panel { display: none; } }
+@media (max-width: 850px) { .sidebar { display: none; } .main-content { padding: 24px 20px; } .badge-row { display: none; } }
 
 #progress { position: fixed; top: 0; left: 0; z-index: 200; height: 3px; background: var(--accent); width: 0%; transition: width 0.1s linear; }
 </style>
@@ -182,8 +209,15 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 
 <div id="progress"></div>
 
+<!-- TOP NAVBAR DENGAN BADGE BERWARNA -->
 <nav class="navbar">
   <a href="#" class="navbar-brand">GEEDEF <span>V3.1</span></a>
+  <div class="badge-row">
+    <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="badge badge-blue">🛰 Open in GEE</a>
+    <span class="badge badge-blue">Sentinel-2A SR</span>
+    <span class="badge badge-green">RF · GTB · SVM</span>
+    <span class="badge badge-yellow">JavaScript</span>
+  </div>
   <div class="navbar-spacer"></div>
   <div class="ctrl-group">
     <div class="lang-toggle">
@@ -210,6 +244,10 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
       <li><a href="#prerequisites">
         <span class="id-only">Prasyarat Sistem</span>
         <span class="en-only">Prerequisites</span>
+      </a></li>
+      <li><a href="#interface">
+        <span class="id-only">Antarmuka Sistem</span>
+        <span class="en-only">System Interface</span>
       </a></li>
       <li><a href="#workflow">
         <span class="id-only">Alur Kerja Klasifikasi</span>
@@ -274,22 +312,22 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
         <p class="page-subtitle id-only">Klasifikasi tutupan lahan interaktif berbasis komputasi cloud menggunakan Sentinel-2A dan Machine Learning di platform Google Earth Engine.</p>
         <p class="page-subtitle en-only">Interactive cloud-based land cover classification using Sentinel-2A and Machine Learning on the Google Earth Engine platform.</p>
         
+        <!-- BAGIAN BADGE SOSIAL MEDIA -->
         <div class="author-links-container">
           <div class="author-links-row">
             <span class="author-label">Developer</span>
-            <span>Defani Arman Alfitriansyah</span>
+            <span class="dev-name">Defani Arman Alfitriansyah</span>
           </div>
-          <div class="author-links-row">
-            <span class="author-label">Repository</span>
-            <a class="link-item" href="https://github.com/Defani/GEEDEF-Land-Cover-Classification-Tools" target="_blank">GEEDEF GitHub Repository</a>
-          </div>
-          <div class="author-links-row">
-            <span class="author-label">Connect</span>
-            <a class="link-item" href="https://www.linkedin.com/in/defaniarmanalfitriansyah/" target="_blank">LinkedIn</a> •
-            <a class="link-item" href="https://medium.com/@defaniarman" target="_blank">Medium</a> •
-            <a class="link-item" href="https://rpubs.com/defanii" target="_blank">RPubs</a> •
-            <a class="link-item" href="https://www.instagram.com/49s.lab/" target="_blank">Instagram</a> •
-            <a class="link-item" href="https://www.tiktok.com/@de.fanii" target="_blank">TikTok</a>
+          <div class="author-links-row" style="margin-top: 12px;">
+            <span class="author-label">Connect & Repositories</span>
+            <div class="socmed-group">
+              <a class="socmed-badge" href="https://github.com/Defani/GEEDEF-Land-Cover-Classification-Tools" target="_blank">💻 GitHub Repo</a>
+              <a class="socmed-badge" href="https://www.linkedin.com/in/defaniarmanalfitriansyah/" target="_blank">💼 LinkedIn</a>
+              <a class="socmed-badge" href="https://medium.com/@defaniarman" target="_blank">📝 Medium</a>
+              <a class="socmed-badge" href="https://rpubs.com/defanii" target="_blank">📊 RPubs</a>
+              <a class="socmed-badge" href="https://www.instagram.com/49s.lab/" target="_blank">📷 Instagram</a>
+              <a class="socmed-badge" href="https://www.tiktok.com/@de.fanii" target="_blank">🎵 TikTok</a>
+            </div>
           </div>
         </div>
       </div>
@@ -375,6 +413,43 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
             <tr><td class="id-only"><strong>Dataset Sampel (Opsional)</strong></td><td class="en-only"><strong>Sample Dataset (Optional)</strong></td>
                 <td class="id-only">File titik/poligon pelatihan model (jika menggunakan fitur *Import SHP*).</td>
                 <td class="en-only">Point/polygon file for model training (if using the *Import SHP* feature).</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="section-title" id="interface">
+        <span class="id-only">Antarmuka Sistem</span>
+        <span class="en-only">System Interface</span>
+      </h2>
+      <p class="id-only">GEEDEF menggunakan tata letak tiga panel berdampingan (<em>side-by-side</em>) untuk memaksimalkan ruang kerja pada layar:</p>
+      <p class="en-only">GEEDEF uses a three-panel side-by-side layout to maximize workspace on the screen:</p>
+      
+      <!-- TAMPILAN SCREENSHOT UINYA DIKEMBALIKAN -->
+      <div class="screenshot-wrap">
+        <img src="Screenshot 2026-05-04 012745.png" alt="GEEDEF V3.1 Interface">
+        <div class="screenshot-caption id-only">Antarmuka GEEDEF V3.1 — Panel Kiri (Legenda & Hasil) | Peta Interaktif | Panel Kanan (Kontrol)</div>
+        <div class="screenshot-caption en-only">GEEDEF V3.1 Interface — Left Panel (Legend & Results) | Interactive Map | Right Panel (Controls)</div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th class="id-only">Komponen Panel</th><th class="id-only">Posisi</th><th class="id-only">Fungsi Utama</th>
+            <th class="en-only">Panel Component</th><th class="en-only">Position</th><th class="en-only">Main Function</th>
+          </tr></thead>
+          <tbody>
+            <tr><td><strong class="id-only">Panel Kiri</strong><strong class="en-only">Left Panel</strong></td>
+                <td class="id-only">Kiri Layar</td><td class="en-only">Left Screen</td>
+                <td class="id-only">Menampilkan legenda kelas aktif, skema palet (KLHK/MapBiomas/NLCD), kalkulasi metrik akurasi (OA & Kappa), dan statistik luasan per kelas.</td>
+                <td class="en-only">Displays active class legend, palette schemes (KLHK/MapBiomas/NLCD), accuracy metric calculations (OA & Kappa), and per-class area statistics.</td></tr>
+            <tr><td><strong class="id-only">Peta Interaktif</strong><strong class="en-only">Interactive Map</strong></td>
+                <td class="id-only">Tengah</td><td class="en-only">Center</td>
+                <td class="id-only">Ruang visualisasi komposit citra, kanvas digitasi sampel latih, dan pratinjau hasil klasifikasi spasial.</td>
+                <td class="en-only">Image composite visualization space, training sample digitization canvas, and spatial classification result preview.</td></tr>
+            <tr><td><strong class="id-only">Panel Kanan</strong><strong class="en-only">Right Panel</strong></td>
+                <td class="id-only">Kanan Layar</td><td class="en-only">Right Screen</td>
+                <td class="id-only">Pusat kendali utama yang memuat enam langkah operasional berurutan dari penentuan ROI hingga ekspor data.</td>
+                <td class="en-only">Main control center containing six sequential operational steps from ROI determination to data export.</td></tr>
           </tbody>
         </table>
       </div>
@@ -476,7 +551,7 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
       <p class="id-only">Hasil klasifikasi diubah menjadi format tipe data Integer (nilai raster sesuai kode kelas) dengan CRS <code>EPSG:4326</code>. Dieksekusi melalui tab <em>Tasks</em> menuju repositori Google Drive pengguna.</p>
       <p class="en-only">Classification results are converted to Integer data type format (raster value matching class code) with CRS <code>EPSG:4326</code>. Executed via the <em>Tasks</em> tab to the user's Google Drive repository.</p>
 
-      <!-- NEW SECTION: Core GEE Functions Index -->
+      <!-- SECTION: Core GEE Functions Index -->
       <h2 class="section-title" id="core-functions">
         <span class="id-only">Indeks Fungsi dan Arsitektur Sintaks GEE</span>
         <span class="en-only">Core GEE Functions and Syntax Architecture Index</span>
@@ -548,7 +623,6 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
         </table>
       </div>
 
-      <!-- Remainder of the document -->
       <h2 class="section-title" id="featurespace">
         <span class="id-only">Ruang Fitur (Feature Space)</span>
         <span class="en-only">Feature Space</span>
@@ -704,6 +778,7 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
       <li><a href="#whats-new"><span class="id-only">Catatan Rilis V3.1</span><span class="en-only">Release Notes V3.1</span></a></li>
       <li><a href="#overview"><span class="id-only">Gambaran Umum</span><span class="en-only">Overview</span></a></li>
       <li><a href="#prerequisites"><span class="id-only">Prasyarat Sistem</span><span class="en-only">System Prerequisites</span></a></li>
+      <li><a href="#interface"><span class="id-only">Antarmuka Sistem</span><span class="en-only">System Interface</span></a></li>
       <li><a href="#workflow"><span class="id-only">Alur Kerja Klasifikasi</span><span class="en-only">Classification Workflow</span></a></li>
       <li><a href="#step1" class="toc-sub"><span class="id-only">1. Batas Wilayah (ROI)</span><span class="en-only">1. Region of Interest</span></a></li>
       <li><a href="#step2" class="toc-sub"><span class="id-only">2. Komposit Citra</span><span class="en-only">2. Image Composite</span></a></li>
@@ -761,7 +836,7 @@ const observer = new IntersectionObserver(entries => {
       tocLinks.forEach(a => { if (a.getAttribute('href') === '#' + id) a.classList.add('active'); });
     }
   });
-}, { rootMargin: '-50px 0px -60% 0px' });
+}, { rootMargin: '-54px 0px -60% 0px' });
 sections.forEach(s => observer.observe(s));
 
 function copyCode(btn) {
@@ -774,7 +849,7 @@ function copyCode(btn) {
 }
 
 (function init() {
-  const savedTheme = localStorage.getItem('geedef-theme') || 'dark'; // Setel Default Dark RTD
+  const savedTheme = localStorage.getItem('geedef-theme') || 'dark';
   const savedLang  = localStorage.getItem('geedef-lang')  || 'id';
   document.documentElement.setAttribute('data-theme', savedTheme);
   document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
