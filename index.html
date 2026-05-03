@@ -5,674 +5,334 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GEEDEF V3.1 — Land Cover Classification Tools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;500&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
-/* ============================================================
-   CSS VARIABLES — LIGHT / DARK THEMES
-   ============================================================ */
 :root {
-  --bg:            #fafaf8;
-  --bg-secondary:  #f4f2ee;
-  --bg-card:       #ffffff;
-  --bg-code:       #f0eeea;
-  --border:        #dedad4;
-  --border-strong: #c8c4bc;
-  --text:          #1c1917;
-  --text-muted:    #6b6560;
-  --text-faint:    #a09892;
-  --accent:        #1d6fa4;
-  --accent-hover:  #155a87;
-  --accent-light:  #e8f3fb;
-  --accent-border: #b3d4ec;
-  --green:         #1a6b3c;
-  --green-light:   #eaf4ee;
-  --green-border:  #a3d4b4;
-  --amber:         #92540a;
-  --amber-light:   #fef7e8;
-  --amber-border:  #f0c978;
-  --red:           #a3160f;
-  --red-light:     #fdf0ef;
-  --red-border:    #f0a9a5;
-  --purple:        #5c2d91;
-  --purple-light:  #f3eefb;
-  --purple-border: #c4a8e8;
-  --shadow-sm:     0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md:     0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg:     0 12px 32px rgba(0,0,0,0.10);
-  --radius:        6px;
-  --radius-lg:     10px;
-  --font-body:     'DM Sans', sans-serif;
-  --font-serif:    'Source Serif 4', Georgia, serif;
-  --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
-  --sidebar-w:     260px;
-  --toc-w:         220px;
-  --content-max:   860px;
+  --bg: #ffffff;
+  --bg-secondary: #fcfcfc;
+  --bg-card: #ffffff;
+  --bg-code: #f8f8f8;
+  --border: #e1e4e5;
+  --border-strong: #cccccc;
+  --text: #404040;
+  --text-muted: #555555;
+  --text-faint: #737373;
+  --accent: #2980b9;
+  --accent-hover: #1f6391;
+  --accent-light: #eaf1f7;
+  --accent-border: #6ab0de;
+  --sidebar-bg: #343131;
+  --sidebar-text: #b3b3b3;
+  --sidebar-link-hover: #ffffff;
+  --sidebar-active-bg: #2980b9;
+  --green: #1abc9c;
+  --green-light: #e8f8f5;
+  --green-border: #a3e4d7;
+  --amber: #f39c12;
+  --amber-light: #fef5e7;
+  --amber-border: #f8c471;
+  --red: #e74c3c;
+  --red-light: #fdedec;
+  --red-border: #f5b7b1;
+  --purple: #9b59b6;
+  --purple-light: #f5eef8;
+  --purple-border: #d2b4de;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-lg: 0 4px 8px rgba(0,0,0,0.1);
+  --radius: 3px;
+  --radius-lg: 4px;
+  --font-body: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Roboto Slab', Georgia, serif;
+  --font-mono: 'Roboto Mono', Consolas, 'Courier New', Courier, monospace;
+  --sidebar-w: 300px;
+  --toc-w: 240px;
+  --content-max: 800px;
 }
 
 [data-theme="dark"] {
-  --bg:            #0f0e0d;
-  --bg-secondary:  #1a1917;
-  --bg-card:       #1f1e1c;
-  --bg-code:       #161513;
-  --border:        #2e2c28;
-  --border-strong: #3d3b36;
-  --text:          #e8e4de;
-  --text-muted:    #9a9288;
-  --text-faint:    #5c5750;
-  --accent:        #5aabdb;
-  --accent-hover:  #7dbce3;
-  --accent-light:  #0e2333;
-  --accent-border: #1e4060;
-  --green:         #5db87a;
-  --green-light:   #0a2015;
-  --green-border:  #1c4a2a;
-  --amber:         #e8a83a;
-  --amber-light:   #261b08;
-  --amber-border:  #4a3210;
-  --red:           #e06b65;
-  --red-light:     #270d0c;
-  --red-border:    #4a1b18;
-  --purple:        #a87cd6;
-  --purple-light:  #1e1030;
-  --purple-border: #3d2060;
-  --shadow-sm:     0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md:     0 4px 12px rgba(0,0,0,0.4);
-  --shadow-lg:     0 12px 32px rgba(0,0,0,0.5);
+  --bg: #1a1a1a;
+  --bg-secondary: #242424;
+  --bg-card: #2a2a2a;
+  --bg-code: #2d2d2d;
+  --border: #3a3a3a;
+  --border-strong: #4a4a4a;
+  --text: #d3d3d3;
+  --text-muted: #b0b0b0;
+  --text-faint: #808080;
+  --accent: #5ab2ea;
+  --accent-hover: #82c6f0;
+  --accent-light: #162d3d;
+  --accent-border: #295373;
+  --sidebar-bg: #111111;
+  --sidebar-text: #888888;
+  --sidebar-link-hover: #dddddd;
+  --sidebar-active-bg: #1d4b6b;
+  --green: #2ecc71;
+  --green-light: #0e2b1b;
+  --green-border: #1a5233;
+  --amber: #f1c40f;
+  --amber-light: #332700;
+  --amber-border: #664d00;
+  --red: #e74c3c;
+  --red-light: #330b08;
+  --red-border: #661610;
+  --purple: #9b59b6;
+  --purple-light: #200f29;
+  --purple-border: #4d2460;
 }
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 15px; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
   font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
-  line-height: 1.7;
-  transition: background 0.25s, color 0.25s;
+  line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
 }
 ::selection { background: var(--accent); color: #fff; }
 
-/* ============================================================
-   TOP NAVBAR
-   ============================================================ */
 .navbar {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; gap: 12px;
-  padding: 0 24px; height: 52px;
+  padding: 0 24px; height: 50px;
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
 .navbar-brand {
-  font-family: var(--font-mono);
-  font-size: 13px; font-weight: 500;
-  color: var(--accent);
-  letter-spacing: -0.02em;
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 700;
+  color: var(--text);
   text-decoration: none;
   white-space: nowrap;
 }
-.navbar-brand span { color: var(--text-muted); }
+.navbar-brand span { color: var(--accent); }
 .navbar-spacer { flex: 1; }
 .badge-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .badge {
   display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 8px; border-radius: 20px;
-  font-size: 11px; font-weight: 500;
-  font-family: var(--font-mono);
+  padding: 2px 6px; border-radius: 2px;
+  font-size: 11px; font-weight: 700;
+  font-family: var(--font-body); text-transform: uppercase;
   text-decoration: none;
-  transition: opacity 0.15s;
 }
-.badge:hover { opacity: 0.8; }
-.badge-blue   { background: #e8f0fe; color: #1967d2; border: 1px solid #c5d8fd; }
-.badge-green  { background: #e6f4ea; color: #137333; border: 1px solid #b7ddc0; }
-.badge-yellow { background: #fef9e3; color: #7a5c00; border: 1px solid #fcd97c; }
-.badge-red    { background: #fde8e8; color: #a31010; border: 1px solid #f5b8b8; }
-.badge-orange { background: #fff0e0; color: #9a3d00; border: 1px solid #ffc87a; }
-[data-theme="dark"] .badge-blue   { background: #0d1f3e; color: #7ab4f5; border-color: #1c3a6e; }
-[data-theme="dark"] .badge-green  { background: #0a1f10; color: #6fcf8a; border-color: #1a4020; }
-[data-theme="dark"] .badge-yellow { background: #241900; color: #e8b84a; border-color: #4a3800; }
-[data-theme="dark"] .badge-red    { background: #250808; color: #f08080; border-color: #4a1010; }
-[data-theme="dark"] .badge-orange { background: #1e1000; color: #f0a060; border-color: #4a2800; }
+.badge-blue   { background: #3498db; color: #fff; }
+.badge-green  { background: #2ecc71; color: #fff; }
+.badge-yellow { background: #f1c40f; color: #333; }
+.badge-red    { background: #e74c3c; color: #fff; }
+.badge-orange { background: #e67e22; color: #fff; }
 
-/* Controls group */
-.ctrl-group { display: flex; align-items: center; gap: 6px; }
+.ctrl-group { display: flex; align-items: center; gap: 8px; }
 .ctrl-btn {
   display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; border-radius: var(--radius);
+  width: 30px; height: 30px; border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--bg-secondary);
   color: var(--text-muted);
   cursor: pointer; font-size: 14px;
-  transition: all 0.15s;
 }
-.ctrl-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-.lang-toggle {
-  display: flex; border-radius: var(--radius);
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
+.ctrl-btn:hover { border-color: var(--border-strong); }
+.lang-toggle { display: flex; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
 .lang-btn {
-  padding: 4px 10px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  padding: 4px 10px; font-family: var(--font-body); font-size: 12px; font-weight: 700;
   background: var(--bg-secondary); color: var(--text-muted);
   border: none; cursor: pointer;
-  transition: all 0.15s;
 }
-.lang-btn.active { background: var(--accent); color: #fff; }
-.lang-btn:not(.active):hover { background: var(--accent-light); color: var(--accent); }
+.lang-btn.active { background: var(--border-strong); color: var(--text); }
 
-/* ============================================================
-   LAYOUT
-   ============================================================ */
-.layout {
-  display: flex;
-  min-height: calc(100vh - 52px);
-}
+.layout { display: flex; min-height: calc(100vh - 50px); }
 
-/* Left sidebar (main nav) */
 .sidebar {
   width: var(--sidebar-w);
-  flex-shrink: 0;
-  position: sticky; top: 52px;
-  height: calc(100vh - 52px);
-  overflow-y: auto;
-  padding: 24px 16px;
-  border-right: 1px solid var(--border);
-  background: var(--bg-secondary);
-  scrollbar-width: thin;
+  flex-shrink: 0; position: sticky; top: 50px;
+  height: calc(100vh - 50px); overflow-y: auto;
+  padding: 0; background: var(--sidebar-bg);
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;
 }
-.sidebar::-webkit-scrollbar { width: 4px; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-
 .sidebar-section-title {
-  font-family: var(--font-mono);
-  font-size: 10px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--text-faint);
-  margin: 20px 0 6px 8px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; color: #888888;
+  margin: 24px 16px 8px;
 }
-.sidebar-section-title:first-child { margin-top: 0; }
 .sidebar-nav { list-style: none; }
-.sidebar-nav li { margin: 1px 0; }
+.sidebar-nav li { margin: 0; }
 .sidebar-nav a {
-  display: block; padding: 5px 8px;
-  border-radius: var(--radius);
-  font-size: 13px; color: var(--text-muted);
-  text-decoration: none;
-  transition: all 0.15s;
-  border-left: 2px solid transparent;
+  display: block; padding: 8px 16px;
+  font-size: 14px; color: var(--sidebar-text);
+  text-decoration: none; border-left: 3px solid transparent;
 }
-.sidebar-nav a:hover { background: var(--bg-card); color: var(--text); border-left-color: var(--border-strong); }
-.sidebar-nav a.active { background: var(--accent-light); color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
-.sidebar-nav .sub { padding-left: 20px; font-size: 12px; }
+.sidebar-nav a:hover { color: var(--sidebar-link-hover); background: rgba(255,255,255,0.05); }
+.sidebar-nav a.active { background: var(--sidebar-active-bg); color: #fff; border-left-color: #fff; }
+.sidebar-nav .sub { padding-left: 28px; font-size: 13.5px; }
 
-/* Main content */
 .main-content {
-  flex: 1;
-  min-width: 0;
-  padding: 40px 48px;
+  flex: 1; min-width: 0; padding: 40px 48px;
   max-width: calc(var(--content-max) + 96px);
+  margin: 0 auto;
 }
 
-/* Right TOC */
 .toc-panel {
-  width: var(--toc-w);
-  flex-shrink: 0;
-  position: sticky; top: 52px;
-  height: calc(100vh - 52px);
-  overflow-y: auto;
-  padding: 24px 16px;
-  border-left: 1px solid var(--border);
-  scrollbar-width: thin;
+  width: var(--toc-w); flex-shrink: 0; position: sticky; top: 50px;
+  height: calc(100vh - 50px); overflow-y: auto;
+  padding: 32px 16px; border-left: 1px solid var(--border);
+  background: var(--bg-secondary); scrollbar-width: thin;
 }
-.toc-panel::-webkit-scrollbar { width: 4px; }
-.toc-panel::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
 .toc-title {
-  font-family: var(--font-mono);
-  font-size: 10px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--text-faint);
-  margin-bottom: 10px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
 }
-.toc-list { list-style: none; }
-.toc-list li { margin: 2px 0; }
+.toc-list { list-style: none; border-left: 1px solid var(--border-strong); padding-left: 0; margin-left: 8px; }
+.toc-list li { margin: 0; }
 .toc-list a {
-  display: block; padding: 3px 8px;
-  font-size: 12px; color: var(--text-muted);
-  text-decoration: none; border-radius: 4px;
-  border-left: 2px solid transparent;
-  transition: all 0.15s;
-  line-height: 1.5;
+  display: block; padding: 4px 0 4px 12px;
+  font-size: 13px; color: var(--text-faint); text-decoration: none;
+  border-left: 2px solid transparent; margin-left: -1px;
 }
-.toc-list a:hover { color: var(--accent); border-left-color: var(--accent-border); }
-.toc-list a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-light); }
-.toc-list .toc-sub { padding-left: 14px; font-size: 11px; }
+.toc-list a:hover { color: var(--accent); }
+.toc-list a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
+.toc-list .toc-sub { padding-left: 20px; font-size: 12.5px; }
 
-/* ============================================================
-   CONTENT TYPOGRAPHY
-   ============================================================ */
 .doc-section { max-width: var(--content-max); }
+.page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border-strong); }
+.page-title { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.page-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-body); }
+.page-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.meta-chip { font-family: var(--font-mono); font-size: 12px; padding: 2px 8px; background: var(--bg-code); border: 1px solid var(--border); color: var(--text-muted); }
+.meta-chip.version { background: var(--sidebar-bg); color: #fff; border: none; font-weight: 700; }
 
-.page-header {
-  margin-bottom: 36px;
-  padding-bottom: 24px;
-  border-bottom: 2px solid var(--border);
-}
-.page-title {
-  font-family: var(--font-serif);
-  font-size: 2.4rem; font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-.page-subtitle {
-  font-size: 1.05rem; color: var(--text-muted);
-  font-weight: 300; margin-bottom: 16px;
-}
-.page-meta {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin-bottom: 16px;
-}
-.meta-chip {
-  font-family: var(--font-mono);
-  font-size: 11px; padding: 3px 10px;
-  border-radius: 20px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-}
-.meta-chip.version { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); font-weight: 600; }
 .gee-link-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 18px; border-radius: var(--radius);
-  background: var(--accent); color: #fff;
-  font-size: 13px; font-weight: 500;
-  text-decoration: none;
-  transition: background 0.15s, transform 0.1s;
-  box-shadow: var(--shadow-sm);
-  margin-top: 8px;
+  padding: 10px 16px; border-radius: var(--radius);
+  background: var(--sidebar-bg); color: #fff;
+  font-size: 14px; font-weight: 700; text-decoration: none;
 }
-.gee-link-btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.gee-link-btn svg { width: 15px; height: 15px; }
+.gee-link-btn:hover { background: #222; }
+[data-theme="dark"] .gee-link-btn { background: #444; }
+[data-theme="dark"] .gee-link-btn:hover { background: #555; }
+.gee-link-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 h2.section-title {
-  font-family: var(--font-serif);
-  font-size: 1.6rem; font-weight: 600;
-  color: var(--text);
-  margin: 48px 0 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-  scroll-margin-top: 72px;
+  font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700;
+  color: var(--text); margin: 40px 0 20px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border); scroll-margin-top: 80px;
 }
 h3.sub-title {
-  font-family: var(--font-body);
-  font-size: 1.05rem; font-weight: 600;
-  color: var(--text);
-  margin: 28px 0 10px;
-  scroll-margin-top: 72px;
+  font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700;
+  color: var(--text); margin: 30px 0 12px; scroll-margin-top: 80px;
 }
-h4.sub-sub-title {
-  font-size: 0.9rem; font-weight: 600;
-  color: var(--text-muted);
-  margin: 20px 0 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-family: var(--font-mono);
-}
-p { margin-bottom: 14px; font-size: 0.95rem; }
-p:last-child { margin-bottom: 0; }
+h4.sub-sub-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 20px 0 10px; font-family: var(--font-body); }
+p { margin-bottom: 16px; font-size: 1rem; color: var(--text); }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
-strong { font-weight: 600; }
+strong { font-weight: 700; }
 em { font-style: italic; }
 
-/* ============================================================
-   ADMONITIONS (MyST-style)
-   ============================================================ */
 .admonition {
-  border-radius: var(--radius-lg);
-  padding: 14px 18px;
-  margin: 20px 0;
-  border: 1px solid;
-  font-size: 0.9rem;
+  margin: 24px 0; padding: 16px; border-radius: var(--radius);
+  background: var(--bg-secondary); border-left: 4px solid var(--border-strong);
 }
-.admonition-title {
-  font-weight: 600; font-size: 0.85rem;
-  margin-bottom: 6px;
-  display: flex; align-items: center; gap: 6px;
-  font-family: var(--font-mono);
-  text-transform: uppercase; letter-spacing: 0.05em;
-}
-.admonition.note     { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
-.admonition.tip      { background: var(--green-light);  border-color: var(--green-border);  color: var(--green); }
-.admonition.warning  { background: var(--amber-light);  border-color: var(--amber-border);  color: var(--amber); }
-.admonition.important{ background: var(--purple-light); border-color: var(--purple-border); color: var(--purple); }
-.admonition p { color: var(--text); font-size: 0.9rem; margin-bottom: 0; }
+.admonition-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; font-family: var(--font-body); display: flex; align-items: center; gap: 8px; }
+.admonition.note { background: var(--accent-light); border-left-color: var(--accent); }
+.admonition.note .admonition-title { color: var(--accent); }
+.admonition.tip { background: var(--green-light); border-left-color: var(--green); }
+.admonition.tip .admonition-title { color: var(--green); }
+.admonition.warning { background: var(--amber-light); border-left-color: var(--amber); }
+.admonition.warning .admonition-title { color: var(--amber); }
+.admonition.important { background: var(--red-light); border-left-color: var(--red); }
+.admonition.important .admonition-title { color: var(--red); }
+.admonition p { margin-bottom: 0; font-size: 0.95rem; }
 
-/* ============================================================
-   TABLES
-   ============================================================ */
-.table-wrap { overflow-x: auto; margin: 16px 0; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-thead { background: var(--bg-secondary); }
-thead th {
-  text-align: left; padding: 10px 14px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
-tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover { background: var(--bg-secondary); }
-td code, th code { font-family: var(--font-mono); font-size: 0.82em; background: var(--bg-code); padding: 1px 5px; border-radius: 3px; color: var(--accent); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+thead { background: var(--bg-secondary); border-bottom: 2px solid var(--border-strong); }
+thead th { text-align: left; padding: 12px 16px; font-weight: 700; color: var(--text); white-space: nowrap; }
+tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:nth-child(even) { background: var(--bg-secondary); }
+tbody tr:hover { background: var(--accent-light); }
+td code, th code { font-family: var(--font-mono); font-size: 0.9em; border: 1px solid var(--border); background: var(--bg-code); padding: 2px 4px; border-radius: 2px; color: var(--text); }
 td.center { text-align: center; }
 
-/* Colored table rows */
-.tr-new { background: var(--green-light) !important; }
-[data-theme="dark"] .tr-new { background: var(--green-light) !important; }
+.code-block { background: var(--bg-code); border: 1px solid var(--border); border-radius: var(--radius); margin: 24px 0; overflow: hidden; }
+.code-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
+.code-lang { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); font-weight: 700; }
+.code-copy { font-family: var(--font-body); font-size: 12px; font-weight: 700; padding: 4px 8px; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text-muted); cursor: pointer; border-radius: var(--radius); }
+.code-copy:hover { background: var(--border); color: var(--text); }
+pre { padding: 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.5; color: var(--text); margin: 0; }
+code { font-family: var(--font-mono); font-size: 0.9em; background: var(--bg-code); padding: 2px 4px; border: 1px solid var(--border); border-radius: 2px; }
+pre code { background: none; padding: 0; border: none; font-size: inherit; }
+.kw  { color: #007020; font-weight: bold; } [data-theme="dark"] .kw  { color: #f92672; }
+.str { color: #4070a0; } [data-theme="dark"] .str { color: #e6db74; }
+.num { color: #40a070; } [data-theme="dark"] .num { color: #ae81ff; }
+.prop{ color: #06287e; } [data-theme="dark"] .prop{ color: #66d9ef; }
 
-/* ============================================================
-   CODE BLOCKS
-   ============================================================ */
-.code-block {
-  background: var(--bg-code);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  margin: 16px 0;
-  overflow: hidden;
-}
-.code-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 14px;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-}
-.code-lang {
-  font-family: var(--font-mono); font-size: 11px;
-  color: var(--text-faint); font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.06em;
-}
-.code-copy {
-  font-family: var(--font-mono); font-size: 11px;
-  padding: 3px 10px; border-radius: 4px;
-  border: 1px solid var(--border);
-  background: var(--bg-card); color: var(--text-muted);
-  cursor: pointer; transition: all 0.15s;
-}
-.code-copy:hover { border-color: var(--accent); color: var(--accent); }
-.code-copy.copied { border-color: var(--green); color: var(--green); }
-pre {
-  padding: 16px 18px;
-  overflow-x: auto;
-  font-family: var(--font-mono);
-  font-size: 12.5px; line-height: 1.65;
-  color: var(--text);
-}
-code {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  background: var(--bg-code);
-  padding: 1px 5px; border-radius: 3px;
-  color: var(--accent);
-}
-pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-size: inherit; }
+.math-block { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; margin: 24px 0; overflow-x: auto; text-align: center; font-size: 1.1rem; }
+.math-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.math-cell { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; text-align: center; }
+.math-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-align: left; }
 
-/* Syntax highlight approximation */
-.kw  { color: #c678dd; } [data-theme="light"] .kw  { color: #8b4fa0; }
-.str { color: #98c379; } [data-theme="light"] .str { color: #2d7a2d; }
-.num { color: #d19a66; } [data-theme="light"] .num { color: #a05c00; }
-.cmt { color: #5c6370; font-style: italic; } [data-theme="light"] .cmt { color: #8a8a8a; }
-.prop{ color: #61afef; } [data-theme="light"] .prop{ color: #1a5fa8; }
+.swatch { display: inline-block; width: 20px; height: 20px; border: 1px solid var(--border-strong); vertical-align: middle; border-radius: 2px; }
 
-/* ============================================================
-   MATH (LaTeX rendering via KaTeX inline)
-   ============================================================ */
-.math-block {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 16px 20px;
-  margin: 16px 0;
-  overflow-x: auto;
-  text-align: center;
-  font-size: 1.05rem;
-}
-.math-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 10px;
-  margin: 16px 0;
-}
-.math-cell {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  text-align: center;
-  font-size: 0.95rem;
-}
-.math-label {
-  font-family: var(--font-mono); font-size: 11px;
-  color: var(--text-faint); margin-bottom: 4px;
-  text-align: left;
-}
+.step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 24px 0; }
+.step-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; }
+.step-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--sidebar-bg); color: #fff; font-family: var(--font-mono); font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+.step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.step-desc { font-size: 0.9rem; color: var(--text-muted); }
 
-/* ============================================================
-   COLOR SWATCHES
-   ============================================================ */
-.swatch {
-  display: inline-block;
-  width: 26px; height: 14px;
-  border-radius: 3px;
-  border: 1px solid var(--border);
-  vertical-align: middle;
-}
-
-/* ============================================================
-   STEP CARDS (workflow)
-   ============================================================ */
-.step-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px; margin: 20px 0;
-}
-.step-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  transition: box-shadow 0.2s, transform 0.2s;
-  cursor: default;
-}
-.step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.step-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--accent); color: #fff;
-  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
-  margin-bottom: 10px;
-}
-.step-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
-.step-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
-
-/* ============================================================
-   FEATURE BADGE CARDS (new features)
-   ============================================================ */
-.feature-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
-.feature-item {
-  display: flex; gap: 14px; align-items: flex-start;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
-  transition: box-shadow 0.15s;
-}
-.feature-item:hover { box-shadow: var(--shadow-md); }
-.feature-icon {
-  font-size: 1.4rem; flex-shrink: 0;
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg-secondary);
-  border-radius: var(--radius);
-}
+.feature-list { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+.feature-item { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); padding: 16px; }
+.feature-icon { font-size: 1.5rem; flex-shrink: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
 .feature-body { flex: 1; }
-.feature-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
-.feature-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
-.feature-tag {
-  display: inline-block; margin-left: 8px;
-  padding: 1px 7px; border-radius: 20px; font-size: 10px;
-  font-family: var(--font-mono); font-weight: 600;
-  background: var(--green-light); color: var(--green);
-  border: 1px solid var(--green-border);
-  vertical-align: middle;
-}
+.feature-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+.feature-desc { font-size: 0.95rem; color: var(--text-muted); }
+.feature-tag { display: inline-block; margin-left: 8px; padding: 2px 6px; font-size: 11px; font-family: var(--font-body); font-weight: 700; background: var(--green); color: #fff; border-radius: 2px; vertical-align: middle; text-transform: uppercase; }
 
-/* ============================================================
-   PARAMETER PANELS
-   ============================================================ */
-.param-group {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  margin: 16px 0;
-}
-.param-group-header {
-  padding: 10px 16px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  border-bottom: 1px solid var(--border);
-}
-.param-group.rf .param-group-header  { background: #eef0fd; color: #283593; border-bottom-color: #c5cae9; }
-.param-group.gtb .param-group-header { background: #f0f9f1; color: #1b5e20; border-bottom-color: #c8e6c9; }
-.param-group.svm .param-group-header { background: #fdf0f7; color: #880e4f; border-bottom-color: #f8bbd0; }
-[data-theme="dark"] .param-group.rf .param-group-header  { background: #0d1130; color: #9ba8f8; border-bottom-color: #1a2060; }
-[data-theme="dark"] .param-group.gtb .param-group-header { background: #081510; color: #6dbb7a; border-bottom-color: #1a3a20; }
-[data-theme="dark"] .param-group.svm .param-group-header { background: #200818; color: #e07ab8; border-bottom-color: #401030; }
+.param-group { border: 1px solid var(--border); margin: 24px 0; }
+.param-group-header { padding: 12px 16px; font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
 
-/* ============================================================
-   LANGUAGE SWITCHING
-   ============================================================ */
 [data-lang="id"] .en-only { display: none !important; }
 [data-lang="en"] .id-only { display: none !important; }
 
-/* ============================================================
-   INTERFACE SCREENSHOT
-   ============================================================ */
-.screenshot-wrap {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  margin: 20px 0;
-}
-.screenshot-wrap img { width: 100%; display: block; }
-.screenshot-caption {
-  font-size: 0.8rem; color: var(--text-faint);
-  text-align: center; padding: 8px 16px;
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border);
-  font-style: italic;
-}
+.screenshot-wrap { border: 1px solid var(--border); margin: 24px 0; background: var(--bg-secondary); padding: 8px; }
+.screenshot-wrap img { width: 100%; display: block; border: 1px solid var(--border-strong); }
+.screenshot-caption { font-size: 0.9rem; color: var(--text-muted); text-align: center; padding: 12px 0 4px; font-style: italic; }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 28px 48px;
-  margin-top: 48px;
-  font-size: 0.82rem; color: var(--text-faint);
-  display: flex; gap: 24px; align-items: center;
-  flex-wrap: wrap;
-}
-.footer a { color: var(--text-muted); }
-.footer a:hover { color: var(--accent); }
+.footer { border-top: 1px solid var(--border-strong); padding: 32px 0; margin-top: 64px; font-size: 0.9rem; color: var(--text-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 1200px) {
-  .toc-panel { display: none; }
-}
-@media (max-width: 860px) {
-  .sidebar { display: none; }
-  .main-content { padding: 24px 20px; }
-  .badge-row { display: none; }
-}
-@media (max-width: 540px) {
-  .navbar { padding: 0 12px; }
-  .step-grid { grid-template-columns: 1fr; }
-  .math-grid { grid-template-columns: 1fr; }
-}
+@media (max-width: 1100px) { .toc-panel { display: none; } }
+@media (max-width: 800px) { .sidebar { display: none; } .main-content { padding: 24px 20px; } .badge-row { display: none; } }
 
-/* ============================================================
-   SCROLL PROGRESS BAR
-   ============================================================ */
-#progress {
-  position: fixed; top: 0; left: 0; z-index: 200;
-  height: 3px; background: var(--accent);
-  width: 0%; transition: width 0.1s linear;
-}
-
-/* Smooth reveal */
-.doc-section {
-  animation: fadeUp 0.4s ease both;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+#progress { position: fixed; top: 0; left: 0; z-index: 200; height: 3px; background: var(--accent); width: 0%; transition: width 0.1s linear; }
 </style>
-<!-- KaTeX for math rendering -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 </head>
 <body>
 
 <div id="progress"></div>
 
-<!-- ============================================================
-     NAVBAR
-     ============================================================ -->
 <nav class="navbar">
-  <a href="#" class="navbar-brand">GEEDEF <span>·</span> V3.1</a>
-
-  <div class="badge-row" style="margin-left:16px">
+  <a href="#" class="navbar-brand">GEEDEF <span>V3.1</span></a>
+  <div class="badge-row" style="margin-left:24px">
     <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="badge badge-blue">🛰 Open in GEE</a>
     <span class="badge badge-blue">Sentinel-2A SR</span>
     <span class="badge badge-green">RF · GTB · SVM</span>
-    <span class="badge badge-yellow">GEE JavaScript</span>
-    <span class="badge badge-red">Universitas Kuningan</span>
-    <span class="badge badge-orange">Mei 2026</span>
+    <span class="badge badge-yellow">JavaScript</span>
   </div>
-
   <div class="navbar-spacer"></div>
-
   <div class="ctrl-group">
-    <!-- Language toggle -->
     <div class="lang-toggle">
       <button class="lang-btn" id="btn-id" onclick="setLang('id')" title="Bahasa Indonesia">ID</button>
       <button class="lang-btn" id="btn-en" onclick="setLang('en')" title="English">EN</button>
     </div>
-    <!-- Theme toggle -->
     <button class="ctrl-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
   </div>
 </nav>
 
-<!-- ============================================================
-     LAYOUT
-     ============================================================ -->
 <div class="layout">
-
-  <!-- LEFT SIDEBAR -->
   <aside class="sidebar">
     <p class="sidebar-section-title id-only">Navigasi</p>
     <p class="sidebar-section-title en-only">Navigation</p>
@@ -748,31 +408,25 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
     </ul>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <main class="main-content">
     <div class="doc-section">
-
-      <!-- PAGE HEADER -->
       <div class="page-header" id="top">
         <div class="page-meta">
-          <span class="meta-chip version">V3.1</span>
+          <span class="meta-chip version">Release V3.1</span>
           <span class="meta-chip">Sentinel-2A SR Harmonized</span>
-          <span class="meta-chip">GEE JavaScript API</span>
-          <span class="meta-chip id-only">Universitas Kuningan · 2025</span>
-          <span class="meta-chip en-only">Universitas Kuningan · 2025</span>
+          <span class="meta-chip id-only">Universitas Kuningan</span>
+          <span class="meta-chip en-only">Universitas Kuningan</span>
         </div>
         <h1 class="page-title id-only">GEEDEF — Alat Klasifikasi Tutupan Lahan</h1>
         <h1 class="page-title en-only">GEEDEF — Land Cover Classification Tools</h1>
         <p class="page-subtitle id-only">Klasifikasi tutupan lahan berbasis cloud menggunakan Sentinel-2A dan machine learning di Google Earth Engine</p>
         <p class="page-subtitle en-only">Cloud-based land cover classification using Sentinel-2A and machine learning in Google Earth Engine</p>
         <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gee-link-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
           <span class="id-only">Buka di Google Earth Engine</span>
           <span class="en-only">Open in Google Earth Engine</span>
         </a>
       </div>
 
-      <!-- ===== WHAT'S NEW ===== -->
       <h2 class="section-title" id="whats-new">
         <span class="id-only">🆕 Hal-hal Baru di V3.1</span>
         <span class="en-only">🆕 What's New in V3.1</span>
@@ -850,7 +504,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </div>
       </div>
 
-      <!-- ===== OVERVIEW ===== -->
       <h2 class="section-title" id="overview">
         <span class="id-only">📖 Gambaran Umum</span>
         <span class="en-only">📖 Overview</span>
@@ -864,7 +517,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <table>
           <tbody>
             <tr><td><strong class="id-only">Developer</strong><strong class="en-only">Developer</strong></td><td>Defani Arman Alfitriansyah</td></tr>
-            <tr><td><strong class="id-only">Institusi</strong><strong class="en-only">Institution</strong></td><td class="id-only">Fakultas Kehutanan dan Lingkungan, Universitas Kuningan</td><td class="en-only">Faculty of Forestry and Environmental Science, Universitas Kuningan</td></tr>
+            <tr><td><strong class="id-only">Institusi</strong><strong class="en-only">Institution</strong></td><td class="id-only">Fakultas Kehutanan, Universitas Kuningan</td><td class="en-only">Faculty of Forestry, Universitas Kuningan</td></tr>
             <tr><td><strong class="id-only">Tahun</strong><strong class="en-only">Year</strong></td><td>2025</td></tr>
             <tr><td><strong class="id-only">Versi</strong><strong class="en-only">Version</strong></td><td><code>V3.1</code></td></tr>
             <tr><td><strong class="id-only">Platform</strong><strong class="en-only">Platform</strong></td><td>Google Earth Engine Code Editor</td></tr>
@@ -873,7 +526,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- ===== PREREQUISITES ===== -->
       <h2 class="section-title" id="prerequisites">
         <span class="id-only">✅ Prasyarat Penggunaan</span>
         <span class="en-only">✅ Prerequisites</span>
@@ -901,7 +553,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- ===== INTERFACE ===== -->
       <h2 class="section-title" id="interface">
         <span class="id-only">🖥 Antarmuka Pengguna</span>
         <span class="en-only">🖥 Interface Layout</span>
@@ -936,7 +587,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- ===== WORKFLOW ===== -->
       <h2 class="section-title" id="workflow">
         <span class="id-only">📋 Alur Kerja Enam Langkah</span>
         <span class="en-only">📋 Six-Step Workflow</span>
@@ -955,7 +605,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <div class="step-card"><div class="step-num">6</div><div class="step-title id-only">Ekspor ke Drive</div><div class="step-title en-only">Export to Drive</div><div class="step-desc id-only">Simpan hasil klasifikasi sebagai GeoTIFF</div><div class="step-desc en-only">Save classification result as GeoTIFF</div></div>
       </div>
 
-      <!-- Step 1 -->
       <h3 class="sub-title" id="step1">
         <span class="id-only">Langkah 1 — Batas Wilayah (ROI)</span>
         <span class="en-only">Step 1 — Region of Interest (ROI)</span>
@@ -964,7 +613,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       <p class="en-only">The ROI defines the spatial extent for image collection filtering, classifier training, and area calculation. Two methods available:</p>
       <h4 class="sub-sub-title id-only">Metode A — Muat dari GEE Asset</h4>
       <h4 class="sub-sub-title en-only">Method A — Load from GEE Asset</h4>
-      <ol style="padding-left:24px;font-size:0.9rem;line-height:2;">
+      <ol style="padding-left:24px;margin-bottom:16px;">
         <li class="id-only">Masukkan nama akun atau proyek GEE (cth: <code>ee-defaniarman</code>)</li>
         <li class="en-only">Enter your GEE account or project name (e.g., <code>ee-defaniarman</code>)</li>
         <li class="id-only">Klik <strong>🔄 Refresh Assets</strong> untuk mengisi dropdown asset FeatureCollection</li>
@@ -974,7 +623,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       </ol>
       <h4 class="sub-sub-title id-only">Metode B — Gambar Manual</h4>
       <h4 class="sub-sub-title en-only">Method B — Manual Drawing</h4>
-      <ol style="padding-left:24px;font-size:0.9rem;line-height:2;">
+      <ol style="padding-left:24px;margin-bottom:16px;">
         <li class="id-only">Aktifkan Drawing Tools (ikon pensil, toolbar kiri atas peta)</li>
         <li class="en-only">Activate Drawing Tools (pencil icon, top-left map toolbar)</li>
         <li class="id-only">Gambar poligon batas area kajian</li>
@@ -988,7 +637,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <p class="en-only">For district-scale or larger study areas, Method A is preferred to ensure administrative boundaries match official data. Keep the ROI manageable to avoid computation time-outs.</p>
       </div>
 
-      <!-- Step 2 -->
       <h3 class="sub-title" id="step2">
         <span class="id-only">Langkah 2 — Akuisisi Komposit Sentinel-2A SR</span>
         <span class="en-only">Step 2 — Sentinel-2A SR Composite Acquisition</span>
@@ -1076,7 +724,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- Step 3 -->
       <h3 class="sub-title" id="step3">
         <span class="id-only">Langkah 3 — Algoritma Klasifikasi & Parameter</span>
         <span class="en-only">Step 3 — Classification Algorithm & Parameters</span>
@@ -1085,7 +732,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       <div class="param-group rf">
         <div class="param-group-header">Random Forest (RF)</div>
         <div style="padding:0">
-          <div class="table-wrap" style="margin:0;border:none;border-radius:0">
+          <div class="table-wrap" style="margin:0;border:none">
             <table>
               <thead><tr>
                 <th class="id-only">Parameter</th><th class="en-only">Parameter</th>
@@ -1112,7 +759,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       <div class="param-group gtb">
         <div class="param-group-header">Gradient Tree Boost (GTB)</div>
         <div style="padding:0">
-          <div class="table-wrap" style="margin:0;border:none;border-radius:0">
+          <div class="table-wrap" style="margin:0;border:none">
             <table>
               <thead><tr>
                 <th class="id-only">Parameter</th><th class="en-only">Parameter</th>
@@ -1140,7 +787,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       <div class="param-group svm">
         <div class="param-group-header">Support Vector Machine (SVM)</div>
         <div style="padding:0">
-          <div class="table-wrap" style="margin:0;border:none;border-radius:0">
+          <div class="table-wrap" style="margin:0;border:none">
             <table>
               <thead><tr>
                 <th class="id-only">Parameter</th><th class="en-only">Parameter</th>
@@ -1169,14 +816,13 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </div>
       </div>
 
-      <!-- Step 4 -->
       <h3 class="sub-title" id="step4">
         <span class="id-only">Langkah 4 — Tambah Kelas & Digitasi Sampel</span>
         <span class="en-only">Step 4 — Add Classes & Digitize Training Samples</span>
       </h3>
       <h4 class="sub-sub-title id-only">Opsi A — Import dari SHP Asset (Baru di V3.1)</h4>
       <h4 class="sub-sub-title en-only">Option A — Import from SHP Asset (New in V3.1)</h4>
-      <ol style="padding-left:24px;font-size:0.9rem;line-height:2.1;">
+      <ol style="padding-left:24px;margin-bottom:16px;">
         <li class="id-only">Masukkan nama akun GEE → klik <strong>🔄 Refresh</strong></li>
         <li class="en-only">Enter GEE account name → click <strong>🔄 Refresh</strong></li>
         <li class="id-only">Pilih SHP sampel latih dari dropdown</li>
@@ -1192,7 +838,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       </ol>
       <h4 class="sub-sub-title id-only">Opsi B — Entri Manual</h4>
       <h4 class="sub-sub-title en-only">Option B — Manual Entry</h4>
-      <ol style="padding-left:24px;font-size:0.9rem;line-height:2.1;">
+      <ol style="padding-left:24px;margin-bottom:16px;">
         <li class="id-only">Ketik nama kelas atau klik dari palet Panel Kiri untuk <em>auto-fill</em></li>
         <li class="en-only">Type a class name or click from the Left Panel palette for auto-fill</li>
         <li class="id-only">Masukkan kode warna hex (cth: <code>#006400</code>)</li>
@@ -1208,14 +854,13 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <p class="en-only">Distribute samples spatially. Use multiple small polygons per class to capture within-class spectral variability. Avoid transitional or ambiguous zones.</p>
       </div>
 
-      <!-- Step 5 -->
       <h3 class="sub-title" id="step5">
         <span class="id-only">Langkah 5 — Jalankan Klasifikasi</span>
         <span class="en-only">Step 5 — Run Classification</span>
       </h3>
       <p class="id-only">Klik <strong>🚀 JALANKAN KLASIFIKASI</strong>. Alat mengeksekusi secara <em>server-side</em>:</p>
       <p class="en-only">Click <strong>🚀 RUN CLASSIFICATION</strong>. The tool executes server-side:</p>
-      <ol style="padding-left:24px;font-size:0.9rem;line-height:2.1;">
+      <ol style="padding-left:24px;margin-bottom:16px;">
         <li class="id-only">Ekstrak nilai spektral (26 variabel) dari sampel via <code>sampleRegions</code></li>
         <li class="en-only">Extract spectral values (26 variables) from samples via <code>sampleRegions</code></li>
         <li class="id-only">Bagi sampel menjadi set training & validasi menggunakan <code>randomColumn</code></li>
@@ -1254,12 +899,11 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <p class="en-only">If only manual samples are used (no field-validated asset imported), a <strong>−5% penalty</strong> is applied to OA and Kappa and flagged in the results panel.</p>
       </div>
 
-      <!-- Step 6 -->
       <h3 class="sub-title" id="step6">
         <span class="id-only">Langkah 6 — Ekspor ke Google Drive</span>
         <span class="en-only">Step 6 — Export to Google Drive</span>
       </h3>
-      <ol style="padding-left:24px;font-size:0.9rem;line-height:2.1;">
+      <ol style="padding-left:24px;margin-bottom:16px;">
         <li class="id-only">Isi nama folder Drive (default: <code>GEE_Export</code>) dan nama file (default: <code>LandCover_DFRF_V3</code>)</li>
         <li class="en-only">Set folder name (default: <code>GEE_Export</code>) and filename (default: <code>LandCover_DFRF_V3</code>)</li>
         <li class="id-only">Pilih resolusi spasial: <strong>10 m</strong>, <strong>20 m</strong>, atau <strong>30 m</strong></li>
@@ -1275,7 +919,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <p class="en-only">Output is a single-band integer raster (pixel value = class code), CRS: <code>EPSG:4326</code>. Compatible with QGIS, ArcGIS, and all major GIS software.</p>
       </div>
 
-      <!-- ===== FEATURE SPACE ===== -->
       <h2 class="section-title" id="featurespace">
         <span class="id-only">📊 Ruang Fitur (Feature Space)</span>
         <span class="en-only">📊 Feature Space</span>
@@ -1327,7 +970,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- ===== FORMULAS ===== -->
       <h2 class="section-title" id="formulas">
         <span class="id-only">∑ Formula Indeks Spektral</span>
         <span class="en-only">∑ Spectral Index Formulas</span>
@@ -1351,7 +993,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
       <div class="math-block">$$GVS = \frac{100 \times NDVI}{100\,|NDVI| + 100\,|NBR| + 1}$$</div>
       <div class="math-block">$$NDFI = \frac{GVS - (1 - NDVI)}{GVS + (1 - NDVI)}$$</div>
 
-      <!-- ===== PALETTES ===== -->
       <h2 class="section-title" id="palettes">
         <span class="id-only">🎨 Skema Palet Tutupan Lahan</span>
         <span class="en-only">🎨 Land Cover Palette Schemes</span>
@@ -1436,14 +1077,13 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- ===== TIPS ===== -->
       <h2 class="section-title" id="tips">
         <span class="id-only">💡 Tips dan Pemecahan Masalah</span>
         <span class="en-only">💡 Tips and Troubleshooting</span>
       </h2>
       <h3 class="sub-title id-only">Tips Umum</h3>
       <h3 class="sub-title en-only">General Tips</h3>
-      <ul style="padding-left:24px;font-size:0.9rem;line-height:2.1;" class="id-only">
+      <ul style="padding-left:24px;margin-bottom:16px;" class="id-only">
         <li>Uji dengan <strong>ROI kecil</strong> terlebih dahulu sebelum memproses area luas untuk menghindari time-out.</li>
         <li>Gunakan <strong>Cloud Score+</strong> sebagai metode masking utama untuk wilayah tropis.</li>
         <li>Untuk <strong>kajian mangrove</strong>, gunakan komposit Median Dry Season untuk kontras spektral maksimal antara kanopi mangrove dan tambak.</li>
@@ -1451,7 +1091,7 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <li>Untuk <strong>SVM kernel RBF</strong>, lakukan grid search manual pada kombinasi C dan gamma sebelum klasifikasi final.</li>
         <li>Untuk dataset sampel terbatas (&lt; 200 per kelas), pertimbangkan rasio split <strong>80/20</strong>.</li>
       </ul>
-      <ul style="padding-left:24px;font-size:0.9rem;line-height:2.1;" class="en-only">
+      <ul style="padding-left:24px;margin-bottom:16px;" class="en-only">
         <li>Test with a <strong>small ROI first</strong> before processing large areas to avoid computation time-outs.</li>
         <li>Use <strong>Cloud Score+</strong> as the primary masking method for tropical regions.</li>
         <li>For <strong>mangrove studies</strong>, use Median Dry Season composite to maximize spectral contrast between mangrove canopy and aquaculture ponds.</li>
@@ -1493,7 +1133,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         </table>
       </div>
 
-      <!-- ===== CODE ===== -->
       <h2 class="section-title" id="code">
         <span class="id-only">⌨ Repositori Skrip Lengkap</span>
         <span class="en-only">⌨ Full Script Repository</span>
@@ -1516,17 +1155,14 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
   <span class="prop">scale</span>:            <span class="num">10</span>,
   <span class="prop">maxPix</span>:           <span class="num">1e13</span>,
   <span class="prop">splitRatio</span>:       <span class="num">0.7</span>,
-  <span class="cmt">// Random Forest</span>
   <span class="prop">rf_numTrees</span>:      <span class="num">500</span>,
   <span class="prop">rf_minLeaf</span>:       <span class="num">1</span>,
   <span class="prop">rf_bagFraction</span>:   <span class="num">0.5</span>,
-  <span class="cmt">// Gradient Tree Boost</span>
   <span class="prop">gtb_numTrees</span>:     <span class="num">200</span>,
   <span class="prop">gtb_shrinkage</span>:    <span class="num">0.05</span>,
   <span class="prop">gtb_samplingRate</span>: <span class="num">0.7</span>,
   <span class="prop">gtb_maxNodes</span>:     <span class="num">5</span>,
   <span class="prop">gtb_loss</span>:         <span class="str">'LeastAbsoluteDeviation'</span>,
-  <span class="cmt">// Support Vector Machine</span>
   <span class="prop">svm_kernel</span>:       <span class="str">'RBF'</span>,
   <span class="prop">svm_gamma</span>:        <span class="num">0.5</span>,
   <span class="prop">svm_cost</span>:         <span class="num">10</span>,
@@ -1542,12 +1178,10 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
           <span class="code-lang">JavaScript</span>
           <button class="code-copy" onclick="copyCode(this)">Copy</button>
         </div>
-        <pre><code><span class="cmt">// Cloud Score+ (Direkomendasikan / Recommended)</span>
-<span class="kw">function</span> maskByCSPlus(image) {
+        <pre><code><span class="kw">function</span> maskByCSPlus(image) {
   <span class="kw">return</span> image.updateMask(image.select(<span class="str">'cs_cdf'</span>).gte(<span class="num">0.60</span>));
 }
 
-<span class="cmt">// SCL ESA</span>
 <span class="kw">function</span> maskBySCL(image) {
   <span class="kw">var</span> scl = image.select(<span class="str">'SCL'</span>);
   <span class="kw">return</span> image.updateMask(
@@ -1556,7 +1190,6 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
   );
 }
 
-<span class="cmt">// QA60 Bitmask</span>
 <span class="kw">function</span> maskByQA60(image) {
   <span class="kw">var</span> qa = image.select(<span class="str">'QA60'</span>);
   <span class="kw">return</span> image.updateMask(
@@ -1579,19 +1212,18 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
   <span class="prop">folder</span>:         <span class="str">'GEE_Export'</span>,
   <span class="prop">fileNamePrefix</span>: <span class="str">'LandCover_DFRF_V3'</span>,
   <span class="prop">region</span>:         STATE.roi.geometry(),
-  <span class="prop">scale</span>:          <span class="num">10</span>,    <span class="cmt">// 10, 20, atau 30 m</span>
+  <span class="prop">scale</span>:          <span class="num">10</span>,
   <span class="prop">crs</span>:            <span class="str">'EPSG:4326'</span>,
   <span class="prop">maxPixels</span>:      <span class="num">1e13</span>,
   <span class="prop">fileFormat</span>:     <span class="str">'GeoTIFF'</span>
 });</code></pre>
       </div>
 
-      <!-- ===== REFERENCES ===== -->
       <h2 class="section-title" id="references">
         <span class="id-only">📚 Referensi Ilmiah</span>
         <span class="en-only">📚 Scientific References</span>
       </h2>
-      <div style="font-size:0.88rem;line-height:2;color:var(--text-muted);">
+      <div style="font-size:0.9rem;line-height:2;color:var(--text-muted);">
         <p>Auriga Nusantara. (2024). <em>Algorithm Theoretical Basis Document (ATBD) MapBiomas Indonesia Koleksi 3 Versi 1</em>. MapBiomas Indonesia.</p>
         <p>Breiman, L. (2001). Random forests. <em>Machine Learning</em>, <em>45</em>(1), 5–32. <a href="https://doi.org/10.1023/A:1010933404324" target="_blank">https://doi.org/10.1023/A:1010933404324</a></p>
         <p>Cardille, J. A., Crowley, M. A., Saah, D., &amp; Clinton, N. E. (Eds.). (2024). <em>Cloud-based remote sensing with Google Earth Engine: Fundamentals and applications</em>. Springer. <a href="https://doi.org/10.1007/978-3-031-26588-4" target="_blank">https://doi.org/10.1007/978-3-031-26588-4</a></p>
@@ -1604,10 +1236,9 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
         <p>U.S. Geological Survey. (2025). <em>Annual National Land Cover Database (NLCD) Collection 1 Science Product User Guide (Version 1.1)</em>. USGS.</p>
       </div>
 
-    </div><!-- /.doc-section -->
+    </div>
   </main>
 
-  <!-- RIGHT TOC -->
   <aside class="toc-panel">
     <div class="toc-title id-only">Pada Halaman Ini</div>
     <div class="toc-title en-only">On This Page</div>
@@ -1632,22 +1263,18 @@ pre code { background: none; padding: 0; border-radius: 0; color: inherit; font-
     </ul>
   </aside>
 
-</div><!-- /.layout -->
+</div>
 
 <footer class="footer">
-  <span class="id-only">© 2025 Defani Arman Alfitriansyah · Fakultas Kehutanan dan Lingkungan, Universitas Kuningan · Untuk penggunaan akademis dan pendidikan</span>
-  <span class="en-only">© 2025 Defani Arman Alfitriansyah · Faculty of Forestry and Environmental Science, Universitas Kuningan · For academic and educational use</span>
-  <span style="margin-left:auto;display:flex;gap:16px;">
+  <span class="id-only">© 2025 Defani Arman Alfitriansyah · Fakultas Kehutanan, Universitas Kuningan · Dokumentasi Pengembangan</span>
+  <span class="en-only">© 2025 Defani Arman Alfitriansyah · Faculty of Forestry, Universitas Kuningan · Developer Documentation</span>
+  <span style="display:flex;gap:16px;">
     <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank">GEE Script</a>
     <a href="https://earthengine.google.com/terms/" target="_blank">GEE Terms</a>
   </span>
 </footer>
 
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
 <script>
-// ---- LANGUAGE ----
 function setLang(lang) {
   document.documentElement.setAttribute('data-lang', lang);
   document.getElementById('btn-id').classList.toggle('active', lang === 'id');
@@ -1656,7 +1283,6 @@ function setLang(lang) {
   document.documentElement.setAttribute('lang', lang === 'id' ? 'id' : 'en');
 }
 
-// ---- THEME ----
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
@@ -1666,14 +1292,12 @@ function toggleTheme() {
   localStorage.setItem('geedef-theme', next);
 }
 
-// ---- SCROLL PROGRESS ----
 window.addEventListener('scroll', () => {
   const el = document.getElementById('progress');
   const total = document.body.scrollHeight - window.innerHeight;
   el.style.width = (window.scrollY / total * 100) + '%';
 });
 
-// ---- ACTIVE TOC ----
 const sections = document.querySelectorAll('h2[id], h3[id]');
 const tocLinks = document.querySelectorAll('.toc-list a, .sidebar-nav a');
 const observer = new IntersectionObserver(entries => {
@@ -1684,10 +1308,9 @@ const observer = new IntersectionObserver(entries => {
       tocLinks.forEach(a => { if (a.getAttribute('href') === '#' + id) a.classList.add('active'); });
     }
   });
-}, { rootMargin: '-52px 0px -60% 0px' });
+}, { rootMargin: '-50px 0px -60% 0px' });
 sections.forEach(s => observer.observe(s));
 
-// ---- COPY CODE ----
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
   navigator.clipboard.writeText(pre.innerText).then(() => {
@@ -1697,7 +1320,6 @@ function copyCode(btn) {
   });
 }
 
-// ---- RESTORE PREFERENCES ----
 (function init() {
   const savedTheme = localStorage.getItem('geedef-theme') || 'light';
   const savedLang  = localStorage.getItem('geedef-lang')  || 'id';
