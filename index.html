@@ -44,27 +44,27 @@
 }
 
 [data-theme="dark"] {
-  --bg: #1a1a1a;
-  --bg-secondary: #222222;
-  --bg-card: #2a2a2a;
-  --bg-code: #2d2d2d;
-  --border: #3a3a3a;
+  --bg: #0d1117; /* GitHub Dark Base */
+  --bg-secondary: #161b22;
+  --bg-card: #161b22;
+  --bg-code: #161b22;
+  --border: #30363d;
   --border-strong: #4a4a4a;
-  --text: #e0e0e0;
-  --text-muted: #b0b0b0;
-  --text-faint: #808080;
+  --text: #c9d1d9;
+  --text-muted: #8b949e;
+  --text-faint: #8b949e;
   --accent: #5ab2ea;
   --accent-hover: #82c6f0;
   --accent-light: #162d3d;
-  --sidebar-bg: #111111;
-  --sidebar-text: #999999;
-  --sidebar-link-hover: #ffffff;
-  --sidebar-active-bg: #1d4b6b;
-  --green: #2ecc71;
+  --sidebar-bg: #010409;
+  --sidebar-text: #8b949e;
+  --sidebar-link-hover: #c9d1d9;
+  --sidebar-active-bg: #1f6feb;
+  --green: #238636;
   --green-light: #0e2b1b;
-  --amber: #f1c40f;
+  --amber: #d29922;
   --amber-light: #332700;
-  --red: #e74c3c;
+  --red: #da3633;
   --red-light: #330b08;
 }
 
@@ -73,18 +73,10 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.2s, color 0.2s; }
 ::selection { background: var(--accent); color: #fff; }
 
-/* NAVBAR & BADGES */
+/* NAVBAR */
 .navbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; padding: 0 24px; height: 54px; background: var(--bg-card); border-bottom: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .navbar-brand { font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
 .navbar-brand span { color: var(--accent); }
-
-.badge-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-left: 16px; }
-.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; font-family: var(--font-body); text-transform: uppercase; text-decoration: none; letter-spacing: 0.05em; transition: opacity 0.2s; }
-.badge:hover { opacity: 0.8; }
-.badge-blue { background: #2980b9; color: #fff; }
-.badge-green { background: #27ae60; color: #fff; }
-.badge-yellow { background: #f39c12; color: #222; }
-
 .navbar-spacer { flex: 1; }
 .ctrl-group { display: flex; align-items: center; gap: 10px; }
 .ctrl-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border-strong); background: var(--bg-secondary); color: var(--text-muted); cursor: pointer; font-size: 14px; transition: all 0.2s; }
@@ -95,7 +87,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 
 /* LAYOUT & SIDEBAR */
 .layout { display: flex; min-height: calc(100vh - 54px); }
-.sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: 54px; height: calc(100vh - 54px); overflow-y: auto; padding: 0; background: var(--sidebar-bg); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+.sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: 54px; height: calc(100vh - 54px); overflow-y: auto; padding: 0; background: var(--sidebar-bg); border-right: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
 .sidebar-section-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: #888888; margin: 24px 16px 8px; letter-spacing: 0.05em; }
 .sidebar-nav { list-style: none; }
 .sidebar-nav a { display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); text-decoration: none; border-left: 3px solid transparent; transition: background 0.15s; }
@@ -115,11 +107,36 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .toc-list a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
 .toc-list .toc-sub { padding-left: 24px; font-size: 13px; }
 
-/* TYPOGRAPHY & HEADER */
+/* TYPOGRAPHY & PAGE HEADER (GITHUB STYLE) */
 .doc-section { max-width: var(--content-max); }
 .page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border-strong); }
-.page-title { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.2; }
-.page-subtitle { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 24px; font-family: var(--font-body); }
+.page-title { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.2; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+
+.header-quote {
+  border-left: 4px solid var(--border-strong);
+  padding-left: 16px;
+  margin: 16px 0 24px 0;
+  font-size: 1rem;
+  color: var(--text-faint);
+  font-family: var(--font-body);
+}
+
+/* SHIELDS.IO STYLE BADGES */
+.gh-badge-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.gh-badge {
+  display: inline-flex; border-radius: 3px; overflow: hidden;
+  font-family: var(--font-body); font-size: 11px; font-weight: 700;
+  text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  letter-spacing: 0.03em; border: 1px solid rgba(255,255,255,0.1);
+}
+.gh-badge .left { background: #555555; color: #fff; padding: 4px 8px; display: flex; align-items: center; gap: 4px; }
+.gh-badge .right { padding: 4px 8px; color: #fff; display: flex; align-items: center; }
+.gh-badge .right.blue { background: #007ec6; }
+.gh-badge .right.green { background: #4c1; }
+.gh-badge .right.yellow { background: #dfb317; color: #222; }
+.gh-badge .right.red { background: #e05d44; }
+.gh-badge .right.orange { background: #fe7d37; }
+.gh-badge svg { fill: currentColor; width: 12px; height: 12px; }
 
 /* MAIN CTA BUTTON */
 .gee-run-btn {
@@ -189,10 +206,10 @@ td.center { text-align: center; }
 pre { padding: 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.5; color: var(--text); margin: 0; }
 code { font-family: var(--font-mono); font-size: 0.9em; background: var(--bg-code); padding: 2px 4px; border: 1px solid var(--border); border-radius: 2px; }
 pre code { background: none; padding: 0; border: none; font-size: inherit; }
-.kw  { color: #007020; font-weight: bold; } [data-theme="dark"] .kw  { color: #f92672; }
-.str { color: #4070a0; } [data-theme="dark"] .str { color: #e6db74; }
-.num { color: #40a070; } [data-theme="dark"] .num { color: #ae81ff; }
-.prop{ color: #06287e; } [data-theme="dark"] .prop{ color: #66d9ef; }
+.kw  { color: #007020; font-weight: bold; } [data-theme="dark"] .kw  { color: #ff7b72; }
+.str { color: #4070a0; } [data-theme="dark"] .str { color: #a5d6ff; }
+.num { color: #40a070; } [data-theme="dark"] .num { color: #79c0ff; }
+.prop{ color: #06287e; } [data-theme="dark"] .prop{ color: #d2a8ff; }
 
 .math-block { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; margin: 24px 0; overflow-x: auto; text-align: center; font-size: 1.1rem; border-radius: var(--radius); }
 .math-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
@@ -222,14 +239,9 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 
 <div id="progress"></div>
 
-<!-- TOP NAVBAR DENGAN BADGE BERWARNA -->
+<!-- NAVBAR BERSIH (Tanpa Badge) -->
 <nav class="navbar">
   <a href="#" class="navbar-brand">GEEDEF <span>V3.1</span></a>
-  <div class="badge-row">
-    <span class="badge badge-blue">Sentinel-2A SR</span>
-    <span class="badge badge-green">RF · GTB · SVM</span>
-    <span class="badge badge-yellow">JavaScript</span>
-  </div>
   <div class="navbar-spacer"></div>
   <div class="ctrl-group">
     <div class="lang-toggle">
@@ -318,12 +330,41 @@ pre code { background: none; padding: 0; border: none; font-size: inherit; }
 
   <main class="main-content">
     <div class="doc-section">
+      
+      <!-- GITHUB STYLE HEADER -->
       <div class="page-header" id="top">
         <h1 class="page-title id-only">GEEDEF — Alat Klasifikasi Tutupan Lahan</h1>
         <h1 class="page-title en-only">GEEDEF — Land Cover Classification Tools</h1>
-        <p class="page-subtitle id-only">Klasifikasi tutupan lahan interaktif berbasis komputasi cloud menggunakan Sentinel-2A dan Machine Learning di platform Google Earth Engine.</p>
-        <p class="page-subtitle en-only">Interactive cloud-based land cover classification using Sentinel-2A and Machine Learning on the Google Earth Engine platform.</p>
         
+        <div class="header-quote id-only">Platform: Google Earth Engine (JavaScript API) | Data: Sentinel-2A SR Harmonized | Versi: V3.1</div>
+        <div class="header-quote en-only">Platform: Google Earth Engine (JavaScript API) | Data: Sentinel-2A SR Harmonized | Version: V3.1</div>
+        
+        <!-- SHIELDS.IO BADGES -->
+        <div class="gh-badge-group">
+          <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gh-badge">
+            <span class="left">
+              <svg viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
+              Open in
+            </span>
+            <span class="right blue">Google Earth Engine</span>
+          </a>
+          <div class="gh-badge">
+            <span class="left">Data</span><span class="right blue">Sentinel-2A SR Harmonized</span>
+          </div>
+          <div class="gh-badge">
+            <span class="left id-only">Algoritma</span><span class="left en-only">Algorithms</span><span class="right green">RF | GTB | SVM</span>
+          </div>
+          <div class="gh-badge">
+            <span class="left id-only">Bahasa</span><span class="left en-only">Language</span><span class="right yellow">GEE JavaScript</span>
+          </div>
+          <div class="gh-badge">
+            <span class="left id-only">Institusi</span><span class="left en-only">Institution</span><span class="right red">Universitas Kuningan</span>
+          </div>
+          <div class="gh-badge">
+            <span class="left id-only">Diperbarui</span><span class="left en-only">Updated</span><span class="right orange id-only">Mei 2026</span><span class="right orange en-only">May 2026</span>
+          </div>
+        </div>
+
         <!-- BUTTON JALANKAN TOOLS DI GEE -->
         <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gee-run-btn id-only">
           <strong>🚀 JALANKAN TOOLS DI GEE</strong>
@@ -870,7 +911,7 @@ function copyCode(btn) {
 }
 
 (function init() {
-  const savedTheme = localStorage.getItem('geedef-theme') || 'dark';
+  const savedTheme = localStorage.getItem('geedef-theme') || 'dark'; // Setel Default Dark RTD
   const savedLang  = localStorage.getItem('geedef-lang')  || 'id';
   document.documentElement.setAttribute('data-theme', savedTheme);
   document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
