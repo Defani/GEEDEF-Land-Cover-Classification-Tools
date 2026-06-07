@@ -1,922 +1,1525 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark" data-lang="id">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GEEDEF V3.1 — Land Cover Classification Tools</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;500&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
-<style>
-:root {
-  --bg: #ffffff;
-  --bg-secondary: #fcfcfc;
-  --bg-card: #ffffff;
-  --bg-code: #f8f8f8;
-  --border: #e1e4e5;
-  --border-strong: #cccccc;
-  --text: #333333;
-  --text-muted: #555555;
-  --text-faint: #737373;
-  --accent: #2980b9;
-  --accent-hover: #1f6391;
-  --accent-light: #eaf1f7;
-  --sidebar-bg: #2c2c2c;
-  --sidebar-text: #cccccc;
-  --sidebar-link-hover: #ffffff;
-  --sidebar-active-bg: #2980b9;
-  --green: #1abc9c;
-  --green-light: #e8f8f5;
-  --amber: #f39c12;
-  --amber-light: #fef5e7;
-  --red: #e74c3c;
-  --red-light: #fdedec;
-  --radius: 4px;
-  --font-body: 'Lato', 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: 'Roboto Slab', Georgia, serif;
-  --font-mono: 'Roboto Mono', Consolas, monospace;
-  --sidebar-w: 280px;
-  --toc-w: 260px;
-  --content-max: 820px;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GEEDEF V3.1 — Panduan Lengkap Klasifikasi Tutupan Lahan berbasis Google Earth Engine. RF · GTB · SVM · Sentinel-2A · Bilingual UI.">
+  <title>GEEDEF V3.1 — Panduan & Tutorial Lengkap</title>
 
-[data-theme="dark"] {
-  --bg: #0d1117; /* GitHub Dark Base */
-  --bg-secondary: #161b22;
-  --bg-card: #161b22;
-  --bg-code: #161b22;
-  --border: #30363d;
-  --border-strong: #4a4a4a;
-  --text: #c9d1d9;
-  --text-muted: #8b949e;
-  --text-faint: #8b949e;
-  --accent: #5ab2ea;
-  --accent-hover: #82c6f0;
-  --accent-light: #162d3d;
-  --sidebar-bg: #010409;
-  --sidebar-text: #8b949e;
-  --sidebar-link-hover: #c9d1d9;
-  --sidebar-active-bg: #1f6feb;
-  --green: #238636;
-  --green-light: #0e2b1b;
-  --amber: #d29922;
-  --amber-light: #332700;
-  --red: #da3633;
-  --red-light: #330b08;
-}
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.2s, color 0.2s; }
-::selection { background: var(--accent); color: #fff; }
+  <style>
+    /* ═══════════════════════════ RESET & BASE ═══════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAVBAR */
-.navbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; padding: 0 24px; height: 54px; background: var(--bg-card); border-bottom: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-.navbar-brand { font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
-.navbar-brand span { color: var(--accent); }
-.navbar-spacer { flex: 1; }
-.ctrl-group { display: flex; align-items: center; gap: 10px; }
-.ctrl-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border-strong); background: var(--bg-secondary); color: var(--text-muted); cursor: pointer; font-size: 14px; transition: all 0.2s; }
-.ctrl-btn:hover { border-color: var(--accent); color: var(--accent); }
-.lang-toggle { display: flex; border-radius: var(--radius); border: 1px solid var(--border-strong); overflow: hidden; }
-.lang-btn { padding: 5px 12px; font-family: var(--font-body); font-size: 12px; font-weight: 700; background: var(--bg-secondary); color: var(--text-muted); border: none; cursor: pointer; transition: all 0.2s; }
-.lang-btn.active { background: var(--accent); color: #fff; }
+    :root {
+      --bg:           #0a0e1a;
+      --bg2:          #0d1120;
+      --bg3:          #111827;
+      --card:         #111827;
+      --card2:        #1a2235;
+      --border:       #1e2d45;
+      --border2:      #253450;
+      --text:         #e2e8f0;
+      --text-muted:   #94a3b8;
+      --text-faint:   #64748b;
+      --blue:         #3b82f6;
+      --blue-glow:    rgba(59,130,246,0.15);
+      --green:        #22c55e;
+      --green-glow:   rgba(34,197,94,0.15);
+      --amber:        #f59e0b;
+      --pink:         #ec4899;
+      --pink-glow:    rgba(236,72,153,0.15);
+      --cyan:         #06b6d4;
+      --radius:       10px;
+      --radius-lg:    16px;
+      --font:         'Inter', -apple-system, sans-serif;
+      --nav-h:        68px;
+    }
 
-/* LAYOUT & SIDEBAR */
-.layout { display: flex; min-height: calc(100vh - 54px); }
-.sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: 54px; height: calc(100vh - 54px); overflow-y: auto; padding: 0; background: var(--sidebar-bg); border-right: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
-.sidebar-section-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: #888888; margin: 24px 16px 8px; letter-spacing: 0.05em; }
-.sidebar-nav { list-style: none; }
-.sidebar-nav a { display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); text-decoration: none; border-left: 3px solid transparent; transition: background 0.15s; }
-.sidebar-nav a:hover { color: var(--sidebar-link-hover); background: rgba(255,255,255,0.05); }
-.sidebar-nav a.active { background: var(--sidebar-active-bg); color: #fff; border-left-color: #fff; }
-.sidebar-nav .sub { padding-left: 28px; font-size: 13.5px; }
+    html { scroll-behavior: smooth; }
 
-/* MAIN CONTENT */
-.main-content { flex: 1; min-width: 0; padding: 40px 48px; max-width: calc(var(--content-max) + 96px); margin: 0 auto; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
 
-/* TOC PANEL */
-.toc-panel { width: var(--toc-w); flex-shrink: 0; position: sticky; top: 54px; height: calc(100vh - 54px); overflow-y: auto; padding: 32px 20px; border-left: 1px solid var(--border); background: var(--bg-secondary); scrollbar-width: thin; }
-.toc-title { font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.05em; }
-.toc-list { list-style: none; border-left: 1px solid var(--border-strong); padding-left: 0; margin-left: 8px; }
-.toc-list a { display: block; padding: 4px 0 4px 12px; font-size: 13.5px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-left: 2px solid transparent; margin-left: -1px; }
-.toc-list a:hover { color: var(--accent); }
-.toc-list a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
-.toc-list .toc-sub { padding-left: 24px; font-size: 13px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: #60a5fa; }
 
-/* TYPOGRAPHY & PAGE HEADER (GITHUB STYLE) */
-.doc-section { max-width: var(--content-max); }
-.page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border-strong); }
-.page-title { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.2; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    img { max-width: 100%; height: auto; display: block; }
 
-.header-quote {
-  border-left: 4px solid var(--border-strong);
-  padding-left: 16px;
-  margin: 16px 0 24px 0;
-  font-size: 1rem;
-  color: var(--text-faint);
-  font-family: var(--font-body);
-}
+    /* ═══════════════════════════ NAVBAR ═══════════════════════════ */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .navbar.scrolled { background: rgba(10,14,26,0.97); }
 
-/* SHIELDS.IO STYLE BADGES */
-.gh-badge-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-.gh-badge {
-  display: inline-flex; border-radius: 3px; overflow: hidden;
-  font-family: var(--font-body); font-size: 11px; font-weight: 700;
-  text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  letter-spacing: 0.03em; border: 1px solid rgba(255,255,255,0.1);
-}
-.gh-badge .left { background: #555555; color: #fff; padding: 4px 8px; display: flex; align-items: center; gap: 4px; }
-.gh-badge .right { padding: 4px 8px; color: #fff; display: flex; align-items: center; }
-.gh-badge .right.blue { background: #007ec6; }
-.gh-badge .right.green { background: #4c1; }
-.gh-badge .right.yellow { background: #dfb317; color: #222; }
-.gh-badge .right.red { background: #e05d44; }
-.gh-badge .right.orange { background: #fe7d37; }
-.gh-badge svg { fill: currentColor; width: 12px; height: 12px; }
+    .nav-container {
+      max-width: 1200px; margin: 0 auto;
+      height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
 
-/* MAIN CTA BUTTON */
-.gee-run-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px; border-radius: var(--radius);
-  background: var(--accent); color: #fff !important;
-  font-size: 1.1rem; font-family: var(--font-body); letter-spacing: 0.05em;
-  text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: all 0.2s ease; margin-bottom: 32px;
-}
-.gee-run-btn:hover {
-  background: var(--accent-hover); transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); text-decoration: none;
-}
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-brand-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: #fff; font-weight: 700;
+    }
+    .nav-logo-main { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+    .nav-logo-sub  { font-size: 11px; color: var(--text-muted); display: block; }
 
-/* SOCIAL MEDIA & AUTHOR BADGES */
-.author-links-container { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; }
-.author-links-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-.author-links-row:last-child { margin-bottom: 0; }
-.author-label { font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
-.socmed-group { display: flex; flex-wrap: wrap; gap: 8px; }
-.socmed-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 12px; border-radius: 4px;
-  background: var(--bg-card); border: 1px solid var(--border-strong);
-  color: var(--text) !important; font-size: 0.85rem; font-weight: 700;
-  text-decoration: none; transition: all 0.2s ease;
-}
-.socmed-badge:hover { background: var(--accent); color: #fff !important; border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-decoration: none; }
-.dev-name { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .nav-menu {
+      display: flex; list-style: none; gap: 4px;
+      align-items: center;
+    }
+    .nav-menu a {
+      display: block; padding: 6px 12px; border-radius: 6px;
+      font-size: 13.5px; font-weight: 500; color: var(--text-muted);
+      transition: color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color: var(--text); background: var(--card2); }
 
-h2.section-title { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--text); margin: 48px 0 20px; padding-bottom: 8px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; }
-h3.sub-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 32px 0 12px; scroll-margin-top: 80px; }
-h4.sub-sub-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 20px 0 10px; font-family: var(--font-body); }
-p { margin-bottom: 16px; font-size: 1rem; color: var(--text); }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-strong { font-weight: 700; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
-.admonition { margin: 24px 0; padding: 16px 20px; border-radius: var(--radius); background: var(--bg-secondary); border-left: 4px solid var(--border-strong); }
-.admonition-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.05em; }
-.admonition.note { border-left-color: var(--accent); }
-.admonition.note .admonition-title { color: var(--accent); }
-.admonition.warning { border-left-color: var(--amber); }
-.admonition.warning .admonition-title { color: var(--amber); }
-.admonition p { margin-bottom: 0; font-size: 0.95rem; }
+    .btn-apply {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 16px; border-radius: 7px;
+      background: var(--blue); color: #fff;
+      font-size: 13px; font-weight: 600;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-apply:hover {
+      background: #2563eb; color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.35);
+    }
 
-.table-wrap { overflow-x: auto; margin: 24px 0; border: 1px solid var(--border); border-radius: var(--radius); }
-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left; }
-thead { background: var(--bg-secondary); border-bottom: 2px solid var(--border-strong); }
-thead th { padding: 12px 16px; font-weight: 700; color: var(--text); white-space: nowrap; }
-tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
-tbody tr:hover { background: var(--bg-code); }
-td code, th code { font-family: var(--font-mono); font-size: 0.9em; border: 1px solid var(--border); background: var(--bg-code); padding: 2px 4px; border-radius: 2px; color: var(--text); }
-td.center { text-align: center; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text-muted); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Screenshot / Image Styling */
-.screenshot-wrap { border: 1px solid var(--border); margin: 24px 0; background: var(--bg-secondary); padding: 12px; border-radius: var(--radius); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.screenshot-wrap img { width: 100%; height: auto; display: block; border: 1px solid var(--border-strong); border-radius: 2px; }
-.screenshot-caption { font-size: 0.9rem; color: var(--text-muted); text-align: center; padding: 12px 0 4px; font-style: italic; }
+    /* ═══════════════════════════ HERO ═══════════════════════════ */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: calc(var(--nav-h) + 80px) 24px 100px;
+      min-height: 100vh; display: flex; align-items: center;
+    }
 
-.code-block { background: var(--bg-code); border: 1px solid var(--border); border-radius: var(--radius); margin: 24px 0; overflow: hidden; }
-.code-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
-.code-lang { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
-.code-copy { font-family: var(--font-body); font-size: 12px; font-weight: 700; padding: 4px 10px; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text-muted); cursor: pointer; border-radius: var(--radius); }
-.code-copy:hover { background: var(--border); color: var(--text); }
-pre { padding: 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.5; color: var(--text); margin: 0; }
-code { font-family: var(--font-mono); font-size: 0.9em; background: var(--bg-code); padding: 2px 4px; border: 1px solid var(--border); border-radius: 2px; }
-pre code { background: none; padding: 0; border: none; font-size: inherit; }
-.kw  { color: #007020; font-weight: bold; } [data-theme="dark"] .kw  { color: #ff7b72; }
-.str { color: #4070a0; } [data-theme="dark"] .str { color: #a5d6ff; }
-.num { color: #40a070; } [data-theme="dark"] .num { color: #79c0ff; }
-.prop{ color: #06287e; } [data-theme="dark"] .prop{ color: #d2a8ff; }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 30%, transparent 100%);
+    }
 
-.math-block { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; margin: 24px 0; overflow-x: auto; text-align: center; font-size: 1.1rem; border-radius: var(--radius); }
-.math-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
-.math-cell { background: var(--bg-code); border: 1px solid var(--border); padding: 16px; text-align: center; border-radius: var(--radius); }
-.math-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-align: left; }
+    .hero-bg-glow {
+      position: absolute; border-radius: 50%; pointer-events: none; filter: blur(80px);
+    }
+    .glow-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      top: -100px; left: -100px;
+    }
+    .glow-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 70%);
+      top: 200px; right: -100px;
+    }
 
-.swatch { display: inline-block; width: 20px; height: 20px; border: 1px solid var(--border-strong); vertical-align: middle; border-radius: 2px; }
+    .hero-container {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      position: relative; z-index: 1;
+    }
 
-.tag { display: inline-block; padding: 2px 6px; font-size: 10px; font-family: var(--font-mono); font-weight: 700; background: var(--accent); color: #fff; border-radius: 2px; vertical-align: middle; text-transform: uppercase; margin-left: 8px; }
-.tag.new { background: var(--green); }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 600;
+      color: var(--cyan); letter-spacing: 0.5px; text-transform: uppercase;
+      background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.2);
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
 
-.param-group { border: 1px solid var(--border); margin: 24px 0; border-radius: var(--radius); overflow: hidden; }
-.param-group-header { padding: 12px 16px; font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; background: var(--bg-secondary); border-bottom: 1px solid var(--border); }
+    .hero-title {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -1.5px; color: var(--text);
+      margin-bottom: 18px;
+    }
+    .hero-title .highlight { color: var(--blue); }
+    .hero-title .green { color: var(--green); }
 
-[data-lang="id"] .en-only { display: none !important; }
-[data-lang="en"] .id-only { display: none !important; }
+    .hero-desc {
+      font-size: 15.5px; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 28px; max-width: 520px;
+    }
 
-.footer { border-top: 1px solid var(--border-strong); padding: 32px 0; margin-top: 64px; font-size: 0.9rem; color: var(--text-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .hero-cta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
 
-@media (max-width: 1150px) { .toc-panel { display: none; } }
-@media (max-width: 850px) { .sidebar { display: none; } .main-content { padding: 24px 20px; } .badge-row { display: none; } }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-weight: 600; border: none;
+      cursor: pointer; transition: all 0.2s; border-radius: 8px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--blue); color: #fff;
+      padding: 12px 24px; font-size: 14.5px;
+    }
+    .btn-primary:hover {
+      background: #2563eb; color: #fff;
+      transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59,130,246,0.4);
+    }
+    .btn-outline-white {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border2);
+      padding: 12px 24px; font-size: 14.5px;
+    }
+    .btn-outline-white:hover {
+      border-color: var(--blue); color: var(--blue);
+      transform: translateY(-2px);
+    }
+    .btn-white {
+      background: var(--text); color: var(--bg);
+      padding: 12px 24px; font-size: 14.5px;
+    }
+    .btn-white:hover {
+      background: #cbd5e1; transform: translateY(-2px);
+    }
+    .btn-lg { padding: 13px 26px; font-size: 15px; }
 
-#progress { position: fixed; top: 0; left: 0; z-index: 200; height: 3px; background: var(--accent); width: 0%; transition: width 0.1s linear; }
-</style>
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 20px;
+    }
+    .hero-meta span {
+      font-size: 13px; color: var(--text-muted); font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .hero-meta i { color: var(--green); font-size: 13px; }
+
+    /* Terminal */
+    .hero-terminal {
+      background: #0d1117; border: 1px solid var(--border2);
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+    .terminal-header {
+      background: #161b22; padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .terminal-dot.red    { background: #ff5f57; }
+    .terminal-dot.yellow { background: #febc2e; }
+    .terminal-dot.green  { background: #28c840; }
+    .terminal-title {
+      margin-left: 8px; font-size: 12.5px; color: var(--text-faint);
+      font-family: 'Courier New', monospace;
+    }
+    .terminal-body {
+      padding: 20px 20px 28px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 13px; line-height: 1.9;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .terminal-body .line { display: flex; gap: 6px; flex-wrap: wrap; }
+    .terminal-body .prompt { color: var(--green); }
+    .terminal-body .cmd   { color: var(--blue); font-weight: 600; }
+    .terminal-body .dim   { color: var(--text-muted); }
+    .terminal-body .comment { color: var(--text-faint); font-style: italic; }
+    .terminal-body .ok    { color: var(--green); }
+    .terminal-body .warn  { color: var(--amber); }
+    .terminal-body .pink  { color: var(--pink); }
+    .cursor {
+      display: inline-block; width: 8px; height: 14px;
+      background: var(--green); vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ═══════════════════════════ STATS BANNER ═══════════════════════════ */
+    .stats-banner {
+      background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 40px 24px;
+    }
+    .stats-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+      text-align: center;
+    }
+    .stat-item {}
+    .stat-num {
+      font-size: 38px; font-weight: 900; color: var(--blue);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+    /* ═══════════════════════════ SECTIONS ═══════════════════════════ */
+    .section { padding: 90px 24px; }
+    .section-alt { background: var(--bg2); }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center; max-width: 700px; margin: 0 auto 64px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--blue);
+      background: var(--blue-glow); border: 1px solid rgba(59,130,246,0.25);
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(22px, 3.5vw, 36px); font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.2; color: var(--text);
+      margin-bottom: 14px;
+    }
+    .section-subtitle {
+      font-size: 15.5px; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* ═══════════════════════════ FEATURES GRID ═══════════════════════════ */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .feature-card:hover {
+      border-color: var(--blue); transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.12);
+    }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: var(--blue-glow); border: 1px solid rgba(59,130,246,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--blue); margin-bottom: 16px;
+    }
+    .feature-icon.green-icon { background: var(--green-glow); border-color: rgba(34,197,94,0.2); color: var(--green); }
+    .feature-icon.pink-icon  { background: var(--pink-glow);  border-color: rgba(236,72,153,0.2); color: var(--pink); }
+    .feature-icon.amber-icon { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.2); color: var(--amber); }
+    .feature-icon.cyan-icon  { background: rgba(6,182,212,0.1);  border-color: rgba(6,182,212,0.2);  color: var(--cyan); }
+
+    .feature-card h3 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .feature-card p  { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ═══════════════════════════ NEW BADGE ═══════════════════════════ */
+    .badge-new {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      background: var(--green); color: #000; padding: 2px 7px; border-radius: 20px;
+      vertical-align: middle; margin-left: 6px; letter-spacing: 0.5px;
+    }
+
+    /* ═══════════════════════════ WORKFLOW STEPS ═══════════════════════════ */
+    .steps-wrapper { display: flex; flex-direction: column; gap: 0; }
+
+    .step-row {
+      display: grid; grid-template-columns: 64px 1fr; gap: 0;
+      align-items: stretch;
+    }
+
+    .step-indicator {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+    }
+    .step-line {
+      width: 2px; background: var(--border2); flex: 1;
+      min-height: 20px; margin: 8px 0;
+    }
+    .step-row:last-child .step-line { display: none; }
+
+    .step-content {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px 28px 32px;
+      margin-left: 16px; margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-size: 18px; font-weight: 800; color: var(--text);
+      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .step-title i { font-size: 16px; color: var(--blue); }
+
+    .step-desc {
+      font-size: 14.5px; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ═══════════════════════════ SUBSTEP ITEMS ═══════════════════════════ */
+    .substep-list {
+      display: flex; flex-direction: column; gap: 8px;
+      list-style: none; margin-bottom: 16px;
+    }
+    .substep-list li {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 13.5px; color: var(--text-muted); line-height: 1.5;
+    }
+    .substep-list li .num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--blue-glow); border: 1px solid rgba(59,130,246,0.3);
+      color: var(--blue); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ═══════════════════════════ INFO BOX ═══════════════════════════ */
+    .info-box {
+      background: var(--blue-glow); border: 1px solid rgba(59,130,246,0.25);
+      border-left: 4px solid var(--blue);
+      border-radius: 8px; padding: 14px 18px;
+      font-size: 13.5px; color: var(--text-muted); line-height: 1.6;
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-top: 16px;
+    }
+    .info-box i { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+    .warn-box {
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+      border-left: 4px solid var(--amber);
+    }
+    .warn-box i { color: var(--amber); }
+    .green-box {
+      background: var(--green-glow); border: 1px solid rgba(34,197,94,0.25);
+      border-left: 4px solid var(--green);
+    }
+    .green-box i { color: var(--green); }
+
+    /* ═══════════════════════════ METHODS TABS ═══════════════════════════ */
+    .method-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .method-tab {
+      padding: 7px 16px; border-radius: 6px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--border2); color: var(--text-muted);
+      background: var(--bg3); transition: all 0.2s;
+    }
+    .method-tab.active, .method-tab:hover {
+      border-color: var(--blue); color: var(--blue); background: var(--blue-glow);
+    }
+    .method-panel { display: none; }
+    .method-panel.active { display: block; }
+
+    /* ═══════════════════════════ TABLE ═══════════════════════════ */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    thead { background: var(--bg3); }
+    th {
+      padding: 12px 16px; text-align: left; font-size: 12px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--text-muted); border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      color: var(--text-muted); vertical-align: top; line-height: 1.5;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--card2); }
+    td strong, td code { color: var(--text); }
+    code {
+      font-family: 'Courier New', monospace; font-size: 12.5px;
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; color: var(--cyan);
+    }
+    .tag-green {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      background: var(--green-glow); border: 1px solid rgba(34,197,94,0.25);
+      color: var(--green); font-size: 11.5px; font-weight: 600;
+    }
+    .tag-blue {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      background: var(--blue-glow); border: 1px solid rgba(59,130,246,0.25);
+      color: var(--blue); font-size: 11.5px; font-weight: 600;
+    }
+    .tag-amber {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25);
+      color: var(--amber); font-size: 11.5px; font-weight: 600;
+    }
+
+    /* ═══════════════════════════ CODE BLOCK ═══════════════════════════ */
+    .code-block {
+      background: #0d1117; border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin: 16px 0;
+    }
+    .code-header {
+      background: #161b22; padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .code-lang { font-size: 12px; color: var(--text-faint); font-weight: 600; }
+    .code-copy {
+      font-size: 11.5px; color: var(--text-faint); cursor: pointer;
+      background: none; border: none; padding: 2px 8px;
+      border-radius: 4px; transition: color 0.2s, background 0.2s;
+      font-family: var(--font);
+    }
+    .code-copy:hover { color: var(--text); background: var(--border); }
+    .code-block pre {
+      padding: 18px 20px; overflow-x: auto;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 13px; line-height: 1.8; color: #e2e8f0;
+    }
+    .code-block pre .kw  { color: #ff79c6; }
+    .code-block pre .str { color: #f1fa8c; }
+    .code-block pre .num { color: #bd93f9; }
+    .code-block pre .cmt { color: #6272a4; font-style: italic; }
+    .code-block pre .fn  { color: #50fa7b; }
+    .code-block pre .prop{ color: #66d9e8; }
+
+    /* ═══════════════════════════ FEATURE SPACE ═══════════════════════════ */
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .feature-pill {
+      background: var(--card2); border: 1px solid var(--border2);
+      border-radius: 6px; padding: 6px 14px;
+      font-size: 12.5px; color: var(--text-muted); font-weight: 500;
+    }
+    .feature-pill.band { border-color: rgba(6,182,212,0.3); color: var(--cyan); background: rgba(6,182,212,0.06); }
+    .feature-pill.index { border-color: rgba(34,197,94,0.3); color: var(--green); background: rgba(34,197,94,0.06); }
+
+    /* ═══════════════════════════ PALETTE ═══════════════════════════ */
+    .palette-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .palette-tab {
+      padding: 7px 16px; border-radius: 6px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--border2); color: var(--text-muted);
+      background: var(--bg3); transition: all 0.2s;
+    }
+    .palette-tab.active { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+
+    .palette-grid { display: none; }
+    .palette-grid.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+
+    .palette-item {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .palette-swatch {
+      width: 28px; height: 28px; border-radius: 5px; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .palette-info { flex: 1; min-width: 0; }
+    .palette-name { font-size: 12.5px; color: var(--text); font-weight: 500; }
+    .palette-hex { font-size: 11px; color: var(--text-faint); font-family: monospace; }
+    .palette-id {
+      font-size: 11px; color: var(--text-faint); background: var(--card2);
+      padding: 2px 6px; border-radius: 4px;
+    }
+
+    /* ═══════════════════════════ TROUBLESHOOT ═══════════════════════════ */
+    .trouble-list { display: flex; flex-direction: column; gap: 12px; }
+    .trouble-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      align-items: start;
+    }
+    .trouble-q { font-size: 13.5px; color: var(--amber); font-weight: 600; font-family: monospace; }
+    .trouble-a { font-size: 13.5px; color: var(--text-muted); }
+    @media (max-width: 640px) { .trouble-item { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════════════ CTA ═══════════════════════════ */
+    .cta-section {
+      background: linear-gradient(135deg, #0f1d3a 0%, #0a1628 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 90px 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%);
+    }
+    .cta-inner { max-width: 600px; margin: 0 auto; position: relative; }
+    .cta-inner h2 { font-size: 32px; font-weight: 900; letter-spacing: -0.8px; margin-bottom: 12px; }
+    .cta-inner p { font-size: 16px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; }
+    .cta-inner code { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: var(--cyan); }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ═══════════════════════════ FOOTER ═══════════════════════════ */
+    .footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 60px 24px 0;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+      padding-bottom: 50px;
+    }
+    .footer-brand-col {}
+    .footer-brand-col .nav-brand-icon { margin-bottom: 14px; }
+    .footer-brand-col p { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--card2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 15px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .footer-social a:hover { color: var(--blue); border-color: var(--blue); background: var(--blue-glow); }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 16px; letter-spacing: 0.3px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul a { font-size: 13.5px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--blue); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      border-top: 1px solid var(--border);
+      padding: 20px 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      font-size: 12.5px; color: var(--text-faint);
+    }
+    .footer-bottom a { color: var(--text-faint); }
+    .footer-bottom a:hover { color: var(--blue); }
+
+    /* ═══════════════════════════ SCROLL TOP ═══════════════════════════ */
+    .scroll-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      border: none; cursor: pointer; font-size: 16px;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.35);
+      display: none; align-items: center; justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .scroll-top:hover { transform: scale(1.1); box-shadow: 0 6px 22px rgba(59,130,246,0.5); }
+    .scroll-top.visible { display: flex; }
+
+    /* ═══════════════════════════ FADE UP ═══════════════════════════ */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-container { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 4px; z-index: 999; }
+      .nav-menu.open { display: flex; }
+      .nav-menu a { font-size: 16px; padding: 12px 16px; }
+      .hamburger { display: flex; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .step-row { grid-template-columns: 48px 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="progress"></div>
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-brand">
+      <div class="nav-brand-icon"><i class="fas fa-layer-group"></i></div>
+      <div>
+        <span class="nav-logo-main">GEEDEF V3.1</span>
+        <span class="nav-logo-sub">Land Cover Classification</span>
+      </div>
+    </a>
 
-<!-- NAVBAR BERSIH (Tanpa Badge) -->
-<nav class="navbar">
-  <a href="#" class="navbar-brand">GEEDEF <span>V3.1</span></a>
-  <div class="navbar-spacer"></div>
-  <div class="ctrl-group">
-    <div class="lang-toggle">
-      <button class="lang-btn" id="btn-id" onclick="setLang('id')" title="Bahasa Indonesia">ID</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')" title="English">EN</button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#home"          class="nav-link active">Beranda</a></li>
+      <li><a href="#fitur-baru"    class="nav-link">V3.1 Baru</a></li>
+      <li><a href="#langkah"       class="nav-link">Panduan</a></li>
+      <li><a href="#fitur-space"   class="nav-link">Feature Space</a></li>
+      <li><a href="#palette"       class="nav-link">Palette</a></li>
+      <li><a href="#troubleshoot"  class="nav-link">Troubleshoot</a></li>
+      <li><a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" class="nav-link" target="_blank" rel="noopener">Buka GEE</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" class="btn-apply" target="_blank" rel="noopener">
+        <i class="fas fa-satellite-dish"></i> Buka di GEE
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <button class="ctrl-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
   </div>
 </nav>
 
-<div class="layout">
-  <aside class="sidebar">
-    <p class="sidebar-section-title id-only">Navigasi Utama</p>
-    <p class="sidebar-section-title en-only">Main Navigation</p>
-    <ul class="sidebar-nav">
-      <li><a href="#whats-new">
-        <span class="id-only">Pembaruan V3.1</span>
-        <span class="en-only">Release Notes V3.1</span>
-      </a></li>
-      <li><a href="#overview">
-        <span class="id-only">Gambaran Umum</span>
-        <span class="en-only">Overview</span>
-      </a></li>
-      <li><a href="#prerequisites">
-        <span class="id-only">Prasyarat Sistem</span>
-        <span class="en-only">Prerequisites</span>
-      </a></li>
-      <li><a href="#interface">
-        <span class="id-only">Antarmuka Sistem</span>
-        <span class="en-only">System Interface</span>
-      </a></li>
-      <li><a href="#workflow">
-        <span class="id-only">Alur Kerja Klasifikasi</span>
-        <span class="en-only">Classification Workflow</span>
-      </a></li>
-      <li><a href="#step1" class="sub">
-        <span class="id-only">1. Batas Wilayah (ROI)</span>
-        <span class="en-only">1. Region of Interest</span>
-      </a></li>
-      <li><a href="#step2" class="sub">
-        <span class="id-only">2. Komposit Citra</span>
-        <span class="en-only">2. Image Composite</span>
-      </a></li>
-      <li><a href="#step3" class="sub">
-        <span class="id-only">3. Algoritma & Parameter</span>
-        <span class="en-only">3. Algorithm & Parameters</span>
-      </a></li>
-      <li><a href="#step4" class="sub">
-        <span class="id-only">4. Manajemen Kelas & Sampel</span>
-        <span class="en-only">4. Classes & Samples</span>
-      </a></li>
-      <li><a href="#step5" class="sub">
-        <span class="id-only">5. Eksekusi Klasifikasi</span>
-        <span class="en-only">5. Run Classification</span>
-      </a></li>
-      <li><a href="#step6" class="sub">
-        <span class="id-only">6. Ekspor Hasil</span>
-        <span class="en-only">6. Export Output</span>
-      </a></li>
-      <li><a href="#core-functions">
-        <span class="id-only">Indeks Fungsi GEE Inti</span>
-        <span class="en-only">Core GEE Functions Index</span>
-      </a></li>
-      <li><a href="#featurespace">
-        <span class="id-only">Ruang Fitur (Feature Space)</span>
-        <span class="en-only">Feature Space</span>
-      </a></li>
-      <li><a href="#formulas">
-        <span class="id-only">Formula Indeks Spektral</span>
-        <span class="en-only">Index Formulas</span>
-      </a></li>
-      <li><a href="#palettes">
-        <span class="id-only">Skema Warna Tutupan Lahan</span>
-        <span class="en-only">Palette Schemes</span>
-      </a></li>
-      <li><a href="#code">
-        <span class="id-only">Repositori Skrip</span>
-        <span class="en-only">Script Repository</span>
-      </a></li>
-      <li><a href="#references">
-        <span class="id-only">Referensi Ilmiah</span>
-        <span class="en-only">References</span>
-      </a></li>
-    </ul>
-  </aside>
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-bg-glow glow-1"></div>
+  <div class="hero-bg-glow glow-2"></div>
 
-  <main class="main-content">
-    <div class="doc-section">
-      
-      <!-- GITHUB STYLE HEADER -->
-      <div class="page-header" id="top">
-        <h1 class="page-title id-only">GEEDEF — Alat Klasifikasi Tutupan Lahan</h1>
-        <h1 class="page-title en-only">GEEDEF — Land Cover Classification Tools</h1>
-        
-        <div class="header-quote id-only">Platform: Google Earth Engine (JavaScript API) | Data: Sentinel-2A SR Harmonized | Versi: V3.1</div>
-        <div class="header-quote en-only">Platform: Google Earth Engine (JavaScript API) | Data: Sentinel-2A SR Harmonized | Version: V3.1</div>
-        
-        <!-- SHIELDS.IO BADGES -->
-        <div class="gh-badge-group">
-          <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gh-badge">
-            <span class="left">
-              <svg viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
-              Open in
-            </span>
-            <span class="right blue">Google Earth Engine</span>
-          </a>
-          <div class="gh-badge">
-            <span class="left">Data</span><span class="right blue">Sentinel-2A SR Harmonized</span>
-          </div>
-          <div class="gh-badge">
-            <span class="left id-only">Algoritma</span><span class="left en-only">Algorithms</span><span class="right green">RF | GTB | SVM</span>
-          </div>
-          <div class="gh-badge">
-            <span class="left id-only">Bahasa</span><span class="left en-only">Language</span><span class="right yellow">GEE JavaScript</span>
-          </div>
-          <div class="gh-badge">
-            <span class="left id-only">Institusi</span><span class="left en-only">Institution</span><span class="right red">Universitas Kuningan</span>
-          </div>
-          <div class="gh-badge">
-            <span class="left id-only">Diperbarui</span><span class="left en-only">Updated</span><span class="right orange id-only">Mei 2026</span><span class="right orange en-only">May 2026</span>
-          </div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Universitas Kuningan · Fakultas Kehutanan & Ilmu Lingkungan
+      </div>
+      <h1 class="hero-title">
+        GEEDEF —<br>Klasifikasi <span class="highlight">Tutupan Lahan</span><br>
+        Berbasis Google<br>
+        Earth Engine <span class="green">V3.1</span>
+      </h1>
+      <p class="hero-desc">
+        <strong>GEEDEF</strong> adalah alat klasifikasi tutupan lahan berbasis cloud yang dibangun di atas Google Earth Engine (GEE). Mengintegrasikan tiga algoritma ML — <strong>RF, GTB, dan SVM</strong> — dengan 26 variabel fitur spektral dari Sentinel-2A SR Harmonized, seluruh alur kerja berjalan di server Google tanpa perlu mengunduh data.
+      </p>
+      <div class="hero-cta">
+        <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <i class="fas fa-satellite-dish"></i> Buka di GEE
+        </a>
+        <a href="#langkah" class="btn btn-outline-white btn-lg">
+          <i class="fas fa-play"></i> Lihat Panduan
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span><i class="fas fa-layer-group"></i> 26 variabel fitur</span>
+        <span><i class="fas fa-robot"></i> RF · GTB · SVM</span>
+        <span><i class="fas fa-globe"></i> Bilingual EN/ID</span>
+        <span><i class="fas fa-cloud"></i> 100% cloud-based</span>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="hero-visual">
+      <div class="hero-terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">geedef-v3.1 ~ gee-code-editor</span>
         </div>
+        <div class="terminal-body">
+          <span class="line"><span class="prompt">►</span> <span class="cmd">Step 1</span> <span class="dim">— Define ROI from asset</span></span>
+          <span class="line"><span class="ok">✓</span> <span class="dim">Batas wilayah dimuat · 12,400 ha</span></span>
+          <span class="line"><span class="prompt">►</span> <span class="cmd">Step 2</span> <span class="dim">— Sentinel-2A Composite</span></span>
+          <span class="line"><span class="ok">✓</span> <span class="dim">2024-01-01 → 2024-12-31 · Cloud Score+ mask</span></span>
+          <span class="line"><span class="comment"># 26 variabel fitur dihitung otomatis</span></span>
+          <span class="line"><span class="prompt">►</span> <span class="cmd">Step 3</span> <span class="dim">— Pilih Algoritma: RF</span></span>
+          <span class="line"><span class="ok">✓</span> <span class="dim">numTrees=500 · bagFraction=0.5</span></span>
+          <span class="line"><span class="prompt">►</span> <span class="cmd">Step 4</span> <span class="dim">— Import Training Samples (SHP)</span></span>
+          <span class="line"><span class="ok">✓</span> <span class="dim">8 kelas · 1,240 sampel terimpor</span></span>
+          <span class="line"><span class="prompt">►</span> <span class="cmd">Step 5</span> <span class="dim">— RUN CLASSIFICATION</span></span>
+          <span class="line"><span class="pink">✓</span> <span class="dim">OA: 91.4% · Kappa: 0.89 · 8 kelas</span></span>
+          <span class="line"><span class="prompt">►</span> <span class="cmd">Step 6</span> <span class="dim">— Export GeoTIFF 10m → Drive</span></span>
+          <span class="line"><span class="ok">✓</span> <span class="dim">LandCover_DFRF_V3.tif · EPSG:4326</span></span>
+          <span class="line"><span class="prompt">$</span> <span class="cursor"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- BUTTON JALANKAN TOOLS DI GEE -->
-        <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gee-run-btn id-only">
-          <strong>🚀 JALANKAN TOOLS DI GEE</strong>
-        </a>
-        <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank" class="gee-run-btn en-only">
-          <strong>🚀 RUN TOOLS IN GEE</strong>
-        </a>
+<!-- ═══ STATS ═══ -->
+<section class="stats-banner">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">26</div>
+      <div class="stat-label">Variabel Fitur Spektral</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Algoritma ML (RF · GTB · SVM)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Langkah Alur Kerja</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10m</div>
+      <div class="stat-label">Resolusi Output GeoTIFF</div>
+    </div>
+  </div>
+</section>
 
-        <!-- BAGIAN BADGE SOSIAL MEDIA -->
-        <div class="author-links-container">
-          <div class="author-links-row">
-            <span class="author-label">Developer</span>
-            <span class="dev-name">Defani Arman Alfitriansyah</span>
+<!-- ═══ FITUR BARU V3.1 ═══ -->
+<section class="section section-alt" id="fitur-baru">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">Apa yang Baru</span>
+      <h2 class="section-title">7 Fitur Baru di GEEDEF V3.1</h2>
+      <p class="section-subtitle">
+        Versi terbaru yang dapat diakses melalui link GEE yang telah diperbarui menghadirkan peningkatan signifikan dibanding V3 (rilis PDF asli).
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon"><i class="fas fa-file-import"></i></div>
+        <h3>Import Sampel dari SHP Asset <span class="badge-new">NEW</span></h3>
+        <p>Sub-panel baru di Langkah 4 — muat data training yang sudah ada dari aset GEE <code>FeatureCollection</code> (SHP yang diunggah), baca kolom atribut secara otomatis, dan gabungkan dengan sampel yang didigitasi manual.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.05s">
+        <div class="feature-icon green-icon"><i class="fas fa-book-open"></i></div>
+        <h3>Read Columns <span class="badge-new">NEW</span></h3>
+        <p>Tombol khusus untuk membaca dan mengisi dropdown kolom atribut dari aset SHP yang dipilih — menghilangkan keharusan memasukkan nama kolom secara manual.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.1s">
+        <div class="feature-icon cyan-icon"><i class="fas fa-search"></i></div>
+        <h3>Extract Unique Classes <span class="badge-new">NEW</span></h3>
+        <p>Memindai aset SHP untuk semua kode kelas numerik unik dan menampilkan baris yang dapat diedit per kelas (nama + warna) sebelum diimpor.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.15s">
+        <div class="feature-icon pink-icon"><i class="fas fa-rotate"></i></div>
+        <h3>Dual Asset Refresh <span class="badge-new">NEW</span></h3>
+        <p>Input refresh aset terpisah untuk batas ROI dan SHP sampel training — sebelumnya hanya ada satu input field. Kini dua aset dapat dikelola secara independen.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.2s">
+        <div class="feature-icon amber-icon"><i class="fas fa-triangle-exclamation"></i></div>
+        <h3>Accuracy Penalty Flag <span class="badge-new">NEW</span></h3>
+        <p>Jika hanya sampel manual yang digunakan (tidak ada aset tervalidasi lapangan), alat menerapkan koreksi <strong>−5%</strong> pada OA dan Kappa dan menampilkan catatan peringatan — membuat reliabilitas penilaian transparan.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.25s">
+        <div class="feature-icon"><i class="fas fa-language"></i></div>
+        <h3>Bilingual UI (EN / ID) <span class="badge-new">NEW</span></h3>
+        <p>Toggle antarmuka penuh antara Bahasa Inggris dan Bahasa Indonesia via tombol EN / ID di peta — semua label, tombol, placeholder, dan pesan status beralih secara dinamis.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.3s">
+        <div class="feature-icon green-icon"><i class="fas fa-palette"></i></div>
+        <h3>Hex Color Copy Box <span class="badge-new">NEW</span></h3>
+        <p>Setiap kelas di panel palette kini menampilkan kotak teks hex yang dapat diedit di samping tombol kelas — memungkinkan penyalinan langsung tanpa perlu menghafal atau mengetik ulang kode warna.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PANDUAN LENGKAP ═══ -->
+<section class="section" id="langkah">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">Tutorial Lengkap</span>
+      <h2 class="section-title">Enam Langkah Alur Kerja</h2>
+      <p class="section-subtitle">
+        Semua enam langkah harus dieksekusi <strong>secara berurutan</strong>. Melewati langkah apapun akan memicu peringatan di panel status.
+      </p>
+    </div>
+
+    <div class="steps-wrapper">
+
+      <!-- STEP 1 -->
+      <div class="step-row">
+        <div class="step-indicator">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content fade-up">
+          <div class="step-title"><i class="fas fa-map-marked-alt"></i> Define Region of Interest (ROI)</div>
+          <p class="step-desc">ROI mendefinisikan luas spasial untuk penyaringan koleksi citra, pelatihan klasifikator, dan kalkulasi luas area. Tersedia dua metode:</p>
+
+          <div class="method-tabs">
+            <div class="method-tab active" onclick="switchTab(this,'roi-a','roi-tabs')">Method A — Load dari GEE Asset</div>
+            <div class="method-tab" onclick="switchTab(this,'roi-b','roi-tabs')">Method B — Gambar Manual</div>
           </div>
-          <div class="author-links-row" style="margin-top: 12px;">
-            <span class="author-label">Connect & Repositories</span>
-            <div class="socmed-group">
-              <a class="socmed-badge" href="https://github.com/Defani/GEEDEF-Land-Cover-Classification-Tools" target="_blank">💻 GitHub Repo</a>
-              <a class="socmed-badge" href="https://www.linkedin.com/in/defaniarmanalfitriansyah/" target="_blank">💼 LinkedIn</a>
-              <a class="socmed-badge" href="https://medium.com/@defaniarman" target="_blank">📝 Medium</a>
-              <a class="socmed-badge" href="https://rpubs.com/defanii" target="_blank">📊 RPubs</a>
-              <a class="socmed-badge" href="https://www.instagram.com/49s.lab/" target="_blank">📷 Instagram</a>
-              <a class="socmed-badge" href="https://www.tiktok.com/@de.fanii" target="_blank">🎵 TikTok</a>
+          <div id="roi-tabs">
+            <div class="method-panel active" id="roi-a">
+              <ol class="substep-list">
+                <li><span class="num">1</span> Masukkan nama akun atau proyek GEE Anda di kolom teks (misal: <code>ee-defaniarman</code>).</li>
+                <li><span class="num">2</span> Klik <strong>🔄 Refresh Assets</strong> untuk mengisi dropdown dengan aset <code>FeatureCollection</code> yang tersedia.</li>
+                <li><span class="num">3</span> Pilih SHP batas wilayah dari dropdown.</li>
+                <li><span class="num">4</span> Klik <strong>📥 Load ROI from Dropdown</strong>.</li>
+                <li><span class="num">5</span> Peta akan terpusat pada ROI yang dimuat dan menampilkan batas sebagai garis biru.</li>
+              </ol>
+            </div>
+            <div class="method-panel" id="roi-b">
+              <ol class="substep-list">
+                <li><span class="num">1</span> Aktifkan Drawing Tools dari toolbar peta kiri atas (ikon pensil).</li>
+                <li><span class="num">2</span> Gambar poligon yang mendefinisikan batas area studi Anda.</li>
+                <li><span class="num">3</span> Klik <strong>🖊 Use Map Drawing Tools</strong>.</li>
+              </ol>
             </div>
           </div>
+          <div class="info-box">
+            <i class="fas fa-circle-info"></i>
+            <span><strong>Rekomendasi:</strong> Untuk area studi skala distrik atau lebih besar, Method A lebih disarankan untuk memastikan batas administratif sesuai data resmi.</span>
+          </div>
         </div>
       </div>
 
-      <h2 class="section-title" id="whats-new">
-        <span class="id-only">Catatan Rilis V3.1</span>
-        <span class="en-only">Release Notes V3.1</span>
-      </h2>
-
-      <div class="admonition note">
-        <div class="admonition-title">Pembaruan Versi</div>
-        <p class="id-only">Diperbarui dari V3. Semua penambahan fungsionalitas di bawah ini telah terintegrasi penuh pada antarmuka *Code Editor* GEE.</p>
-        <p class="en-only">Updated from V3. All functional additions below have been fully integrated into the GEE *Code Editor* interface.</p>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th class="id-only">Fitur</th><th class="id-only">Deskripsi</th><th class="en-only">Feature</th><th class="en-only">Description</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="id-only"><strong>Import SHP Asset</strong> <span class="tag new">Baru</span></td>
-              <td class="id-only">Modul pemuatan data sampel tervalidasi langsung dari *GEE FeatureCollection asset* untuk digabungkan dengan sampel manual.</td>
-              <td class="en-only"><strong>Import SHP Asset</strong> <span class="tag new">New</span></td>
-              <td class="en-only">Module to load validated sample data directly from a *GEE FeatureCollection asset* to merge with manual samples.</td>
-            </tr>
-            <tr>
-              <td class="id-only"><strong>Pembaca Kolom Otomatis</strong></td>
-              <td class="id-only">Ekstraksi nama kolom atribut secara otomatis dari asset SHP yang dipilih untuk meminimalisasi kesalahan ketik.</td>
-              <td class="en-only"><strong>Auto Column Reader</strong></td>
-              <td class="en-only">Automatic extraction of attribute column names from selected SHP assets to minimize typo errors.</td>
-            </tr>
-            <tr>
-              <td class="id-only"><strong>Penalti Akurasi Tervalidasi</strong></td>
-              <td class="id-only">Penerapan penalti −5% pada *Overall Accuracy* jika pemodelan hanya mengandalkan sampel digitasi manual tanpa validasi lapangan.</td>
-              <td class="en-only"><strong>Validated Accuracy Penalty</strong></td>
-              <td class="en-only">Application of a −5% penalty to *Overall Accuracy* if modeling relies solely on manually digitized samples without field validation.</td>
-            </tr>
-            <tr>
-              <td class="id-only"><strong>Antarmuka Bilingual</strong></td>
-              <td class="id-only">Transisi penuh bahasa (Inggris/Indonesia) pada seluruh UI secara dinamis.</td>
-              <td class="en-only"><strong>Bilingual UI</strong></td>
-              <td class="en-only">Full dynamic language transition (English/Indonesian) across the entire UI.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 class="section-title" id="overview">
-        <span class="id-only">Gambaran Umum</span>
-        <span class="en-only">Overview</span>
-      </h2>
-      <p class="id-only"><strong>GEEDEF</strong> dirancang untuk mempercepat alur kerja pemetaan tutupan lahan secara <em>supervised</em> (terpandu) baik untuk skala regional maupun lokal. Alat ini beroperasi murni pada sisi server (<em>server-side</em>) Google Earth Engine, menghindari kebutuhan spesifikasi perangkat keras lokal yang tinggi.</p>
-      <p class="en-only"><strong>GEEDEF</strong> is designed to accelerate supervised land cover mapping workflows at both regional and local scales. The tool operates purely server-side on Google Earth Engine, avoiding the need for high-end local hardware specifications.</p>
-      
-      <p class="id-only">Alat ini memproses dataset <strong>Sentinel-2A Surface Reflectance Harmonized</strong> dan mengekstrak 26 variabel prediktor (10 band spektral dasar + 16 indeks turunan). Pemodelan klasifikasi menggunakan algoritma <em>Machine Learning</em> standar industri.</p>
-      <p class="en-only">This tool processes the <strong>Sentinel-2A Surface Reflectance Harmonized</strong> dataset and extracts 26 predictor variables (10 base spectral bands + 16 derived indices). Classification modeling utilizes industry-standard <em>Machine Learning</em> algorithms.</p>
-
-      <div class="admonition note">
-        <div class="admonition-title">Akses Dataset Resmi</div>
-        <p class="id-only">Katalog Data GEE: <a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED" target="_blank"><code>COPERNICUS/S2_SR_HARMONIZED</code></a></p>
-        <p class="en-only">GEE Data Catalog: <a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED" target="_blank"><code>COPERNICUS/S2_SR_HARMONIZED</code></a></p>
-      </div>
-
-      <h2 class="section-title" id="prerequisites">
-        <span class="id-only">Prasyarat Sistem</span>
-        <span class="en-only">System Prerequisites</span>
-      </h2>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Kebutuhan</th><th class="id-only">Deskripsi Teknis</th>
-            <th class="en-only">Requirement</th><th class="en-only">Technical Description</th>
-          </tr></thead>
-          <tbody>
-            <tr><td class="id-only"><strong>Akun Earth Engine</strong></td><td class="en-only"><strong>Earth Engine Account</strong></td>
-                <td class="id-only">Terdaftar dan memiliki akses ke Code Editor.</td>
-                <td class="en-only">Registered and has access to the Code Editor.</td></tr>
-            <tr><td class="id-only"><strong>Dataset ROI (Batas Wilayah)</strong></td><td class="en-only"><strong>ROI Dataset (Boundary)</strong></td>
-                <td class="id-only">File <em>Shapefile</em> batas studi harus diunggah ke *Assets* GEE sebagai <code>FeatureCollection</code>.</td>
-                <td class="en-only">Study boundary <em>Shapefile</em> must be uploaded to GEE *Assets* as a <code>FeatureCollection</code>.</td></tr>
-            <tr><td class="id-only"><strong>Dataset Sampel (Opsional)</strong></td><td class="en-only"><strong>Sample Dataset (Optional)</strong></td>
-                <td class="id-only">File titik/poligon pelatihan model (jika menggunakan fitur *Import SHP*).</td>
-                <td class="en-only">Point/polygon file for model training (if using the *Import SHP* feature).</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 class="section-title" id="interface">
-        <span class="id-only">Antarmuka Sistem</span>
-        <span class="en-only">System Interface</span>
-      </h2>
-      <p class="id-only">GEEDEF menggunakan tata letak tiga panel berdampingan (<em>side-by-side</em>) untuk memaksimalkan ruang kerja pada layar:</p>
-      <p class="en-only">GEEDEF uses a three-panel side-by-side layout to maximize workspace on the screen:</p>
-      
-      <!-- IMAGE BERDASARKAN RAW GITHUB URL SESUAI PERMINTAAN -->
-      <div class="screenshot-wrap">
-        <img width="1920" height="926" alt="Screenshot GEEDEF Interface" src="https://github.com/user-attachments/assets/81520ee2-b29c-40d2-a7f4-c77e40327cd1">
-        <div class="screenshot-caption id-only">Antarmuka GEEDEF V3.1 — Panel Kiri (Legenda & Hasil) | Peta Interaktif | Panel Kanan (Kontrol)</div>
-        <div class="screenshot-caption en-only">GEEDEF V3.1 Interface — Left Panel (Legend & Results) | Interactive Map | Right Panel (Controls)</div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Komponen Panel</th><th class="id-only">Posisi</th><th class="id-only">Fungsi Utama</th>
-            <th class="en-only">Panel Component</th><th class="en-only">Position</th><th class="en-only">Main Function</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><strong class="id-only">Panel Kiri</strong><strong class="en-only">Left Panel</strong></td>
-                <td class="id-only">Kiri Layar</td><td class="en-only">Left Screen</td>
-                <td class="id-only">Menampilkan legenda kelas aktif, skema palet (KLHK/MapBiomas/NLCD), kalkulasi metrik akurasi (OA & Kappa), dan statistik luasan per kelas.</td>
-                <td class="en-only">Displays active class legend, palette schemes (KLHK/MapBiomas/NLCD), accuracy metric calculations (OA & Kappa), and per-class area statistics.</td></tr>
-            <tr><td><strong class="id-only">Peta Interaktif</strong><strong class="en-only">Interactive Map</strong></td>
-                <td class="id-only">Tengah</td><td class="en-only">Center</td>
-                <td class="id-only">Ruang visualisasi komposit citra, kanvas digitasi sampel latih, dan pratinjau hasil klasifikasi spasial.</td>
-                <td class="en-only">Image composite visualization space, training sample digitization canvas, and spatial classification result preview.</td></tr>
-            <tr><td><strong class="id-only">Panel Kanan</strong><strong class="en-only">Right Panel</strong></td>
-                <td class="id-only">Kanan Layar</td><td class="en-only">Right Screen</td>
-                <td class="id-only">Pusat kendali utama yang memuat enam langkah operasional berurutan dari penentuan ROI hingga ekspor data.</td>
-                <td class="en-only">Main control center containing six sequential operational steps from ROI determination to data export.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 class="section-title" id="workflow">
-        <span class="id-only">Alur Kerja Klasifikasi Utama</span>
-        <span class="en-only">Main Classification Workflow</span>
-      </h2>
-      <div class="admonition warning">
-        <div class="admonition-title">Prosedur Sekuensial</div>
-        <p class="id-only">Pastikan mengeksekusi parameter pada panel kanan secara berurutan. Melompati urutan akan memicu galat eksekusi pada <em>console</em>.</p>
-        <p class="en-only">Ensure execution of parameters in the right panel sequentially. Skipping order will trigger execution errors in the <em>console</em>.</p>
-      </div>
-
-      <h3 class="sub-title" id="step1">
-        <span class="id-only">Langkah 1. Penetapan Batas Wilayah (ROI)</span>
-        <span class="en-only">Step 1. Region of Interest (ROI) Assignment</span>
-      </h3>
-      <p class="id-only">Sistem mendukung dua metode akuisisi geometri batas:</p>
-      <p class="en-only">The system supports two methods for boundary geometry acquisition:</p>
-      <ul style="padding-left:24px;margin-bottom:16px;">
-        <li class="id-only"><strong>Asset Dinamis:</strong> Membaca *FeatureCollection* langsung dari penyimpanan pengguna (sangat direkomendasikan untuk presisi administratif).</li>
-        <li class="en-only"><strong>Dynamic Asset:</strong> Reading a *FeatureCollection* directly from user storage (highly recommended for administrative precision).</li>
-        <li class="id-only"><strong>Digitasi Layar:</strong> Menggunakan alat poligon bawaan GEE pada peta.</li>
-        <li class="en-only"><strong>Screen Digitization:</strong> Using GEE's built-in polygon tool on the map.</li>
-      </ul>
-
-      <h3 class="sub-title" id="step2">
-        <span class="id-only">Langkah 2. Konfigurasi Komposit Citra</span>
-        <span class="en-only">Step 2. Image Composite Configuration</span>
-      </h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th class="id-only">Parameter Akuisisi</th><th class="id-only">Fungsi / Rekomendasi</th>
-            <th class="en-only">Acquisition Parameter</th><th class="en-only">Function / Recommendation</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><strong>Cloud Score+ (CS+) Masking</strong></td>
-                <td class="id-only">Metode *masking* mutakhir berbasis AI dari Google. Nilai probabilitas kejelasan piksel (<code>cs_cdf</code>) < 0.60 akan dihapus.</td>
-                <td class="en-only">State-of-the-art AI-based masking method by Google. Pixel clarity probability (<code>cs_cdf</code>) < 0.60 will be removed.</td></tr>
-            <tr><td><strong>SCL (Scene Classification)</strong></td>
-                <td class="id-only">Menggunakan band SCL bawaan ESA. Efektif, namun rentan pada tepi awan tipis dibandingkan CS+.</td>
-                <td class="en-only">Uses ESA's built-in SCL band. Effective, but vulnerable at thin cloud edges compared to CS+.</td></tr>
-            <tr><td><strong>Median Reducer</strong></td>
-                <td class="id-only">Agregasi piksel secara temporal untuk menghasilkan komposit bebas hamburan atmosfer.</td>
-                <td class="en-only">Temporal pixel aggregation to produce atmospheric scattering-free composites.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 class="sub-title" id="step3">
-        <span class="id-only">Langkah 3. Seleksi Algoritma Klasifikasi</span>
-        <span class="en-only">Step 3. Classification Algorithm Selection</span>
-      </h3>
-      <p class="id-only">Tiga algoritma pemelajaran mesin (Machine Learning) yang didukung dengan arsitektur hiperparameter yang dapat disesuaikan:</p>
-      <p class="en-only">Three supported machine learning algorithms with adjustable hyperparameter architectures:</p>
-      
-      <div class="param-group">
-        <div class="param-group-header">Random Forest (RF) — ee.Classifier.smileRandomForest</div>
-        <div style="padding:16px; font-size:0.95rem; line-height:1.6;">
-          <p class="id-only">Metode *ensemble learning* paling stabil. Cocok untuk sebagian besar klasifikasi ruang multi-dimensi. Tingkatkan <code>numTrees</code> (ideal: 200-500) untuk stabilitas konvergensi model.</p>
-          <p class="en-only">The most stable *ensemble learning* method. Suitable for most multi-dimensional space classifications. Increase <code>numTrees</code> (ideal: 200-500) for model convergence stability.</p>
+      <!-- STEP 2 -->
+      <div class="step-row">
+        <div class="step-indicator">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
         </div>
-      </div>
-      <div class="param-group">
-        <div class="param-group-header">Gradient Tree Boost (GTB) — ee.Classifier.smileGradientTreeBoost</div>
-        <div style="padding:16px; font-size:0.95rem; line-height:1.6;">
-          <p class="id-only">Membangun pohon keputusan secara sekuensial untuk mengoreksi *error* pohon sebelumnya. Sangat kuat, namun rentan terhadap *overfitting* jika *learning rate* (<code>shrinkage</code>) terlalu tinggi.</p>
-          <p class="en-only">Builds decision trees sequentially to correct the *errors* of previous trees. Very powerful, but prone to *overfitting* if the *learning rate* (<code>shrinkage</code>) is too high.</p>
-        </div>
-      </div>
-      <div class="param-group">
-        <div class="param-group-header">Support Vector Machine (SVM) — ee.Classifier.libsvm</div>
-        <div style="padding:16px; font-size:0.95rem; line-height:1.6;">
-          <p class="id-only">Menggunakan *Kernel Trick* (default: Radial Basis Function/RBF) untuk memisahkan kelas non-linear. Mengharuskan kalibrasi parameter <code>Cost (C)</code> dan <code>Gamma</code> secara spesifik per studi.</p>
-          <p class="en-only">Utilizes the *Kernel Trick* (default: Radial Basis Function/RBF) to separate non-linear classes. Requires specific calibration of <code>Cost (C)</code> and <code>Gamma</code> parameters per study.</p>
+        <div class="step-content fade-up">
+          <div class="step-title"><i class="fas fa-satellite"></i> Sentinel-2A Composite Acquisition</div>
+          <p class="step-desc">Membangun komposit citra bebas awan dari <code>COPERNICUS/S2_SR_HARMONIZED</code> berdasarkan parameter yang ditentukan pengguna.</p>
+
+          <div class="table-wrap" style="margin-bottom:16px">
+            <table>
+              <thead><tr><th>Parameter</th><th>Deskripsi</th><th>Default</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Date Range</strong></td><td>Rentang tanggal format <code>YYYY-MM-DD</code></td><td><code>2024-01-01</code> s.d. <code>2024-12-31</code></td></tr>
+                <tr><td><strong>Cloud Max (%)</strong></td><td>Maksimum <code>CLOUDY_PIXEL_PERCENTAGE</code> per scene</td><td><code>20%</code></td></tr>
+                <tr><td><strong>Cloud Masking</strong></td><td>Aktifkan/nonaktifkan cloud masking level piksel</td><td>Aktif</td></tr>
+                <tr><td><strong>Composite Method</strong></td><td>Strategi agregasi temporal</td><td>Median</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">Metode Cloud Masking</p>
+          <div class="table-wrap" style="margin-bottom:16px">
+            <table>
+              <thead><tr><th>Metode</th><th>Deskripsi</th><th>Rekomendasi</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Cloud Score+</strong></td><td>Menggunakan layer <code>cs_cdf</code>; memask piksel dengan <code>cs_cdf &lt; 0.60</code></td><td><span class="tag-green">✅ Direkomendasikan</span></td></tr>
+                <tr><td><strong>SCL (ESA)</strong></td><td>Menghapus kelas SCL: cloud shadow, unclassified, medium/high cloud, thin cirrus, snow/ice</td><td><span class="tag-blue">Tropik</span></td></tr>
+                <tr><td><strong>QA60 (Bitmask)</strong></td><td>Menggunakan bit 10 (opaque cloud) dan bit 11 (cirrus cloud)</td><td><span class="tag-amber">Paling sederhana</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">Metode Temporal Composite</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Metode</th><th>Deskripsi</th><th>Terbaik Untuk</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Median (Default)</strong></td><td>Median piksel di seluruh scene dalam rentang tanggal</td><td>Pemetaan tahunan; stabil</td></tr>
+                <tr><td><strong>Median Dry Season</strong></td><td>Memilih kuartil NDVI terendah (25% scene terkering)</td><td>Kontras spektral vegetasi vs lahan terbuka</td></tr>
+                <tr><td><strong>Median Wet Season</strong></td><td>Memilih kuartil NDVI tertinggi (25% scene terhijau)</td><td>Memaksimalkan respons vegetasi</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="info-box" style="margin-top:16px">
+            <i class="fas fa-leaf"></i>
+            <span>Untuk studi mangrove, gunakan <strong>Median Dry Season</strong> untuk memaksimalkan kontras spektral antara kanopi mangrove dan tambak.</span>
+          </div>
         </div>
       </div>
 
-      <h3 class="sub-title" id="step4">
-        <span class="id-only">Langkah 4. Manajemen Kelas dan Sampel Tatih</span>
-        <span class="en-only">Step 4. Classes and Training Sample Management</span>
-      </h3>
-      <p class="id-only">Definisikan skema klasifikasi dengan akurasi. Jika menggunakan fitur <strong>Import SHP Asset</strong>, pastikan tabel atribut *Shapefile* memiliki kolom khusus yang menampung <strong>Kode Kelas (Numerik)</strong> dan <strong>Nama Kelas (String)</strong>.</p>
-      <p class="en-only">Define the classification scheme accurately. If using the <strong>Import SHP Asset</strong> feature, ensure the *Shapefile* attribute table has specific columns holding <strong>Class Code (Numeric)</strong> and <strong>Class Name (String)</strong>.</p>
+      <!-- STEP 3 -->
+      <div class="step-row">
+        <div class="step-indicator">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content fade-up">
+          <div class="step-title"><i class="fas fa-microchip"></i> Algoritma Klasifikasi &amp; Parameter</div>
+          <p class="step-desc">Pilih salah satu dari tiga algoritma ML dan atur parameternya. Rasio training/testing default adalah <strong>70/30</strong>.</p>
 
-      <h3 class="sub-title" id="step5">
-        <span class="id-only">Langkah 5. Eksekusi Klasifikasi Pemetaan</span>
-        <span class="en-only">Step 5. Run Mapping Classification</span>
-      </h3>
-      <p class="id-only">Sistem secara dinamis mempartisi data sampel (default 70% pelatihan, 30% validasi lapangan/pseudo). Menghasilkan matriks konfusi (<em>Confusion Matrix</em>), *Overall Accuracy*, dan estimasi luas hektare.</p>
-      <p class="en-only">The system dynamically partitions sample data (default 70% training, 30% field/pseudo validation). Generates a Confusion Matrix, Overall Accuracy, and hectare area estimation.</p>
+          <div class="method-tabs">
+            <div class="method-tab active" onclick="switchTab(this,'alg-rf','alg-tabs')"><i class="fas fa-tree" style="margin-right:5px"></i>Random Forest</div>
+            <div class="method-tab" onclick="switchTab(this,'alg-gtb','alg-tabs')"><i class="fas fa-chart-line" style="margin-right:5px"></i>Gradient Tree Boost</div>
+            <div class="method-tab" onclick="switchTab(this,'alg-svm','alg-tabs')"><i class="fas fa-network-wired" style="margin-right:5px"></i>SVM</div>
+          </div>
 
-      <h3 class="sub-title" id="step6">
-        <span class="id-only">Langkah 6. Ekspor Produk (GeoTIFF)</span>
-        <span class="en-only">Step 6. Product Export (GeoTIFF)</span>
-      </h3>
-      <p class="id-only">Hasil klasifikasi diubah menjadi format tipe data Integer (nilai raster sesuai kode kelas) dengan CRS <code>EPSG:4326</code>. Dieksekusi melalui tab <em>Tasks</em> menuju repositori Google Drive pengguna.</p>
-      <p class="en-only">Classification results are converted to Integer data type format (raster value matching class code) with CRS <code>EPSG:4326</code>. Executed via the <em>Tasks</em> tab to the user's Google Drive repository.</p>
+          <div id="alg-tabs">
+            <div class="method-panel active" id="alg-rf">
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Parameter</th><th>Range</th><th>Default</th><th>Deskripsi</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>numTrees</code></td><td>50–1000</td><td><strong>500</strong></td><td>Jumlah pohon keputusan</td></tr>
+                    <tr><td><code>minLeafPopulation</code></td><td>1–20</td><td><strong>1</strong></td><td>Minimum sampel per terminal leaf</td></tr>
+                    <tr><td><code>bagFraction</code></td><td>0.3–1.0</td><td><strong>0.5</strong></td><td>Proporsi sampel per pohon</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="method-panel" id="alg-gtb">
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Parameter</th><th>Range</th><th>Default</th><th>Deskripsi</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>numTrees</code></td><td>50–500</td><td><strong>200</strong></td><td>Jumlah iterasi boosting</td></tr>
+                    <tr><td><code>shrinkage</code></td><td>0.01–0.30</td><td><strong>0.05</strong></td><td>Learning rate</td></tr>
+                    <tr><td><code>samplingRate</code></td><td>0.30–1.0</td><td><strong>0.7</strong></td><td>Proporsi sampel per iterasi</td></tr>
+                    <tr><td><code>maxNodes</code></td><td>2–10</td><td><strong>5</strong></td><td>Kedalaman maksimum per pohon</td></tr>
+                    <tr><td><code>loss</code></td><td>—</td><td><strong>LeastAbsoluteDeviation</strong></td><td>Fungsi loss</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="method-panel" id="alg-svm">
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Parameter</th><th>Range</th><th>Default</th><th>Deskripsi</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>kernel</code></td><td>RBF / LINEAR / POLY / SIGMOID</td><td><strong>RBF</strong></td><td>Fungsi kernel</td></tr>
+                    <tr><td><code>cost (C)</code></td><td>0.1–100</td><td><strong>10</strong></td><td>Parameter regularisasi</td></tr>
+                    <tr><td><code>gamma</code></td><td>0.001–2.0</td><td><strong>0.5</strong></td><td>Jangkauan pengaruh (RBF, POLY, SIGMOID)</td></tr>
+                    <tr><td><code>degree</code></td><td>1–10</td><td><strong>3</strong></td><td>Derajat polinomial (POLY only)</td></tr>
+                    <tr><td><code>coef0</code></td><td>0.0–5.0</td><td><strong>0.0</strong></td><td>Koefisien independen (POLY, SIGMOID)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="info-box" style="margin-top:12px">
+                <i class="fas fa-circle-info"></i>
+                <span>Untuk SVM dengan kernel RBF, lakukan grid search manual atas <code>C</code> dan <code>gamma</code> sebelum menjalankan klasifikasi final.</span>
+              </div>
+            </div>
+          </div>
 
-      <!-- SECTION: Core GEE Functions Index -->
-      <h2 class="section-title" id="core-functions">
-        <span class="id-only">Indeks Fungsi dan Arsitektur Sintaks GEE</span>
-        <span class="en-only">Core GEE Functions and Syntax Architecture Index</span>
-      </h2>
-      <p class="id-only">Modul GEEDEF dibangun dengan mengoptimalkan fungsi-fungsi fundamental pada API JavaScript Google Earth Engine. Berikut adalah arsitektur teknis pembangun utama sistem ini:</p>
-      <p class="en-only">The GEEDEF module is built by optimizing fundamental functions in the Google Earth Engine JavaScript API. Below is the main technical architecture building this system:</p>
-      
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>API Class / Method</th>
-              <th class="id-only">Fungsi / Operasi dalam GEEDEF</th>
-              <th class="en-only">Function / Operation in GEEDEF</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>ee.ImageCollection()</code><br><code>.filterDate()</code>, <code>.filterBounds()</code></td>
-              <td class="id-only">Memanggil koleksi mentah <code>COPERNICUS/S2_SR_HARMONIZED</code> dan menyaringnya berdasarkan rentang waktu dan geometri batas studi (ROI).</td>
-              <td class="en-only">Calls the raw <code>COPERNICUS/S2_SR_HARMONIZED</code> collection and filters it based on the date range and study boundary geometry (ROI).</td>
-            </tr>
-            <tr>
-              <td><code>.map(function)</code></td>
-              <td class="id-only">Melakukan iterasi fungsi (misal: algoritma *cloud masking* atau kalkulasi indeks spektral) kepada setiap citra tunggal di dalam koleksi tanpa *looping* *client-side*.</td>
-              <td class="en-only">Iterates a function (e.g., cloud masking algorithm or spectral index calculation) over every single image in the collection without client-side looping.</td>
-            </tr>
-            <tr>
-              <td><code>.median()</code></td>
-              <td class="id-only">*Reducer* spasial temporal. Merangkum ribuan piksel tumpang-tindih menjadi satu nilai tengah (median), menghilangkan anomali spektral (seperti bayangan awan atau asap).</td>
-              <td class="en-only">Temporal spatial *reducer*. Summarizes thousands of overlapping pixels into a single median value, eliminating spectral anomalies (like cloud shadows or smoke).</td>
-            </tr>
-            <tr>
-              <td><code>.normalizedDifference()</code></td>
-              <td class="id-only">Sintaks instan GEE untuk menghitung rasio indeks formula $\frac{A - B}{A + B}$. Mempercepat kalkulasi indeks penting seperti NDVI, NDWI, dan NDBI.</td>
-              <td class="en-only">Instant GEE syntax to calculate index ratio formulas $\frac{A - B}{A + B}$. Speeds up the calculation of crucial indices like NDVI, NDWI, and NDBI.</td>
-            </tr>
-            <tr>
-              <td><code>.sampleRegions()</code></td>
-              <td class="id-only">Fungsi ekstraksi data spasial. Mengambil nilai 26 *band* dari komposit citra tepat pada koordinat titik/poligon sampel latih yang telah ditentukan.</td>
-              <td class="en-only">Spatial data extraction function. Retrieves the 26 *band* values from the image composite exactly at the predetermined training sample point/polygon coordinates.</td>
-            </tr>
-            <tr>
-              <td><code>.randomColumn()</code></td>
-              <td class="id-only">Membubuhkan nilai acak (0 hingga 1) ke setiap fitur sampel. Digunakan untuk proses pemisahan dataset menjadi data latih (*Training Set*) dan data uji (*Validation Set*).</td>
-              <td class="en-only">Appends a random value (0 to 1) to each sample feature. Used for the process of splitting the dataset into a Training Set and a Validation Set.</td>
-            </tr>
-            <tr>
-              <td><code>ee.Classifier</code><br><code>.train()</code></td>
-              <td class="id-only">Menginisiasi algoritma pemelajaran mesin yang dipilih (RF, GTB, SVM) dan memerintahkannya untuk 'belajar' pola spektral dari data *Training Set*.</td>
-              <td class="en-only">Initiates the selected machine learning algorithm (RF, GTB, SVM) and commands it to 'learn' spectral patterns from the *Training Set* data.</td>
-            </tr>
-            <tr>
-              <td><code>.classify()</code></td>
-              <td class="id-only">Menerapkan model yang telah dilatih (hasil <code>.train()</code>) kembali ke seluruh luasan spasial komposit citra untuk memprediksi kelas tutupan lahan di setiap piksel.</td>
-              <td class="en-only">Applies the trained model (result of <code>.train()</code>) back to the entire spatial extent of the image composite to predict the land cover class for every pixel.</td>
-            </tr>
-            <tr>
-              <td><code>.errorMatrix()</code></td>
-              <td class="id-only">Mengkomputasi akurasi model dengan membandingkan nilai prediksi model terhadap data *Validation Set* (kebenaran lapangan). Menghasilkan persentase *Overall Accuracy* (OA).</td>
-              <td class="en-only">Computes model accuracy by comparing model predictions against the *Validation Set* (ground truth) data. Produces the Overall Accuracy (OA) percentage.</td>
-            </tr>
-            <tr>
-              <td><code>ee.Image.pixelArea()</code></td>
-              <td class="id-only">Fungsi kartografi dasar yang menghitung luasan aktual setiap piksel (m²) menyesuaikan kelengkungan bumi, digunakan untuk menghitung total hektare per kelas klasifikasi.</td>
-              <td class="en-only">Basic cartographic function that calculates the actual area of each pixel (m²) adjusting for earth curvature, used to compute total hectares per classification class.</td>
-            </tr>
-          </tbody>
-        </table>
+          <div class="info-box" style="margin-top:16px">
+            <i class="fas fa-sliders"></i>
+            <span>Gunakan <strong>80/20</strong> split untuk dataset dengan kurang dari 200 sampel per kelas. Minimum 20–30 poligon per kelas diperlukan untuk evaluasi akurasi yang valid secara statistik.</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Remainder of the document -->
-      <h2 class="section-title" id="featurespace">
-        <span class="id-only">Ruang Fitur (Feature Space)</span>
-        <span class="en-only">Feature Space</span>
-      </h2>
-      <p class="id-only">Kekuatan analitik sistem bersumber dari 26 variabel ruang fitur per piksel yang dibangun secara otomatis.</p>
-      <p class="en-only">The analytical strength of the system stems from the 26 feature space variables per pixel built automatically.</p>
-      
-      <h3 class="sub-title id-only">Band Spektral Asli Sentinel-2A (10 Variabel)</h3>
-      <h3 class="sub-title en-only">Native Sentinel-2A Spectral Bands (10 Variables)</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ID Band</th><th class="id-only">Rentang Spektrum</th><th class="en-only">Spectrum Range</th><th>Panjang Gelombang</th><th>Resolusi Spasial</th></tr></thead>
-          <tbody>
-            <tr><td><code>B2</code></td><td>Blue</td><td>~490 nm</td><td>10 m</td></tr>
-            <tr><td><code>B3</code></td><td>Green</td><td>~560 nm</td><td>10 m</td></tr>
-            <tr><td><code>B4</code></td><td>Red</td><td>~665 nm</td><td>10 m</td></tr>
-            <tr><td><code>B5, B6, B7</code></td><td>Red Edge 1, 2, 3</td><td>~705 nm, ~740 nm, ~783 nm</td><td>20 m</td></tr>
-            <tr><td><code>B8</code></td><td>Near Infrared (NIR)</td><td>~842 nm</td><td>10 m</td></tr>
-            <tr><td><code>B8A</code></td><td>NIR Narrow</td><td>~865 nm</td><td>20 m</td></tr>
-            <tr><td><code>B11, B12</code></td><td>Shortwave Infrared (SWIR) 1, 2</td><td>~1610 nm, ~2190 nm</td><td>20 m</td></tr>
-          </tbody>
-        </table>
+      <!-- STEP 4 -->
+      <div class="step-row">
+        <div class="step-indicator">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content fade-up">
+          <div class="step-title"><i class="fas fa-draw-polygon"></i> Tambah Kelas &amp; Digitasi Sampel Training</div>
+          <p class="step-desc">Dua opsi untuk mendefinisikan kelas dan sampel training:</p>
+
+          <div class="method-tabs">
+            <div class="method-tab active" onclick="switchTab(this,'samp-a','samp-tabs')">Opsi A — Import dari SHP Asset <span class="badge-new">NEW</span></div>
+            <div class="method-tab" onclick="switchTab(this,'samp-b','samp-tabs')">Opsi B — Manual</div>
+          </div>
+
+          <div id="samp-tabs">
+            <div class="method-panel active" id="samp-a">
+              <ol class="substep-list">
+                <li><span class="num">1</span> Masukkan nama akun/proyek GEE dan klik <strong>🔄 Refresh</strong> untuk memuat aset SHP yang tersedia.</li>
+                <li><span class="num">2</span> Pilih aset sampel training dari dropdown.</li>
+                <li><span class="num">3</span> Klik <strong>📖 Read Columns</strong> untuk mengisi dropdown kolom atribut.</li>
+                <li><span class="num">4</span> Pilih kolom <strong>kode kelas</strong> dan kolom <strong>nama/label kelas</strong>.</li>
+                <li><span class="num">5</span> Klik <strong>🔍 Extract Unique Classes</strong> — baris yang dapat diedit muncul untuk setiap kelas (nama + warna).</li>
+                <li><span class="num">6</span> Edit nama dan warna sesuai kebutuhan, lalu klik <strong>📥 Save &amp; Import Mapped Samples</strong>.</li>
+              </ol>
+              <div class="info-box green-box" style="margin-top:12px">
+                <i class="fas fa-circle-check"></i>
+                <span>Sampel yang diimpor digabungkan dengan sampel yang didigitasi manual sebelum proses training.</span>
+              </div>
+            </div>
+            <div class="method-panel" id="samp-b">
+              <ol class="substep-list">
+                <li><span class="num">1</span> Ketik nama kelas, atau klik kelas dari panel kiri palette untuk auto-fill.</li>
+                <li><span class="num">2</span> Masukkan kode warna heksadesimal (misal: <code>#006400</code>).</li>
+                <li><span class="num">3</span> Klik <strong>＋ ADD CLASS</strong> — kode diberikan otomatis dan bertambah secara berurutan.</li>
+                <li><span class="num">4</span> Pilih <strong>kelas aktif</strong> dari dropdown.</li>
+                <li><span class="num">5</span> Aktifkan Drawing Tools; pilih <strong>point</strong> atau <strong>polygon</strong>.</li>
+                <li><span class="num">6</span> Gambar area sampel di peta untuk kelas yang dipilih. Ulangi untuk semua kelas.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="info-box warn-box" style="margin-top:16px">
+            <i class="fas fa-triangle-exclamation"></i>
+            <span><strong>Best practice:</strong> Distribusikan sampel secara spasial. Gunakan beberapa poligon kecil per kelas untuk menangkap variabilitas spektral dalam kelas. Hindari zona transisional atau ambigu.</span>
+          </div>
+        </div>
       </div>
 
-      <h3 class="sub-title id-only">Indeks Spektral Turunan Otomatis (16 Variabel)</h3>
-      <h3 class="sub-title en-only">Automated Derived Spectral Indices (16 Variables)</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th class="id-only">Akronim Indeks</th><th class="en-only">Index Acronym</th><th class="id-only">Ekspansi Terminologi</th><th class="en-only">Terminology Expansion</th><th class="id-only">Sasaran Aplikasi Spasial</th><th class="en-only">Spatial Application Target</th></tr></thead>
-          <tbody>
-            <tr><td><code>NDVI</code></td><td>Normalized Difference Vegetation Index</td><td class="id-only">Kerapatan biomassa hijau</td><td class="en-only">Green biomass density</td></tr>
-            <tr><td><code>EVI2</code></td><td>Enhanced Vegetation Index 2</td><td class="id-only">Koreksi kejenuhan pada area berkanopi lebat</td><td class="en-only">Saturation correction in dense canopy areas</td></tr>
-            <tr><td><code>CAI</code></td><td>Cellulose Absorption Index</td><td class="id-only">Diskriminasi material sisa panen vs tanah terbuka</td><td class="en-only">Crop residue vs bare soil discrimination</td></tr>
-            <tr><td><code>NDWI</code>, <code>MNDWI</code></td><td>(Modified) Normalized Difference Water Index</td><td class="id-only">Ekstraksi topologi badan air</td><td class="en-only">Water body topology extraction</td></tr>
-            <tr><td><code>GCVI</code></td><td>Green Chlorophyll Vegetation Index</td><td class="id-only">Aproksimasi pigmen klorofil</td><td class="en-only">Chlorophyll pigment approximation</td></tr>
-            <tr><td><code>SAVI</code></td><td>Soil-Adjusted Vegetation Index</td><td class="id-only">Akurasi deteksi pada lahan gersang</td><td class="en-only">Detection accuracy in arid lands</td></tr>
-            <tr><td><code>PRI</code></td><td>Photochemical Reflectance Index</td><td class="id-only">Efisiensi penggunaan cahaya fotosintetik</td><td class="en-only">Photosynthetic light use efficiency</td></tr>
-            <tr><td><code>HALL_COVER</code></td><td>Hall Forest Cover Index</td><td class="id-only">Pemodelan penutupan tajuk (*canopy closure*)</td><td class="en-only">Canopy closure modeling</td></tr>
-            <tr><td><code>IRECI</code></td><td>Inverted Red-Edge Chlorophyll Index</td><td class="id-only">Sensitivitas tinggi pada batas *red-edge*</td><td class="en-only">High sensitivity at the red-edge boundary</td></tr>
-            <tr><td><code>NDRE</code></td><td>Normalized Difference Red Edge</td><td class="id-only">Deteksi stres fisiologis vegetasi</td><td class="en-only">Physiological stress detection in vegetation</td></tr>
-            <tr><td><code>NDMI</code></td><td>Normalized Difference Moisture Index</td><td class="id-only">Gradien hidrasi tegakan</td><td class="en-only">Stand hydration gradient</td></tr>
-            <tr><td><code>NDBI</code></td><td>Normalized Difference Built-up Index</td><td class="id-only">Deliniasi material infrastruktur urban</td><td class="en-only">Urban infrastructure material delineation</td></tr>
-            <tr><td><code>NBR</code></td><td>Normalized Burn Ratio</td><td class="id-only">Jejak degradasi atau deforestasi temporal</td><td class="en-only">Temporal degradation or deforestation footprint</td></tr>
-            <tr><td><code>GVS</code>, <code>NDFI</code></td><td>Green Vegetation Signal & NDFI</td><td class="id-only">Analisis spektral campuran (*spectral unmixing*)</td><td class="en-only">Spectral mixture analysis (spectral unmixing)</td></tr>
-          </tbody>
-        </table>
+      <!-- STEP 5 -->
+      <div class="step-row">
+        <div class="step-indicator">
+          <div class="step-num">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content fade-up">
+          <div class="step-title"><i class="fas fa-rocket"></i> Jalankan Klasifikasi</div>
+          <p class="step-desc">Klik <strong>🚀 RUN CLASSIFICATION</strong>. Alat mengeksekusi server-side secara otomatis:</p>
+
+          <ol class="substep-list">
+            <li><span class="num">1</span> Mengekstrak nilai spektral (26 variabel) dari semua sampel via <code>sampleRegions</code></li>
+            <li><span class="num">2</span> Membagi sampel secara acak menjadi set training/validasi menggunakan <code>randomColumn</code></li>
+            <li><span class="num">3</span> Melatih klasifikator pada set training</li>
+            <li><span class="num">4</span> Mengklasifikasikan semua piksel dalam ROI</li>
+            <li><span class="num">5</span> Menghitung error matrix → menurunkan <strong>OA</strong> dan <strong>Kappa</strong> dari set validasi</li>
+            <li><span class="num">6</span> Menghitung luas per kelas via <code>ee.Image.pixelArea()</code> dalam hektar</li>
+          </ol>
+
+          <div class="table-wrap" style="margin-top:16px">
+            <table>
+              <thead><tr><th>Metrik</th><th>Threshold</th><th>Catatan</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Overall Accuracy (OA)</strong></td><td>&gt; 85%</td><td>Umumnya diterima untuk studi tutupan lahan regional</td></tr>
+                <tr><td><strong>Kappa Coefficient</strong></td><td>&gt; 0.80</td><td>"Very Strong" agreement (Landis &amp; Koch, 1977)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="info-box warn-box" style="margin-top:16px">
+            <i class="fas fa-triangle-exclamation"></i>
+            <span>Jika hanya sampel manual yang digunakan (tidak ada aset tervalidasi lapangan yang diimpor), <strong>penalti −5%</strong> diterapkan pada OA dan Kappa dan ditandai di panel hasil.</span>
+          </div>
+        </div>
       </div>
 
-      <h2 class="section-title" id="formulas">
-        <span class="id-only">Formula Matematika Indeks Spektral</span>
-        <span class="en-only">Spectral Index Mathematical Formulas</span>
-      </h2>
-      <div class="math-block">$$NDVI = \frac{\rho_{B8} - \rho_{B4}}{\rho_{B8} + \rho_{B4}}$$</div>
-      <div class="math-block">$$EVI2 = 2.5 \times \frac{\rho_{B8} - \rho_{B4}}{\rho_{B8} + 2.4\,\rho_{B4} + 1}$$</div>
-      <div class="math-grid">
-        <div class="math-cell"><div class="math-label">CAI</div>$$\frac{\rho_{B12}}{\rho_{B11}}$$</div>
-        <div class="math-cell"><div class="math-label">NDWI</div>$$\frac{\rho_{B8} - \rho_{B11}}{\rho_{B8} + \rho_{B11}}$$</div>
-        <div class="math-cell"><div class="math-label">GCVI</div>$$\frac{\rho_{B8}}{\rho_{B3}} - 1$$</div>
-        <div class="math-cell"><div class="math-label">SAVI</div>$$\frac{1.5(\rho_{B8} - \rho_{B4})}{\rho_{B8} + \rho_{B4} + 0.5}$$</div>
-        <div class="math-cell"><div class="math-label">PRI</div>$$\frac{\rho_{B2} - \rho_{B3}}{\rho_{B2} + \rho_{B3}}$$</div>
-        <div class="math-cell"><div class="math-label">IRECI</div>$$\frac{\rho_{B7} - \rho_{B4}}{\rho_{B5}\,/\,\rho_{B6}}$$</div>
-        <div class="math-cell"><div class="math-label">NDRE</div>$$\frac{\rho_{B8A} - \rho_{B5}}{\rho_{B8A} + \rho_{B5}}$$</div>
-        <div class="math-cell"><div class="math-label">MNDWI</div>$$\frac{\rho_{B3} - \rho_{B11}}{\rho_{B3} + \rho_{B11}}$$</div>
-        <div class="math-cell"><div class="math-label">NDMI</div>$$\frac{\rho_{B8} - \rho_{B11}}{\rho_{B8} + \rho_{B11}}$$</div>
-        <div class="math-cell"><div class="math-label">NDBI</div>$$\frac{\rho_{B11} - \rho_{B8}}{\rho_{B11} + \rho_{B8}}$$</div>
-        <div class="math-cell"><div class="math-label">NBR</div>$$\frac{\rho_{B8} - \rho_{B12}}{\rho_{B8} + \rho_{B12}}$$</div>
-      </div>
-      <div class="math-block">$$HALL\_COVER = -0.017\,\rho_{B4} - 0.007\,\rho_{B8} - 0.079\,\rho_{B12} + 5.22$$</div>
-      <div class="math-block">$$GVS = \frac{100 \times NDVI}{100\,|NDVI| + 100\,|NBR| + 1}$$</div>
-      <div class="math-block">$$NDFI = \frac{GVS - (1 - NDVI)}{GVS + (1 - NDVI)}$$</div>
+      <!-- STEP 6 -->
+      <div class="step-row">
+        <div class="step-indicator">
+          <div class="step-num">6</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content fade-up">
+          <div class="step-title"><i class="fas fa-cloud-arrow-up"></i> Export ke Google Drive</div>
+          <p class="step-desc">Ekspor hasil klasifikasi sebagai raster GeoTIFF satu band ke Google Drive Anda.</p>
 
-      <h2 class="section-title" id="palettes">
-        <span class="id-only">Skema Standar Sistem Informasi Geografis</span>
-        <span class="en-only">Geographic Information System Standard Schemes</span>
-      </h2>
-      <h3 class="sub-title id-only">Kementerian Lingkungan Hidup dan Kehutanan (KLHK) - SNI</h3>
-      <h3 class="sub-title en-only">Indonesian Ministry of Environment and Forestry (KLHK)</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ID</th><th class="id-only">Klasifikasi Tutupan</th><th class="en-only">Land Cover Classification</th><th>Kode Heksadesimal</th></tr></thead>
-          <tbody>
-            <tr><td class="center">1</td><td class="id-only">Hutan Lahan Kering Primer</td><td class="en-only">Primary Dryland Forest</td><td><span class="swatch" style="background:#60E663"></span> <code>#60E663</code></td></tr>
-            <tr><td class="center">2</td><td class="id-only">Hutan Lahan Kering Sekunder</td><td class="en-only">Secondary Dryland Forest</td><td><span class="swatch" style="background:#72FF00"></span> <code>#72FF00</code></td></tr>
-            <tr><td class="center">3</td><td class="id-only">Hutan Mangrove Primer</td><td class="en-only">Primary Mangrove Forest</td><td><span class="swatch" style="background:#8EA704"></span> <code>#8EA704</code></td></tr>
-            <tr><td class="center">4</td><td class="id-only">Hutan Mangrove Sekunder</td><td class="en-only">Secondary Mangrove Forest</td><td><span class="swatch" style="background:#C1A700"></span> <code>#C1A700</code></td></tr>
-            <tr><td class="center">12</td><td class="id-only">Lahan Pertanian (Sawah)</td><td class="en-only">Agricultural Land (Paddy)</td><td><span class="swatch" style="background:#A8D6FF"></span> <code>#A8D6FF</code></td></tr>
-            <tr><td class="center">16</td><td class="id-only">Area Terbangun (Permukiman)</td><td class="en-only">Built-up Area (Settlement)</td><td><span class="swatch" style="background:#686868"></span> <code>#686868</code></td></tr>
-            <tr><td class="center">20</td><td class="id-only">Badan Air Permukaan</td><td class="en-only">Surface Water Body</td><td><span class="swatch" style="background:#D4FCF7"></span> <code>#D4FCF7</code></td></tr>
-          </tbody>
-        </table>
+          <ol class="substep-list">
+            <li><span class="num">1</span> Atur nama folder (default: <code>GEE_Export</code>) dan nama file (default: <code>LandCover_DFRF_V3</code>).</li>
+            <li><span class="num">2</span> Pilih resolusi spasial output: <strong>10 m</strong>, <strong>20 m</strong>, atau <strong>30 m</strong>.</li>
+            <li><span class="num">3</span> Klik <strong>⬆ EXPORT — GeoTIFF to Drive</strong>.</li>
+            <li><span class="num">4</span> Monitor di tab <strong>Tasks</strong> (ikon jam, kanan atas GEE Code Editor). Klik <strong>Run</strong>.</li>
+          </ol>
+
+          <div class="code-block" style="margin-top:20px">
+            <div class="code-header">
+              <span class="code-lang">JavaScript — Export Configuration</span>
+              <button class="code-copy" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <pre>Export.<span class="fn">image</span>.<span class="fn">toDrive</span>({
+  image:          STATE.classifiedImg,
+  description:    <span class="str">'LandCover_DFRF_V3'</span>,
+  folder:         <span class="str">'GEE_Export'</span>,
+  fileNamePrefix: <span class="str">'LandCover_DFRF_V3'</span>,
+  region:         STATE.roi.<span class="fn">geometry</span>(),
+  scale:          <span class="num">10</span>,           <span class="cmt">// opsi: 10, 20, 30</span>
+  crs:            <span class="str">'EPSG:4326'</span>,
+  maxPixels:      <span class="num">1e13</span>,
+  fileFormat:     <span class="str">'GeoTIFF'</span>
+});</pre>
+          </div>
+
+          <div class="info-box green-box" style="margin-top:12px">
+            <i class="fas fa-circle-check"></i>
+            <span>Output adalah <strong>raster integer satu band</strong> (nilai piksel = kode kelas), CRS: EPSG:4326. Kompatibel dengan QGIS, ArcGIS, dan semua perangkat lunak GIS utama.</span>
+          </div>
+        </div>
       </div>
 
-      <h3 class="sub-title">MapBiomas Indonesia — Collection 3.0</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ID</th><th class="id-only">Klasifikasi Hierarkis</th><th class="en-only">Hierarchical Classification</th><th>Kode Heksadesimal</th></tr></thead>
-          <tbody>
-            <tr><td class="center">3</td><td class="id-only">Formasi Hutan (Umum)</td><td class="en-only">Forest Formation (General)</td><td><span class="swatch" style="background:#1f8d49"></span> <code>#1f8d49</code></td></tr>
-            <tr><td class="center">5</td><td class="id-only">Formasi Mangrove</td><td class="en-only">Mangrove Formation</td><td><span class="swatch" style="background:#04381d"></span> <code>#04381d</code></td></tr>
-            <tr><td class="center">76</td><td class="id-only">Hutan Rawa Gambut</td><td class="en-only">Peat Swamp Forest</td><td><span class="swatch" style="background:#2f7360"></span> <code>#2f7360</code></td></tr>
-            <tr><td class="center">35</td><td class="id-only">Perkebunan Kelapa Sawit</td><td class="en-only">Oil Palm Plantation</td><td><span class="swatch" style="background:#9065d0"></span> <code>#9065d0</code></td></tr>
-            <tr><td class="center">24</td><td class="id-only">Infrastruktur Urban</td><td class="en-only">Urban Infrastructure</td><td><span class="swatch" style="background:#d4271e"></span> <code>#d4271e</code></td></tr>
-          </tbody>
-        </table>
+    </div><!-- /steps-wrapper -->
+  </div>
+</section>
+
+<!-- ═══ FEATURE SPACE ═══ -->
+<section class="section section-alt" id="fitur-space">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">Fitur Spektral</span>
+      <h2 class="section-title">26 Variabel Fitur per Piksel</h2>
+      <p class="section-subtitle">
+        Setelah memuat komposit, GEEDEF secara otomatis menghitung 16 indeks spektral. Bersama 10 band natif Sentinel-2A, total ruang fitur adalah <strong>26 variabel prediktor per piksel</strong>.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start" class="fade-up">
+      <div>
+        <h3 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px"><i class="fas fa-satellite" style="color:var(--cyan);margin-right:8px"></i>10 Band Spektral Natif Sentinel-2A</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Band</th><th>Nama</th><th>Panjang Gelombang</th><th>Resolusi</th></tr></thead>
+            <tbody>
+              <tr><td><code>B2</code></td><td>Blue</td><td>~490 nm</td><td>10 m</td></tr>
+              <tr><td><code>B3</code></td><td>Green</td><td>~560 nm</td><td>10 m</td></tr>
+              <tr><td><code>B4</code></td><td>Red</td><td>~665 nm</td><td>10 m</td></tr>
+              <tr><td><code>B5</code></td><td>Red Edge 1</td><td>~705 nm</td><td>20 m</td></tr>
+              <tr><td><code>B6</code></td><td>Red Edge 2</td><td>~740 nm</td><td>20 m</td></tr>
+              <tr><td><code>B7</code></td><td>Red Edge 3</td><td>~783 nm</td><td>20 m</td></tr>
+              <tr><td><code>B8</code></td><td>NIR</td><td>~842 nm</td><td>10 m</td></tr>
+              <tr><td><code>B8A</code></td><td>NIR Narrow</td><td>~865 nm</td><td>20 m</td></tr>
+              <tr><td><code>B11</code></td><td>SWIR 1</td><td>~1610 nm</td><td>20 m</td></tr>
+              <tr><td><code>B12</code></td><td>SWIR 2</td><td>~2190 nm</td><td>20 m</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <h2 class="section-title" id="code">
-        <span class="id-only">Repositori Skrip Fungsional Utama</span>
-        <span class="en-only">Main Functional Script Repository</span>
-      </h2>
-      <p>Akses arsip kode interaktif langsung pada GEE Code Editor: <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" target="_blank"><strong>[GEEDEF Script Execution Link]</strong></a></p>
+      <div>
+        <h3 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px"><i class="fas fa-calculator" style="color:var(--green);margin-right:8px"></i>16 Indeks Spektral Turunan</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Indeks</th><th>Aplikasi Utama</th></tr></thead>
+            <tbody>
+              <tr><td><code>NDVI</code></td><td>Kerapatan vegetasi</td></tr>
+              <tr><td><code>EVI2</code></td><td>Struktur kanopi; mengurangi gangguan atmosfer</td></tr>
+              <tr><td><code>CAI</code></td><td>Diskriminasi tanah terbuka dan serasah</td></tr>
+              <tr><td><code>NDWI</code></td><td>Kandungan air daun</td></tr>
+              <tr><td><code>GCVI</code></td><td>Estimasi klorofil</td></tr>
+              <tr><td><code>SAVI</code></td><td>Vegetasi jarang di atas tanah terbuka</td></tr>
+              <tr><td><code>PRI</code></td><td>Efisiensi penggunaan cahaya kanopi</td></tr>
+              <tr><td><code>HALL_COVER</code></td><td>Estimasi tutupan kanopi hutan</td></tr>
+              <tr><td><code>IRECI</code></td><td>Klorofil berbasis red-edge</td></tr>
+              <tr><td><code>NDRE</code></td><td>Kesehatan dan stres vegetasi</td></tr>
+              <tr><td><code>MNDWI</code></td><td>Pemetaan badan air terbuka</td></tr>
+              <tr><td><code>NDMI</code></td><td>Kelembaban lahan</td></tr>
+              <tr><td><code>NDBI</code></td><td>Area terbangun dan perkotaan</td></tr>
+              <tr><td><code>NBR</code></td><td>Area terbakar / degradasi hutan</td></tr>
+              <tr><td><code>GVS</code></td><td>Fraksi vegetasi hijau</td></tr>
+              <tr><td><code>NDFI</code></td><td>Degradasi dan fragmentasi hutan</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-      <h3 class="sub-title id-only">Struktur Objek Konfigurasi Global</h3>
-      <h3 class="sub-title en-only">Global Configuration Object Structure</h3>
+    <!-- Code: Default CFG -->
+    <div style="margin-top:48px" class="fade-up">
+      <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px"><i class="fas fa-code" style="color:var(--blue);margin-right:8px"></i>Konfigurasi Default (Objek CFG)</h3>
       <div class="code-block">
         <div class="code-header">
-          <span class="code-lang">JavaScript</span>
-          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+          <span class="code-lang">JavaScript — Default CFG Object</span>
+          <button class="code-copy" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
         </div>
-        <pre><code><span class="kw">var</span> CFG = {
-  <span class="prop">startDate</span>:        <span class="str">'2024-01-01'</span>,
-  <span class="prop">endDate</span>:          <span class="str">'2024-12-31'</span>,
-  <span class="prop">cloudMax</span>:         <span class="num">20</span>,
-  <span class="prop">classProp</span>:        <span class="str">'lc'</span>,
-  <span class="prop">scale</span>:            <span class="num">10</span>,
-  <span class="prop">splitRatio</span>:       <span class="num">0.7</span>,
-  <span class="prop">rf_numTrees</span>:      <span class="num">500</span>,
-  <span class="prop">rf_minLeaf</span>:       <span class="num">1</span>,
-  <span class="prop">rf_bagFraction</span>:   <span class="num">0.5</span>
-};</code></pre>
+        <pre><span class="kw">var</span> <span class="prop">CFG</span> = {
+  startDate:         <span class="str">'2024-01-01'</span>,
+  endDate:           <span class="str">'2024-12-31'</span>,
+  cloudMax:          <span class="num">20</span>,
+  classProp:         <span class="str">'lc'</span>,
+  seed:              <span class="num">42</span>,
+  scale:             <span class="num">10</span>,
+  maxPix:            <span class="num">1e13</span>,
+  splitRatio:        <span class="num">0.7</span>,
+  <span class="cmt">// Random Forest</span>
+  rf_numTrees:       <span class="num">500</span>,
+  rf_minLeaf:        <span class="num">1</span>,
+  rf_bagFraction:    <span class="num">0.5</span>,
+  <span class="cmt">// Gradient Tree Boost</span>
+  gtb_numTrees:      <span class="num">200</span>,
+  gtb_shrinkage:     <span class="num">0.05</span>,
+  gtb_samplingRate:  <span class="num">0.7</span>,
+  gtb_maxNodes:      <span class="num">5</span>,
+  gtb_loss:          <span class="str">'LeastAbsoluteDeviation'</span>,
+  <span class="cmt">// Support Vector Machine</span>
+  svm_kernel:        <span class="str">'RBF'</span>,
+  svm_gamma:         <span class="num">0.5</span>,
+  svm_cost:          <span class="num">10</span>,
+  svm_degree:        <span class="num">3</span>,
+  svm_coef:          <span class="num">0.0</span>
+};</pre>
       </div>
-
-      <h2 class="section-title" id="references">
-        <span class="id-only">Daftar Referensi Ilmiah Terkait</span>
-        <span class="en-only">Related Scientific References</span>
-      </h2>
-      <div style="font-size:0.9rem;line-height:2;color:var(--text-muted);">
-        <p>Auriga Nusantara. (2024). <em>Algorithm Theoretical Basis Document (ATBD) MapBiomas Indonesia Koleksi 3 Versi 1</em>. MapBiomas Indonesia.</p>
-        <p>Breiman, L. (2001). Random forests. <em>Machine Learning</em>, <em>45</em>(1), 5–32. <a href="https://doi.org/10.1023/A:1010933404324" target="_blank">https://doi.org/10.1023/A:1010933404324</a></p>
-        <p>Cardille, J. A., Crowley, M. A., Saah, D., &amp; Clinton, N. E. (Eds.). (2024). <em>Cloud-based remote sensing with Google Earth Engine: Fundamentals and applications</em>. Springer. <a href="https://doi.org/10.1007/978-3-031-26588-4" target="_blank">https://doi.org/10.1007/978-3-031-26588-4</a></p>
-        <p>Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., &amp; Moore, R. (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. <em>Remote Sensing of Environment</em>, <em>202</em>, 18–27. <a href="https://doi.org/10.1016/j.rse.2017.06.031" target="_blank">https://doi.org/10.1016/j.rse.2017.06.031</a></p>
-        <p>Kementerian Lingkungan Hidup dan Kehutanan RI. (2024). <em>Keputusan Menteri LHK Nomor 399 Tahun 2024 tentang Standar Penyebarluasan Informasi Geospasial Tematik Lingkup KLHK</em>. KLHK.</p>
-        <p>Pasquarella, V. J., Brown, C. F., Czerwinski, W., &amp; Rucklidge, W. J. (2023). Comprehensive quality assessment of optical satellite imagery using weakly supervised video learning. In <em>Proceedings of the IEEE/CVF CVPR</em> (pp. 2125–2135). <a href="https://doi.org/10.1109/CVPRW59228.2023.00206" target="_blank">https://doi.org/10.1109/CVPRW59228.2023.00206</a></p>
-      </div>
-
     </div>
-  </main>
+  </div>
+</section>
 
-  <aside class="toc-panel">
-    <div class="toc-title id-only">Daftar Isi Konten</div>
-    <div class="toc-title en-only">Contents</div>
-    <ul class="toc-list" id="toc-list">
-      <li><a href="#whats-new"><span class="id-only">Catatan Rilis V3.1</span><span class="en-only">Release Notes V3.1</span></a></li>
-      <li><a href="#overview"><span class="id-only">Gambaran Umum</span><span class="en-only">Overview</span></a></li>
-      <li><a href="#prerequisites"><span class="id-only">Prasyarat Sistem</span><span class="en-only">System Prerequisites</span></a></li>
-      <li><a href="#interface"><span class="id-only">Antarmuka Sistem</span><span class="en-only">System Interface</span></a></li>
-      <li><a href="#workflow"><span class="id-only">Alur Kerja Klasifikasi</span><span class="en-only">Classification Workflow</span></a></li>
-      <li><a href="#step1" class="toc-sub"><span class="id-only">1. Batas Wilayah (ROI)</span><span class="en-only">1. Region of Interest</span></a></li>
-      <li><a href="#step2" class="toc-sub"><span class="id-only">2. Komposit Citra</span><span class="en-only">2. Image Composite</span></a></li>
-      <li><a href="#step3" class="toc-sub"><span class="id-only">3. Algoritma & Parameter</span><span class="en-only">3. Algorithm & Parameters</span></a></li>
-      <li><a href="#step4" class="toc-sub"><span class="id-only">4. Kelas & Sampel Latih</span><span class="en-only">4. Classes & Samples</span></a></li>
-      <li><a href="#step5" class="toc-sub"><span class="id-only">5. Eksekusi Model</span><span class="en-only">5. Model Execution</span></a></li>
-      <li><a href="#step6" class="toc-sub"><span class="id-only">6. Ekspor Produk</span><span class="en-only">6. Product Export</span></a></li>
-      <li><a href="#core-functions"><span class="id-only">Indeks Fungsi GEE</span><span class="en-only">GEE Functions Index</span></a></li>
-      <li><a href="#featurespace"><span class="id-only">Ruang Fitur Spektral</span><span class="en-only">Spectral Feature Space</span></a></li>
-      <li><a href="#formulas"><span class="id-only">Formula Matematika</span><span class="en-only">Math Formulas</span></a></li>
-      <li><a href="#palettes"><span class="id-only">Skema Standar Palet</span><span class="en-only">Standard Palettes</span></a></li>
-      <li><a href="#code"><span class="id-only">Repositori Skrip Utama</span><span class="en-only">Main Script Repo</span></a></li>
-      <li><a href="#references"><span class="id-only">Referensi Terkait</span><span class="en-only">References</span></a></li>
-    </ul>
-  </aside>
+<!-- ═══ PALETTE ═══ -->
+<section class="section" id="palette">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">Skema Warna</span>
+      <h2 class="section-title">Palette Tutupan Lahan</h2>
+      <p class="section-subtitle">
+        Tiga skema palette siap pakai: KLHK Indonesia, MapBiomas Indonesia, dan NLCD Amerika Serikat. Pilih sesuai kebutuhan studi Anda.
+      </p>
+    </div>
 
-</div>
+    <div class="palette-tabs fade-up">
+      <div class="palette-tab active" onclick="switchPalette(this,'pal-klhk')">🇮🇩 KLHK</div>
+      <div class="palette-tab" onclick="switchPalette(this,'pal-mapbiomas')">🌿 MapBiomas ID</div>
+      <div class="palette-tab" onclick="switchPalette(this,'pal-nlcd')">🇺🇸 NLCD</div>
+    </div>
 
+    <!-- KLHK -->
+    <div class="palette-grid active" id="pal-klhk">
+      <div class="palette-item"><div class="palette-swatch" style="background:#60E663"></div><div class="palette-info"><div class="palette-name">Hutan Lahan Kering Primer</div><div class="palette-hex">#60E663</div></div><div class="palette-id">ID 1</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#72FF00"></div><div class="palette-info"><div class="palette-name">Hutan Lahan Kering Sekunder</div><div class="palette-hex">#72FF00</div></div><div class="palette-id">ID 2</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#8EA704"></div><div class="palette-info"><div class="palette-name">Hutan Mangrove Primer</div><div class="palette-hex">#8EA704</div></div><div class="palette-id">ID 3</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#C1A700"></div><div class="palette-info"><div class="palette-name">Hutan Mangrove Sekunder</div><div class="palette-hex">#C1A700</div></div><div class="palette-id">ID 4</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#60E663"></div><div class="palette-info"><div class="palette-name">Hutan Rawa Primer</div><div class="palette-hex">#60E663</div></div><div class="palette-id">ID 5</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#72FF00"></div><div class="palette-info"><div class="palette-name">Hutan Rawa Sekunder</div><div class="palette-hex">#72FF00</div></div><div class="palette-id">ID 6</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#D3E598"></div><div class="palette-info"><div class="palette-name">Hutan Tanaman</div><div class="palette-hex">#D3E598</div></div><div class="palette-id">ID 7</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#EBC0A7"></div><div class="palette-info"><div class="palette-name">Semak Belukar</div><div class="palette-hex">#EBC0A7</div></div><div class="palette-id">ID 8</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#EBC0A7"></div><div class="palette-info"><div class="palette-name">Semak Belukar Rawa</div><div class="palette-hex">#EBC0A7</div></div><div class="palette-id">ID 9</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#F6FFA7"></div><div class="palette-info"><div class="palette-name">Pertanian Lahan Kering</div><div class="palette-hex">#F6FFA7</div></div><div class="palette-id">ID 10</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#EDF500"></div><div class="palette-info"><div class="palette-name">Pertanian Lahan Kering Campur</div><div class="palette-hex">#EDF500</div></div><div class="palette-id">ID 11</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#A8D6FF"></div><div class="palette-info"><div class="palette-name">Sawah</div><div class="palette-hex">#A8D6FF</div></div><div class="palette-id">ID 12</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#7AF4F4"></div><div class="palette-info"><div class="palette-name">Tambak</div><div class="palette-hex">#7AF4F4</div></div><div class="palette-id">ID 13</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#728EA7"></div><div class="palette-info"><div class="palette-name">Permukiman Transmigrasi</div><div class="palette-hex">#728EA7</div></div><div class="palette-id">ID 14</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#E5D298"></div><div class="palette-info"><div class="palette-name">Perkebunan</div><div class="palette-hex">#E5D298</div></div><div class="palette-id">ID 15</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#686868"></div><div class="palette-info"><div class="palette-name">Permukiman</div><div class="palette-hex">#686868</div></div><div class="palette-id">ID 16</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#D60073"></div><div class="palette-info"><div class="palette-name">Bandara / Pelabuhan</div><div class="palette-hex">#D60073</div></div><div class="palette-id">ID 17</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#D60073"></div><div class="palette-info"><div class="palette-name">Lahan Terbuka</div><div class="palette-hex">#D60073</div></div><div class="palette-id">ID 18</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#A70400"></div><div class="palette-info"><div class="palette-name">Pertambangan</div><div class="palette-hex">#A70400</div></div><div class="palette-id">ID 19</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#D4FCF7"></div><div class="palette-info"><div class="palette-name">Badan Air</div><div class="palette-hex">#D4FCF7</div></div><div class="palette-id">ID 20</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#98E5E5"></div><div class="palette-info"><div class="palette-name">Rawa</div><div class="palette-hex">#98E5E5</div></div><div class="palette-id">ID 21</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#D5FF02"></div><div class="palette-info"><div class="palette-name">Savana / Padang Rumput</div><div class="palette-hex">#D5FF02</div></div><div class="palette-id">ID 22</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#D1D1D1"></div><div class="palette-info"><div class="palette-name">Awan</div><div class="palette-hex">#D1D1D1</div></div><div class="palette-id">ID 23</div></div>
+    </div>
+
+    <!-- MapBiomas -->
+    <div class="palette-grid" id="pal-mapbiomas">
+      <div class="palette-item"><div class="palette-swatch" style="background:#1f8d49"></div><div class="palette-info"><div class="palette-name">Formasi Hutan</div><div class="palette-hex">#1f8d49</div></div><div class="palette-id">ID 3</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#04381d"></div><div class="palette-info"><div class="palette-name">Mangrove</div><div class="palette-hex">#04381d</div></div><div class="palette-id">ID 5</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#2f7360"></div><div class="palette-info"><div class="palette-name">Hutan Rawa Gambut</div><div class="palette-hex">#2f7360</div></div><div class="palette-id">ID 76</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#d89f5c"></div><div class="palette-info"><div class="palette-name">Tumbuhan Non-Hutan Lainnya</div><div class="palette-hex">#d89f5c</div></div><div class="palette-id">ID 13</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#c71585"></div><div class="palette-info"><div class="palette-name">Sawah</div><div class="palette-hex">#c71585</div></div><div class="palette-id">ID 40</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#9065d0"></div><div class="palette-info"><div class="palette-name">Sawit</div><div class="palette-hex">#9065d0</div></div><div class="palette-id">ID 35</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#7a5900"></div><div class="palette-info"><div class="palette-name">Kebun Kayu</div><div class="palette-hex">#7a5900</div></div><div class="palette-id">ID 9</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#ffefc3"></div><div class="palette-info"><div class="palette-name">Pertanian Lainnya</div><div class="palette-hex">#ffefc3</div></div><div class="palette-id">ID 21</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#9c0027"></div><div class="palette-info"><div class="palette-name">Lubang Tambang</div><div class="palette-hex">#9c0027</div></div><div class="palette-id">ID 30</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#d4271e"></div><div class="palette-info"><div class="palette-name">Permukiman</div><div class="palette-hex">#d4271e</div></div><div class="palette-id">ID 24</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#db4d4f"></div><div class="palette-info"><div class="palette-name">Non-Vegetasi Lainnya</div><div class="palette-hex">#db4d4f</div></div><div class="palette-id">ID 25</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#091077"></div><div class="palette-info"><div class="palette-name">Tambak</div><div class="palette-hex">#091077</div></div><div class="palette-id">ID 31</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#2532e4"></div><div class="palette-info"><div class="palette-name">Sungai, Danau, Laut</div><div class="palette-hex">#2532e4</div></div><div class="palette-id">ID 33</div></div>
+    </div>
+
+    <!-- NLCD -->
+    <div class="palette-grid" id="pal-nlcd">
+      <div class="palette-item"><div class="palette-swatch" style="background:#466b9f"></div><div class="palette-info"><div class="palette-name">Open Water</div><div class="palette-hex">#466b9f</div></div><div class="palette-id">ID 11</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#d1def8"></div><div class="palette-info"><div class="palette-name">Perennial Ice/Snow</div><div class="palette-hex">#d1def8</div></div><div class="palette-id">ID 12</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#dec5c5"></div><div class="palette-info"><div class="palette-name">Developed, Open Space</div><div class="palette-hex">#dec5c5</div></div><div class="palette-id">ID 21</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#d99282"></div><div class="palette-info"><div class="palette-name">Developed, Low Intensity</div><div class="palette-hex">#d99282</div></div><div class="palette-id">ID 22</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#eb0000"></div><div class="palette-info"><div class="palette-name">Developed, Medium Intensity</div><div class="palette-hex">#eb0000</div></div><div class="palette-id">ID 23</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#ab0000"></div><div class="palette-info"><div class="palette-name">Developed, High Intensity</div><div class="palette-hex">#ab0000</div></div><div class="palette-id">ID 24</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#b3ac9f"></div><div class="palette-info"><div class="palette-name">Barren Land</div><div class="palette-hex">#b3ac9f</div></div><div class="palette-id">ID 31</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#68ab5f"></div><div class="palette-info"><div class="palette-name">Deciduous Forest</div><div class="palette-hex">#68ab5f</div></div><div class="palette-id">ID 41</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#1c5f2c"></div><div class="palette-info"><div class="palette-name">Evergreen Forest</div><div class="palette-hex">#1c5f2c</div></div><div class="palette-id">ID 42</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#b5c58f"></div><div class="palette-info"><div class="palette-name">Mixed Forest</div><div class="palette-hex">#b5c58f</div></div><div class="palette-id">ID 43</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#af963c"></div><div class="palette-info"><div class="palette-name">Dwarf Scrub</div><div class="palette-hex">#af963c</div></div><div class="palette-id">ID 51</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#ccb879"></div><div class="palette-info"><div class="palette-name">Shrub/Scrub</div><div class="palette-hex">#ccb879</div></div><div class="palette-id">ID 52</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#dfdfc2"></div><div class="palette-info"><div class="palette-name">Grassland/Herbaceous</div><div class="palette-hex">#dfdfc2</div></div><div class="palette-id">ID 71</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#dcd939"></div><div class="palette-info"><div class="palette-name">Pasture/Hay</div><div class="palette-hex">#dcd939</div></div><div class="palette-id">ID 81</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#ab6c28"></div><div class="palette-info"><div class="palette-name">Cultivated Crops</div><div class="palette-hex">#ab6c28</div></div><div class="palette-id">ID 82</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#b8d9eb"></div><div class="palette-info"><div class="palette-name">Woody Wetlands</div><div class="palette-hex">#b8d9eb</div></div><div class="palette-id">ID 90</div></div>
+      <div class="palette-item"><div class="palette-swatch" style="background:#6c9fb8"></div><div class="palette-info"><div class="palette-name">Emergent Herbaceous Wetlands</div><div class="palette-hex">#6c9fb8</div></div><div class="palette-id">ID 95</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TROUBLESHOOT ═══ -->
+<section class="section section-alt" id="troubleshoot">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag">Pemecahan Masalah</span>
+      <h2 class="section-title">Tips &amp; Troubleshoot</h2>
+      <p class="section-subtitle">Masalah umum dan solusinya saat menggunakan GEEDEF.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px" class="fade-up">
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px"><i class="fas fa-lightbulb" style="color:var(--amber);margin-right:8px"></i>Tips Umum</h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="info-box">
+            <i class="fas fa-circle-info"></i>
+            <span><strong>Uji dengan ROI kecil terlebih dahulu</strong> sebelum memproses area besar untuk menghindari timeout komputasi.</span>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-circle-info"></i>
+            <span><strong>Gunakan Cloud Score+</strong> sebagai metode masking utama untuk wilayah tropis seperti Indonesia, di mana cirrus tipis dan aerosol pesisir umum.</span>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-circle-info"></i>
+            <span><strong>Distribusikan sampel secara spasial</strong> di seluruh area studi. Hindari mengkonsentrasikan semua sampel di satu lokasi geografis.</span>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-circle-info"></i>
+            <span>Untuk <strong>studi mangrove</strong>, gunakan Median Dry Season composite untuk memaksimalkan kontras spektral antara kanopi mangrove dan tambak.</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px"><i class="fas fa-bug" style="color:var(--pink);margin-right:8px"></i>Masalah Umum</h3>
+        <div class="trouble-list">
+          <div class="trouble-item">
+            <div><div class="trouble-q">"Computation timed out"</div></div>
+            <div class="trouble-a">Kurangi luas ROI; tingkatkan <code>scale</code> ke 20 atau 30 m; persingkat rentang tanggal.</div>
+          </div>
+          <div class="trouble-item">
+            <div><div class="trouble-q">"Not enough pixels in region"</div></div>
+            <div class="trouble-a">Gunakan skala 10 m atau perbesar area poligon sampel.</div>
+          </div>
+          <div class="trouble-item">
+            <div><div class="trouble-q">OA sangat rendah (&lt; 70%)</div></div>
+            <div class="trouble-a">Periksa penempatan sampel; hindari zona transisional; tambah sampel; gabungkan kelas yang mirip secara spektral.</div>
+          </div>
+          <div class="trouble-item">
+            <div><div class="trouble-q">Kelas tidak muncul di output</div></div>
+            <div class="trouble-a">Pastikan semua kelas memiliki poligon yang digambar sebelum mengklik Run Classification.</div>
+          </div>
+          <div class="trouble-item">
+            <div><div class="trouble-q">Error loading ROI dari asset</div></div>
+            <div class="trouble-a">Verifikasi path aset lengkap; aset harus berupa <code>FeatureCollection</code>; periksa pengaturan sharing/akses.</div>
+          </div>
+          <div class="trouble-item">
+            <div><div class="trouble-q">Layer peta tidak muncul</div></div>
+            <div class="trouble-a">Buka Layer Manager (kanan atas peta); aktifkan semua layer; zoom out jika ROI kecil.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Mulai Pemetaan Tutupan Lahan</h2>
+    <p>Buka skrip di GEE Code Editor, definisikan ROI, dan jalankan klasifikasi — seluruh analisis berjalan di cloud, tanpa mengunduh data apapun.</p>
+    <div class="cta-actions">
+      <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" class="btn btn-white btn-lg" target="_blank" rel="noopener">
+        <i class="fas fa-satellite-dish"></i> Buka di GEE
+      </a>
+      <a href="https://github.com/defaniarman/GEEDEF-Land-Cover-Classification-Tools" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i> GitHub Repo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-  <span class="id-only">© 2025 Defani Arman Alfitriansyah · Fakultas Kehutanan, Universitas Kuningan · Dokumentasi Teknis Pemetaan GEE</span>
-  <span class="en-only">© 2025 Defani Arman Alfitriansyah · Faculty of Forestry, Universitas Kuningan · GEE Mapping Technical Documentation</span>
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="nav-brand-icon" style="margin-bottom:14px"><i class="fas fa-layer-group"></i></div>
+      <p>GEEDEF adalah alat klasifikasi tutupan lahan berbasis cloud yang dikembangkan di Fakultas Kehutanan dan Ilmu Lingkungan, Universitas Kuningan. Dibangun di atas Google Earth Engine JavaScript API dengan data Sentinel-2A SR Harmonized.</p>
+      <div class="footer-social">
+        <a href="https://github.com/defaniarman/GEEDEF-Land-Cover-Classification-Tools" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+        <a href="https://code.earthengine.google.com/328e48a66c1f2b0a9268cbce3327b9df" aria-label="GEE" target="_blank" rel="noopener"><i class="fas fa-satellite-dish"></i></a>
+        <a href="https://earthengine.google.com" aria-label="Website" target="_blank" rel="noopener"><i class="fas fa-globe"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Panduan</h4>
+      <ul>
+        <li><a href="#langkah">Alur Kerja 6 Langkah</a></li>
+        <li><a href="#fitur-baru">Fitur Baru V3.1</a></li>
+        <li><a href="#fitur-space">Feature Space</a></li>
+        <li><a href="#palette">Palette Skema</a></li>
+        <li><a href="#troubleshoot">Troubleshoot</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Algoritma</h4>
+      <ul>
+        <li><a href="#langkah">Random Forest (RF)</a></li>
+        <li><a href="#langkah">Gradient Tree Boost (GTB)</a></li>
+        <li><a href="#langkah">Support Vector Machine (SVM)</a></li>
+        <li><a href="#fitur-space">26 Variabel Fitur</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Referensi</h4>
+      <ul>
+        <li><a href="https://earthengine.google.com" target="_blank" rel="noopener">Google Earth Engine</a></li>
+        <li><a href="https://sentinels.copernicus.eu" target="_blank" rel="noopener">Copernicus Sentinel-2</a></li>
+        <li><a href="https://www.menlhk.go.id" target="_blank" rel="noopener">KLHK Indonesia</a></li>
+        <li><a href="https://mapbiomas.org/indonesia" target="_blank" rel="noopener">MapBiomas Indonesia</a></li>
+        <li><a href="https://www.mrlc.gov" target="_blank" rel="noopener">NLCD (USGS)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025–2026 Defani Arman Alfitriansyah · Universitas Kuningan · Untuk keperluan akademik dan pendidikan.</span>
+    <span>Data Sentinel-2 tunduk pada <a href="https://sentinels.copernicus.eu/web/sentinel/terms-conditions" target="_blank" rel="noopener">Copernicus Open Access Hub Terms</a> &amp; <a href="https://earthengine.google.com/terms/" target="_blank" rel="noopener">GEE ToS</a></span>
+  </div>
 </footer>
 
+<!-- Scroll to top -->
+<button class="scroll-top" id="scroll-top" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
 <script>
-function setLang(lang) {
-  document.documentElement.setAttribute('data-lang', lang);
-  document.getElementById('btn-id').classList.toggle('active', lang === 'id');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  localStorage.setItem('geedef-lang', lang);
-  document.documentElement.setAttribute('lang', lang === 'id' ? 'id' : 'en');
-}
-
-function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  const next = isDark ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  document.getElementById('theme-toggle').textContent = isDark ? '🌙' : '☀️';
-  localStorage.setItem('geedef-theme', next);
-}
-
+/* ── Navbar scroll ── */
+const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-  const el = document.getElementById('progress');
-  const total = document.body.scrollHeight - window.innerHeight;
-  el.style.width = (window.scrollY / total * 100) + '%';
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('scroll-top').classList.toggle('visible', window.scrollY > 300);
 });
 
-const sections = document.querySelectorAll('h2[id], h3[id]');
-const tocLinks = document.querySelectorAll('.toc-list a, .sidebar-nav a');
-const observer = new IntersectionObserver(entries => {
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const navMenu   = document.getElementById('nav-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navMenu.classList.toggle('open');
+});
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); navMenu.classList.remove('open');
+}));
+
+/* ── Scroll top ── */
+document.getElementById('scroll-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ── Active nav link on scroll ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+const observer  = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      tocLinks.forEach(a => a.classList.remove('active'));
-      const id = e.target.getAttribute('id');
-      tocLinks.forEach(a => { if (a.getAttribute('href') === '#' + id) a.classList.add('active'); });
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
     }
   });
-}, { rootMargin: '-54px 0px -60% 0px' });
+}, { rootMargin: '-40% 0px -55% 0px' });
 sections.forEach(s => observer.observe(s));
 
+/* ── Fade up on scroll ── */
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+/* ── Method tabs ── */
+function switchTab(btn, panelId, containerId) {
+  const container = document.getElementById(containerId);
+  container.querySelectorAll('.method-panel').forEach(p => p.classList.remove('active'));
+  btn.parentElement.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── Palette tabs ── */
+function switchPalette(btn, palId) {
+  document.querySelectorAll('.palette-grid').forEach(g => g.classList.remove('active'));
+  document.querySelectorAll('.palette-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(palId).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── Copy code ── */
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
   navigator.clipboard.writeText(pre.innerText).then(() => {
-    btn.textContent = '✓ Disalin';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Copy'; }, 2000);
   });
 }
-
-(function init() {
-  const savedTheme = localStorage.getItem('geedef-theme') || 'dark'; // Setel Default Dark RTD
-  const savedLang  = localStorage.getItem('geedef-lang')  || 'id';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-  setLang(savedLang);
-})();
 </script>
 </body>
 </html>
